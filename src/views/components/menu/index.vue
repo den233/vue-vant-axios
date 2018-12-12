@@ -10,7 +10,13 @@
       <li class="list-item classify">
         <router-link :to="{path:'/classify/entry'}" tag="div">
           <i class="icon fa fa-th-large"></i>
-          <p class="label">分类</p>
+          <p class="label">商城</p>
+        </router-link>
+      </li>
+      <li class="list-item">
+        <router-link :to="{path:'/list'}" tag="div">
+          <i class="icon fa fa-cart-plus"></i>
+          <p class="label">购物车</p>
         </router-link>
       </li>
       <li class="list-item mine">

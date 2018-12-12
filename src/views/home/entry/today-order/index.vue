@@ -1,6 +1,6 @@
 <template>
   <div class="todayOrder">
-    <h6 class="title">今日订单</h6>
+    <h6 class="title"> <i class="iconfont1 icon-hot"></i>   热销商品</h6>
     <OrderListItem :data="serviceList.list"></OrderListItem>
   </div>
 </template>

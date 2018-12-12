@@ -5,12 +5,27 @@
   .nav{
     @include clearfix;
     background: #fff;
-    padding: half(48px) 0 half(32px);
+    padding: half(30px) 0 half(32px);
     &-item{
       float: left;
       width: 25%;
       margin-bottom: 16px;
       text-align: center;
+      .iconfont1{
+        font-size:40px;
+      }
+      .icon-jiating{
+        color: #f31303;
+      }
+      .icon-dingdan {
+        color: #ffcc33;
+      }
+      .icon-huiyuan1 {
+          color: #f303c8
+      }
+      .icon-dingdan1 {
+          color: #1296DB
+      }
       .icon{
         height: half(88px);
         width: half(88px);
