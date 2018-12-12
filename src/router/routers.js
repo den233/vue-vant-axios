@@ -6,7 +6,7 @@ import news from './news';
 import notfound from './404';
 import order from './order';
 import service from './service';
-
+import shop from './shop';
 export default [
   {
     path: '*',
@@ -16,4 +16,4 @@ export default [
     path: '/',
     redirect: 'home/entry'
   }
-].concat(home, classify, news, mine, service, notfound, order, address);
+].concat(home, classify, news, mine, service, notfound, order, address,shop);
