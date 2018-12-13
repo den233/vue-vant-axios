@@ -19,6 +19,7 @@
   </ul>
 </template>
 <script>
+  import bus from '@/components/bus';
 export default {
   props: {
     data: {
@@ -27,7 +28,23 @@ export default {
         return [];
       }
     }
-  }
+  },
+  data() {
+    return  {
+      currentPage: 1
+    }
+  },
+  mounted(){
+      this.getBus()
+    },
+    methods:{
+       getBus(){
+         let self =this;
+         bus.$on('useBusEvent',function(msg){
+           console.log(msg)
+         })
+       }
+    }
 };
 </script>
 <style lang="scss" scoped src="./style.scss"></style>

@@ -14,9 +14,22 @@ import Vue from 'vue';
 import components from './components';
 import router from './router';
 import store from './store';
-
+import VueLazyload from 'vue-lazyload'
+import vuescroll from 'vuescroll';
+import 'vuescroll/dist/vuescroll.css';
+import http from '@/utils/fetch';
+Vue.prototype.$http = http;
 Vue.use(Vant);
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require('./assets/images/err.png'),
+  loading: require('./assets/images/loading.gif'),
+  attempt: 1,
+  listenEvents: ['scroll']
+});
 
+
+Vue.use(vuescroll);
 // 全局组件
 Object.keys(components).forEach(key => {
   Vue.component(key, components[key]);

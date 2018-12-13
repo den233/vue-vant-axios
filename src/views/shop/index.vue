@@ -1,6 +1,6 @@
 <template>
     <div class="entry">
-      news
+      <router-view></router-view>
     </div>
   </template>
   

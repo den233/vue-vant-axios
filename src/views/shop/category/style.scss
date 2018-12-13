@@ -1,0 +1,17 @@
+.category{
+    ul{
+        li{
+            text-align: center;
+            border: 1px solid #eee;
+            padding: 5px 0;
+            a{
+              color:#333;
+              text-decoration: none;
+            }
+        }
+        .active{
+            background: #fff;
+        }
+        
+    }
+}
