@@ -3,7 +3,7 @@
       <ul >
            <li v-for="(item,index) in catArr" :key="index" :class='{active:item.active}' @click='indexHandle(index)'>
              <a href="javascript:;" >
-                {{item.category_name}}
+                {{item.name}}
              </a>
             </li>
       </ul>
@@ -40,8 +40,8 @@
         }
         this.catArr[index].active=true;  
         this.$set(this.catArr,index,this.catArr[index])
-        bus.$emit('useBusEvent','123')
-        this.$emit('useBusEvent','123')
+        bus.$emit('useBusEvent', this.catArr[index].category_id)
+        this.$emit('useBusEvent',this.catArr[index].category_id)
       }
     }
   };

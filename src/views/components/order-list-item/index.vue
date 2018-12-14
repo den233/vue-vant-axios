@@ -13,8 +13,15 @@
           <p class="price">￥
             <span class="total">{{item.price}}</span>
           </p>
+                
         </div>
       </router-link>
+        <van-stepper
+              
+        integer
+        :min="1"
+        :step="1"
+      />
     </li>
   </ul>
 </template>

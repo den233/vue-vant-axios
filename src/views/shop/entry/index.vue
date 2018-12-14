@@ -43,7 +43,7 @@
                         <vue-scroll
                         ref="vs" :ops="ops"
                         >
-                         <OrderListItem  :data="serviceList.list"></OrderListItem>
+                         <OrderListItem  :data="serviceList"></OrderListItem>
                         </vue-scroll>
                       
                     </div>
@@ -60,7 +60,6 @@
     </div>
   </template>
   <script>
-  import datasList from './datas.js';
   import OrderListItem from '@/views/components/order-list-item';
   import CategoryItem from '../category';
   import $http from '@/utils/http.js';
@@ -98,7 +97,8 @@
           }
         ],
         currentPage:1,
-        serviceList: datasList,
+        serviceList: [],
+        current_id:'',
         ops: {
             bar: {
                background:'#eee'
@@ -117,6 +117,12 @@
       
     },
     methods:{
+      async getCategory(id){
+        let _this=this;
+        return await this.$http.post(
+            '/api/goods',{category_id:id}
+            )
+      },
       test(){
           let _this = this;
           $http.get('/api/category').then((res)=>{
@@ -125,8 +131,9 @@
           console.log(err);
         })
       },
-      catEvent(){
-        console.log(666)
+      async catEvent(id){
+        let _this=this;
+        let v1=_this.catArr= await _this.getCategory(id);
       }
     }
   };
