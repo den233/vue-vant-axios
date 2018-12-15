@@ -18,7 +18,7 @@
         :min="1"
         :step="1"
       />
-      <van-button class="add_cart" size="small" type="danger">加入购物车</van-button>
+      <van-button class="add_cart" size="small" type="danger"  @click='addCart(item.id)'>加入购物车</van-button>
     </li>
   </ul>
 </template>
@@ -47,6 +47,16 @@ export default {
          bus.$on('useBusEvent',function(msg){
           // console.log(msg)
          })
+       },
+       addCart(id){
+        this.$http.post(
+            '/api/addcart',{id:id}
+          ).then(data=>{
+
+          }).catch(err=>{
+         
+          });
+          
        }
     }
 };

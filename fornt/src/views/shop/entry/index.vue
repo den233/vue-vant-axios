@@ -22,7 +22,7 @@
                       <i class="fa fa-caret-down"></i>
                     </div>
                   </li>
-                  <li class="sortList-item filtrate">
+                  <li @click='pickType' class="sortList-item filtrate">
                     <div class="name">筛选</div>
                     <div class="search">
                       <i class="fa fa-filter"></i>
@@ -58,9 +58,15 @@
               />
           </div>
       </div>
+      <van-popup v-model="show" position="bottom" :overlay="true">
+        <van-picker :columns="columns" @change="onChange" />  
+      </van-popup>
     </div>
   </template>
   <script>
+  import Vue from 'vue';
+  import { Toast } from 'vant';
+  Vue.use(Toast);
   import OrderListItem from '@/views/components/order-list-item';
   import CategoryItem from '../category';
   import $http from '@/utils/http.js';
@@ -76,6 +82,8 @@
           page_size:10
         },
         currentPage:1,
+        show:false,
+        columns:['会员激活','重消单','升级单'],
         subnavList: [
           {
             label: '定点巡逻',
@@ -132,7 +140,7 @@
       
       async catEvent(id){
         let _this=this;
-		_this.currentPage=1;
+		    _this.currentPage=1;
         let v1= await  _this.getCategory(id);
         _this.serviceList=v1.data;
         _this.current_id=id;
@@ -141,6 +149,7 @@
           page_size:10
         }
       },
+      //分页
       async  chagePage(val){
           this.currentPage=val;
           let _this=this;
@@ -150,6 +159,13 @@
             total:v1.total,
             page_size:10
           }
+      },
+      //筛选
+      pickType(){
+          this.show=true;
+      },
+      onChange(picker, value, index){
+        Toast(`当前值：${value}, 当前索引：${index}`);
       }
     }
   };

@@ -18,29 +18,29 @@ export default {
       navList: [
         {
           image: '//m.360buyimg.com/mobilecms/jfs/t16912/18/2046755333/11079/5d93a046/5ae41d1aN7c1bb190.png',
-          name: '家庭健康美丽',
-          path: '/service/security',
+          name: '会员激活',
+          path: '/shop/entry',
           id: '1',
           icon:'iconfont1 icon-jiating'
         },
         {
           image: '//m.360buyimg.com/mobilecms/jfs/t21658/347/221358098/7461/f86e6f74/5b03b170Nc9e0ec7c.png',
           name: '重消单',
-          path: '/service/security',
+          path: '/shop/entry',
           id: '2',
           icon:'iconfont1 icon-dingdan'
         },
-        {
-          image: '//m.360buyimg.com/mobilecms/jfs/t1/1547/5/3745/20977/5b9a39fdEb23086ac/1b69fa3c859b04a5.png',
-          name: '升级单',
-          path: '/service/security',
-          id: '3',
-          icon:'iconfont1 icon-dingdan1'
-        },
+        // {
+        //   image: '//m.360buyimg.com/mobilecms/jfs/t1/1547/5/3745/20977/5b9a39fdEb23086ac/1b69fa3c859b04a5.png',
+        //   name: '升级单',
+        //   path: '/shop/entry',
+        //   id: '3',
+        //   icon:'iconfont1 icon-dingdan1'
+        // },
         {
           image: '//m.360buyimg.com/mobilecms/jfs/t17725/156/1767366877/17404/f45d418b/5ad87bf0N66c5db7c.png',
-          name: '会员激活',
-          path: '/service/security',
+          name: '升级单',
+          path: '/shop/entry',
           id: '4',
           icon:'iconfont1 icon-huiyuan1'
         }
