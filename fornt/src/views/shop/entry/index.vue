@@ -3,24 +3,10 @@
       <div class="van-tabs van-tabs--line" >
           <div class="van-tabs__content">
               <ul class="sortList">
-                  <li class="sortList-item synthesize is-active">
-                    <div class="name">综合</div>
-                    <div class="search">
-                      <i class="fa fa-caret-down"></i>
-                    </div>
-                  </li>
-                  <li class="sortList-item price">
-                    <div class="name">价格</div>
-                    <div class="search">
-                      <i class="fa fa-caret-up"></i>
-                      <i class="fa fa-caret-down"></i>
-                    </div>
-                  </li>
-                  <li class="sortList-item address">
-                    <div class="name">全国</div>
-                    <div class="search">
-                      <i class="fa fa-caret-down"></i>
-                    </div>
+                  <li class="sortList-item">
+                      <div class="inputbox">
+                          <van-search v-model="searchValue" @focus="focus" placeholder="搜索您需要的服务" background=""></van-search>
+                        </div>
                   </li>
                   <li @click='pickType' class="sortList-item filtrate">
                     <div class="name">筛选</div>
@@ -83,6 +69,10 @@
         },
         currentPage:1,
         show:false,
+        orderType:{
+          name:'激活单',
+          id:0
+        },
         columns:['会员激活','重消单','升级单'],
         subnavList: [
           {

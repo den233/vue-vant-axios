@@ -18,6 +18,7 @@ import VueLazyload from 'vue-lazyload'
 import vuescroll from 'vuescroll';
 import 'vuescroll/dist/vuescroll.css';
 import http from '@/utils/fetch';
+window.Vue = Vue;
 Vue.prototype.$http = http;
 Vue.use(Vant);
 Vue.use(VueLazyload, {

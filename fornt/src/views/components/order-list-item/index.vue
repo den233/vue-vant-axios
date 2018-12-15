@@ -17,12 +17,17 @@
         integer
         :min="1"
         :step="1"
+        v-model='item.number'
+        @change='changeNum()'
       />
-      <van-button class="add_cart" size="small" type="danger"  @click='addCart(item.id)'>加入购物车</van-button>
+      <van-button class="add_cart" size="small" type="danger"  @click='addCart(item.id,item.number)'>加入购物车</van-button>
     </li>
   </ul>
 </template>
 <script>
+  
+  import { Toast } from 'vant';
+  Vue.use(Toast);
   import bus from '@/components/bus';
 export default {
   props: {
@@ -48,15 +53,19 @@ export default {
           // console.log(msg)
          })
        },
-       addCart(id){
+       addCart(id,number){
         this.$http.post(
-            '/api/addcart',{id:id}
+            '/api/addcart',{id:id,number:number}
           ).then(data=>{
+            Toast.success('成功');
 
           }).catch(err=>{
-         
+            Toast.fail('失败');
           });
           
+       },
+       changeNum(val){
+        
        }
     }
 };
