@@ -132,6 +132,7 @@
       
       async catEvent(id){
         let _this=this;
+		_this.currentPage=1;
         let v1= await  _this.getCategory(id);
         _this.serviceList=v1.data;
         _this.current_id=id;
