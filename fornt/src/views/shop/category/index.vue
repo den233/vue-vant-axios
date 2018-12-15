@@ -25,6 +25,9 @@
       let _this=this;
       let v1=_this.catArr= await _this.getCategory()
       _this.catArr[0].active= true;
+      _this.$set(this.catArr,0,_this.catArr[0])
+      bus.$emit('useBusEvent', _this.catArr[0].category_id)
+      _this.$emit('useBusEvent',_this.catArr[0].category_id)
 
     },
     methods:{

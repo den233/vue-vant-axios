@@ -54,10 +54,12 @@ class GoodsController extends Controller
     }
     public function post(Request $request)
     { 
-        var_dump($request->all());
-        exit;
+        $id = $request->get('category_id');
+        $pagenum = $request->get('currentpage_num');
+        $perpage = $request->get('perpage');
+        //dd($id);
         //$students = DB::select('select * from ls_categories limit 10');
-        $users = Goods::all();
+        $users = Goods::where('category_id', $id)->paginate($perPage = $perpage, $columns = ['*'], $pageName = 'page', $page = $pagenum);
         //$students = DB::table('categories')->take(20)->get();
         return json_encode($users);
     }

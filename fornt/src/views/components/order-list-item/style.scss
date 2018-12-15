@@ -22,10 +22,18 @@
     }
     .van-stepper{
       margin-top:20px;
+      float:left;
+    }
+    .add_cart{
+      margin-top:20px;
+      float:left;
+      margin-left:15px;
     }
     .info {
-      margin: half(8px) half(8px) half(8px) half(186px);
-      width:calc(100% - 350px);
+      margin: half(8px) 0 half(8px) half(15px);
+      width: calc(100% - 110px);
+      position: absolute;
+      margin-left: 100px;
       .label {
         font-size: half(28px);
         margin-bottom: half(32px);
@@ -43,9 +51,6 @@
       }
       .price {
         color: #fc8a04;
-        position: absolute;
-        right: half(32px);
-        bottom: half(32px);
         font-size: half(20px);
         .total {
           font-size: half(40px);

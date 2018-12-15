@@ -51,9 +51,10 @@
                 </div>
                 <van-pagination 
                 v-model="currentPage" 
-                :total-items="125" 
-                :show-page-size="3" 
+                :total-items=pagecon.total
+                :show-page-size=pagecon.page_size
                 force-ellipses
+                @change='chagePage'
               />
           </div>
       </div>
@@ -70,6 +71,11 @@
     },
     data () {
       return {
+        pagecon:{
+          total:0,
+          page_size:10
+        },
+        currentPage:1,
         subnavList: [
           {
             label: '定点巡逻',
@@ -96,7 +102,7 @@
             id: 5
           }
         ],
-        currentPage:1,
+       
         serviceList: [],
         current_id:'',
         ops: {
@@ -120,20 +126,29 @@
       async getCategory(id){
         let _this=this;
         return await this.$http.post(
-            '/api/goods',{category_id:id}
-            )
+            '/api/goods',{category_id:id,currentpage_num:_this.currentPage,perpage:_this.pagecon.page_size}
+            ) 
       },
-      test(){
-          let _this = this;
-          $http.get('/api/category').then((res)=>{
-          _this.leftDatas = res.data;
-        },(err)=>{
-          console.log(err);
-        })
-      },
+      
       async catEvent(id){
         let _this=this;
-        let v1=_this.catArr= await _this.getCategory(id);
+        let v1= await  _this.getCategory(id);
+        _this.serviceList=v1.data;
+        _this.current_id=id;
+        _this.pagecon={
+          total:v1.total,
+          page_size:10
+        }
+      },
+      async  chagePage(val){
+          this.currentPage=val;
+          let _this=this;
+          let v1= await  _this.getCategory(_this.current_id);
+          _this.serviceList=v1.data;
+          _this.pagecon={
+            total:v1.total,
+            page_size:10
+          }
       }
     }
   };
