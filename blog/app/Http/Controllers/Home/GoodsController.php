@@ -57,10 +57,18 @@ class GoodsController extends Controller
         $id = $request->get('category_id');
         $pagenum = $request->get('currentpage_num');
         $perpage = $request->get('perpage');
-        //dd($id);
+        $name = $request->get('name');
+        if($id==null){
+            $msg= $users = Goods::where('name','like','%'.$name.'%')->paginate($perPage = $perpage, $columns = ['*'], $pageName = 'page', $page = $pagenum)->toArray();
+            return $msg;
+        }
+        else{
+            $users = Goods::where('category_id', $id)->paginate($perPage = $perpage, $columns = ['*'], $pageName = 'page', $page = $pagenum);
+            return json_encode($users);
+        }
         //$students = DB::select('select * from ls_categories limit 10');
-        $users = Goods::where('category_id', $id)->paginate($perPage = $perpage, $columns = ['*'], $pageName = 'page', $page = $pagenum);
+       
         //$students = DB::table('categories')->take(20)->get();
-        return json_encode($users);
+       
     }
 }

@@ -1,20 +1,14 @@
 <template>
     <div class="security">
+        <van-nav-bar :title="title" >
+            <van-icon name="search" slot="right" @click='onSearch' />
+            <div class="search" @click='pickType' slot="left">
+                <i class="fa fa-filter">筛选</i>
+              </div>
+          </van-nav-bar>
       <div class="van-tabs van-tabs--line" >
           <div class="van-tabs__content">
-              <ul class="sortList">
-                  <li class="sortList-item">
-                      <div class="inputbox">
-                          <van-search v-model="searchValue" @focus="focus" placeholder="搜索您需要的服务" background=""></van-search>
-                        </div>
-                  </li>
-                  <li @click='pickType' class="sortList-item filtrate">
-                    <div class="name">筛选</div>
-                    <div class="search">
-                      <i class="fa fa-filter"></i>
-                    </div>
-                  </li>
-                </ul>
+           
                 <div class="content">
                   
                     <div class="catlog">
@@ -74,6 +68,7 @@
           id:0
         },
         columns:['会员激活','重消单','升级单'],
+        title:'会员激活',
         subnavList: [
           {
             label: '定点巡逻',
@@ -156,6 +151,11 @@
       },
       onChange(picker, value, index){
         Toast(`当前值：${value}, 当前索引：${index}`);
+        this.title=value;
+        this.show=false;
+      },
+      onSearch(){
+        this.$router.push({path: '/service/list-search', query: {orderType:this.orderType}});
       }
     }
   };

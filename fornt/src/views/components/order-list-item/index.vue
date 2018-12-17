@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return  {
-      currentPage: 1
+      category_id: 1
     }
   },
   mounted(){
@@ -50,12 +50,13 @@ export default {
        getBus(){
          let self =this;
          bus.$on('useBusEvent',function(msg){
-          // console.log(msg)
+          self.category_id=msg;
          })
        },
        addCart(id,number){
+         let _this=this;
         this.$http.post(
-            '/api/addcart',{id:id,number:number}
+            '/api/addcart',{id:id,number:number,category_id:_this.category_id}
           ).then(data=>{
             Toast.success('成功');
 

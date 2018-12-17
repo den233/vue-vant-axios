@@ -3,4 +3,45 @@
     height: 1.173333rem /* 44/37.5 */;
     padding: 0 .213333rem /* 8/37.5 */;
   }
+  .van-icon-arrow-left{
+    float: left;
+    line-height: 45px;
+  }
+  .van-search{
+    width: 82%;
+    height: 100%;
+    padding: 0;
+    float: right;
+  }
+  .van-tab__pane{
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    .list{
+       flex: 0 0 42%;
+       width: 40%;
+       padding: 15px;
+       img{
+         width: 100%;
+       }
+       .title{
+         font-size: 16px;
+         overflow: hidden;
+         text-overflow:ellipsis;
+         white-space: nowrap;
+       }
+       .price{
+        font-size: 16px;
+        color: #ec2c0d;
+      }
+      .pv{
+        font-size: 16px;
+        color: #ec2c0d;
+      }
+      .addcart{
+        margin-top: 10px;
+      }
+    }
+  }
+  
 }

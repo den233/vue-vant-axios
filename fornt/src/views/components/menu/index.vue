@@ -14,7 +14,7 @@
         </router-link>
       </li>
       <li class="list-item">
-        <router-link :to="{path:'/cart'}" tag="div">
+        <router-link :to="{path:'/activation'}" tag="div">
           <i class="icon fa fa-cart-plus"></i>
           <p class="label">购物车</p>
         </router-link>

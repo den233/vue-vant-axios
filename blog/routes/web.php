@@ -19,4 +19,5 @@ Route::get('/api/category', 'Home\CategoryController@get');
 Route::get('/goods', 'Home\GoodsController@index');
 Route::post('/api/goods', 'Home\GoodsController@post');
 Route::post('/api/addcart', 'Home\CartController@add');
+Route::get('/api/cartlist', 'Home\CartController@index');
 Route::get('user/{id}', 'UserController@show');
