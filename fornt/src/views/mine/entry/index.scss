@@ -5,12 +5,13 @@ $paddingLeft: half(29px);
   .avatar-wrapper {
     display: flex;
     position: relative;
-    padding-left: $paddingLeft;
-    padding-top: half(73px);
-    height: half(330px);
-    background-image: url(http://placehold.it/750x330);
-    background-size: cover;
+    padding-top: half(50px);
+    height: half(400px);
+    background-image: url(./img/mine.jpg);
+    background-repeat: no-repeat;
     background-position: center;
+    background-size:cover;
+ 
     img {
       border: 1px solid #fff;
       width: half(184px);
@@ -18,12 +19,20 @@ $paddingLeft: half(29px);
       border-radius: 50%;
       overflow: hidden;
       margin-right: half(38px);
+      margin-left: $paddingLeft;
     }
     .user-info {
+      line-height: 20px;
       > span {
         font-size: half(32px);
         color: #ffffff;
-        margin-bottom: half(17px);
+        margin-bottom: half(10px);
+      }
+      .email{
+        span{
+          font-size: half(32px);
+          color: #ffffff;
+        }
       }
     }
     .setting {
@@ -31,6 +40,22 @@ $paddingLeft: half(29px);
       top: half(26px);
       right: half(35px);
       color: #fff;
+    }
+    .account{
+      position: absolute;
+      display: flex;
+      bottom:0;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      background: url(./img/top.png) repeat;
+      height: 60px;
+      .a1{
+        color: #fff;
+        font-size: 16px;
+        flex: 1;
+        text-align: center;
+      }
     }
   }
   .sub-nav {
@@ -73,15 +98,61 @@ $paddingLeft: half(29px);
     }
   }
   .list {
+    a{
+      text-decoration: none;
+    }
     .account-item {
       display: flex;
       flex-wrap: wrap;
-      height: half(320px);
-      > li {
-        display: flex;
-        width: 50%;
+      margin-bottom:70px;
+      margin-top:half(10px);
+      flex-wrap: wrap;
+      background: #ffffff;
+        li {
+        width: 25%;
         justify-content: center;
         align-items: center;
+        position: relative;
+        text-align:center;
+        height: 80px;
+        i{
+          display: block;
+          font-size: 30px;
+          color: #22a7e6;
+        }
+        span{
+          display: block;
+          font-size: 14px;
+          color:#333;
+        }
+        &:before{
+          content: " ";
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 1px;
+          bottom: 0;
+          border-right: 1Px solid #D9D9D9;
+          color: #D9D9D9;
+          -webkit-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+          -webkit-transform: scaleX(0.5);
+          transform: scaleX(0.5);
+        }
+        &:after{
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 1px;
+          border-bottom: 1Px solid #D9D9D9;
+          color: #D9D9D9;
+          -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+          -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+        }
       }
     }
   }

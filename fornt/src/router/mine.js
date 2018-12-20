@@ -33,6 +33,7 @@ export default [
             component: _import('mine/bill'),
             meta: { title: '进出明细' }
           }
+          
         ]
       }
     ]

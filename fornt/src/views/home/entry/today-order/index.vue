@@ -1,15 +1,15 @@
 <template>
   <div class="todayOrder">
     <h6 class="title"> <i class="iconfont1 icon-hot"></i>   热销商品</h6>
-    <OrderListItem :data="serviceList.list"></OrderListItem>
+    <OrderHome :data="serviceList.list"></OrderHome>
   </div>
 </template>
 <script>
 import datasList from './datas.js';
-import OrderListItem from '@/views/components/order-list-item';
+import OrderHome from '@/views/components/order-home';
 export default {
   components: {
-    OrderListItem
+    OrderHome
   },
   data () {
     return {

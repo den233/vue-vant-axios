@@ -18,9 +18,11 @@ import VueLazyload from 'vue-lazyload'
 import vuescroll from 'vuescroll';
 import 'vuescroll/dist/vuescroll.css';
 import http from '@/utils/fetch';
+import VueClipboards from 'vue-clipboard2'
 window.Vue = Vue;
 Vue.prototype.$http = http;
 Vue.use(Vant);
+Vue.use(VueClipboards);
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: require('./assets/images/err.png'),

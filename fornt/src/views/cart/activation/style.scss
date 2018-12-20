@@ -1,5 +1,62 @@
 .cart{
+    .van-submit-bar{
+        z-index: 100;
+        height: 60px;
+        .all-label{
+            padding-left: 5px;
+            b{
+                color: #f10303;
+            }
+        }
+    }
+    .van-popup--right{
+        width:100%;
+        height:100%;
+    }
     .cartList{
           height:calc(100vh - 150px);
+          .cart-item{
+              display:flex;
+               flex-wrap: wrap;
+               height: 120px;
+               padding: 10px;
+               position: relative;
+               margin-bottom: 5px;
+               background: #fff;
+            .van-checkbox{
+                position: absolute;
+                left: 5px;
+                top: 20px
+            }
+            .imgs{
+                position: absolute;
+                left:30px;
+                width: 100px;
+                height: 100px;
+                img{
+                    width: 100%;
+                }
+            }
+            .content{
+                display: flex;
+                margin-left: 140px;
+                width: calc(100% - 150px);
+                font-size: 14px;
+                .title{
+                    flex: 1;
+                }
+                .price{
+                    text-align: right;
+                    flex: 1;
+                    color: #f10303;
+                    padding-right: 5px;
+                }
+            }
+            .van-stepper{
+                position: absolute;
+                bottom: 15px;
+                right: 20px;
+            }
+          }
       }
 }
