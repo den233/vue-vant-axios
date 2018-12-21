@@ -9,6 +9,7 @@ import service from './service';
 import shop from './shop';
 import cart from './cart';
 import personinfo from './personinfo';
+import login from './login';
 export default [
   {
     path: '*',
@@ -16,6 +17,6 @@ export default [
   },
   {
     path: '/',
-    redirect: 'home/entry'
+    redirect: 'login'
   }
-].concat(home, classify, news, mine, service, notfound, order, address,shop,cart,personinfo);
+].concat(home, classify, news, mine, service, notfound, order, address,shop,cart,personinfo,login);

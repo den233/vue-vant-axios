@@ -12,8 +12,5 @@ export default {
 <style lang="scss" scoped>
 .index{
   height: 100%;
-  .body{
-    margin-bottom: 1.626667rem /* 61/37.5 */;
-  }
 }
 </style>

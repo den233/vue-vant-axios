@@ -12,7 +12,7 @@ class CartController extends Controller
 {   
 
     function index(){
-        $students = DB::table('carts')->take(20)->get();
+        $students = DB::table('carts')->take(100)->get();
         return json_encode($students);
     }
     function add(Request $request){
@@ -29,4 +29,8 @@ class CartController extends Controller
          $cart->number = $number;
          $cart->save();
     }
+    function delete(Request $request){
+        $id=$request->get('id');
+    }
+
 }

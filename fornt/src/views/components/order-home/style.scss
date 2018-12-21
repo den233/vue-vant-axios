@@ -1,44 +1,59 @@
 @import '~@/assets/css/mixin.scss';
 @import '~@/assets/css/function.scss';
 .lists {
+  display: flex;
+  flex-wrap: wrap;
   &-item {
-    padding: half(16px) half(32px) half(30px);
+    padding: half(16px) 0;
     background: #fff;
     overflow: hidden;
     position: relative;
-    border-bottom: half(1px) solid #ddd;
+    flex:1;
+    min-width: 40%;
+    max-width: 50%;
+    margin-right: 2px;
+    margin-left: 2px;
+    margin-bottom: half(16px);
     &:last-child {
       border: 0;
     }
-    .imgs {
-      position:absolute;
-      left: 5px;
-      width: half(170px);
-      height: half(170px);
-      background: #ccc;
-      img{
-        height: 100%;
-        width: 100%;
+    .inner{
+      padding-left: half(16px);
+      padding-right: half(16px);
+      .imgs {
+        background: #fff;
+        text-align: center;
+        img{
+          width: half(200px);
+          height: half(200px);
+        }
+      }
+      .van-stepper{
+        margin-top:20px;
+        float:left;
+      }
+      .add_cart{
+        margin-top:20px;
+        float:left;
+        margin-left:15px;
+      }
+      .cart_icon{
+        margin-top: 20px;
+        margin-left: 10px;
+        color: #fc8a04;
+        font-size: 20px;
       }
     }
-    .van-stepper{
-      margin-top:20px;
-      float:left;
-    }
-    .add_cart{
-      margin-top:20px;
-      float:left;
-      margin-left:15px;
-    }
+   
     .info {
-      margin: half(8px) 0 half(8px) half(15px);
-      margin-left: 90px;
+      margin: half(15px) 0 half(8px) 0;
       .label {
         font-size: half(28px);
-        margin-bottom: half(32px);
+        margin-bottom: half(20px);
         color: #333b46;
-        height: half(40px);
+        height: half(30px);
         line-height: half(30px);
+        @include omit;
         
       }
       .desc {
