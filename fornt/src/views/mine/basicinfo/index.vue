@@ -14,7 +14,7 @@
             <van-cell title='名字' is-link>
               陈不二
             </van-cell>
-            <van-cell title='OA账号' is-link>
+            <van-cell title='用户ID' is-link>
               chenbuer01
             </van-cell>
             <van-cell title='性别' is-link>

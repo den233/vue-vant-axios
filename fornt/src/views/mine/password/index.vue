@@ -23,6 +23,13 @@
                 type="password"
                 placeholder="新密码"
               />
+              <van-field
+              v-model="new1password"
+              required
+              label="确认新密码"
+              type="password"
+              placeholder="确认新密码"
+            />
               </van-cell-group>
               <div style="text-align: center;width: 100%;margin-top:20px;">
                     <van-button size="large"  type="primary">确定</van-button>
@@ -36,7 +43,8 @@
             data() {
                 return {
                     password:'',
-                    newpassword:''
+                    newpassword:'',
+                    new1password:''
                 }
             },
             mounted() {

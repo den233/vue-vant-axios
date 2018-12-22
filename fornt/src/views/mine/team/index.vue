@@ -11,7 +11,11 @@
             <i class="van-icon van-icon-contact van-cell__left-icon"></i>
             <div class="van-cell__value van-cell__value--alone">
                 <div>会员编号：13000000000</div>
-                <div>姓名：张三</div>
+                <div class="content">
+                    <div  class='name'>姓名：张三</div>
+                    <div class="tel">电话：1519666666</div>
+                </div>
+                <div class='createTime'>创建时间：2017-10-12</div>
             </div>
             <!---->
         </div>
@@ -19,7 +23,12 @@
                 <i class="van-icon van-icon-contact van-cell__left-icon"></i>
                 <div class="van-cell__value van-cell__value--alone">
                     <div>会员编号：13000000000</div>
-                    <div>姓名：张三</div>
+                    <div class="content">
+                        <div  class='name'>姓名：张三</div>
+                        <div class="tel">电话：1519666666</div>
+                    </div>
+                   
+                    <div class='createTime'>创建时间：2017-10-12</div>
                 </div>
                 <!---->
             </div>

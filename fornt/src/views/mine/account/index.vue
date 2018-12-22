@@ -1,12 +1,14 @@
 <template>
     <div class="account">
             <van-nav-bar
-            title="标题"
+            title="转账"
             left-text="返回"
             right-text=""
             left-arrow
             @click-left="onClickLeft"
-          />
+          >
+           <div class='view_d' slot='right'>查看明细</div>
+           </van-nav-bar>
         <van-cell-group>
             <div class="form-item">
                 <label class='form-label' for="usertype">转出账户</label>
@@ -15,7 +17,18 @@
                         <van-radio name="2">奖金账户</van-radio>
                 </van-radio-group>
             </div>
-                
+            
+                <van-field
+                  v-model="account"
+                  center
+                  label="账户余额"
+                  placeholder=""
+                  readonly 
+                  disabled
+                  left-icon="contact"
+                >
+                  <van-button slot="button" size="small" type="primary">全部转出</van-button>
+                </van-field>
             <van-field
               v-model="accountName"
               required
@@ -46,7 +59,7 @@
          
     </div>
 </template>
-<style lang="scss" scoped src="./style.scss"></style>
+<style lang="scss" src='./index.scss'></style>
 <script>
     export default {
         data() {
@@ -54,7 +67,8 @@
                 accountName:'' ,
                 money:'',
                 message:'',
-                radio: '1'
+                radio: '1',
+                account:'999'
             }
         },
         mounted() {

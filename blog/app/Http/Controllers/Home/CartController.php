@@ -30,7 +30,34 @@ class CartController extends Controller
          $cart->save();
     }
     function delete(Request $request){
-        $id=$request->get('id');
+        $id=$request->get('ids');
+       // Cart::firstOrCreate(['username'=>'asfsds']);
+       //Cart::destroy($id);
+       for ($i=0; $i<count($id); $i++) {
+        $res = Cart::where('id', $id[$i])->delete();   // 遍历删除
+      
+        }
+        if ($res) {
+        
+            $data = [
+                'status' => 0,
+                'msg' => '删除成功'
+            ];
+        } else {
+        
+            $data = [
+                'status' => 1,
+                'msg' => '删除失败'
+            ];
+        }
+        return $data;
+
+    }
+    function update(Request $request){
+        $id= $id=$request->get('id');
+        $number = $request->get('number');
+        $res = Cart::where('id',$id)->update(['number'=>$number]);
+       dd($res);
     }
 
 }

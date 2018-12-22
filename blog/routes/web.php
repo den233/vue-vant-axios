@@ -20,4 +20,6 @@ Route::get('/goods', 'Home\GoodsController@index');
 Route::post('/api/goods', 'Home\GoodsController@post');
 Route::post('/api/addcart', 'Home\CartController@add');
 Route::get('/api/cartlist', 'Home\CartController@index');
+Route::post('/api/cartdelete', 'Home\CartController@delete');
+Route::post('/api/cartupdate', 'Home\CartController@update');
 Route::get('user/{id}', 'UserController@show');

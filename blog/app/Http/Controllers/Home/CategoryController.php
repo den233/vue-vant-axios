@@ -28,7 +28,7 @@ class CategoryController extends Controller
             ['name'=>'lv宝宝','price'=>600,'pv'=>500,'number'=>1,'category_id'=>11],
             ['name'=>'电视剧','price'=>600,'pv'=>500,'number'=>1,'category_id'=>12],
             ['name'=>'空调家电','price'=>600,'pv'=>500,'number'=>1,'category_id'=>13],
-            ['name'=>'办公家具','price'=>600,'pv'=>500,'number'=>1,'category_id'=>14],
+            ['name'=>'办公家具','price'=>600,'pv'=>500,'number'=>1,'category_id'=>14]
           ];
         $bool = DB::table('categories')->insert(
             $data

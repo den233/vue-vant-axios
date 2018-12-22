@@ -17,6 +17,6 @@ export default [
   },
   {
     path: '/',
-    redirect: 'login'
+    redirect: 'login/index'
   }
 ].concat(home, classify, news, mine, service, notfound, order, address,shop,cart,personinfo,login);

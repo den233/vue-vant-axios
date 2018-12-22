@@ -13,19 +13,23 @@
       <div class="account">
           <div class="a1">
               <p>12.5</p>
-              <p>余额</p>
+              <p>奖金</p>
           </div>
           <div class="a1">
               <p>12.5</p>
-              <p>电子钱包</p>
+              <p>电子币</p>
           </div>
+          <div class="a1">
+            <p>200000</p>
+            <p>现金账户</p>
+        </div> 
           <div class="a1">
               <p>200000</p>
               <p>积分</p>
           </div>
       </div>
     </div>
-    <van-cell title="我的订单" is-link value="查看全部订单" />
+    <van-cell @click.native="goToMyOrder" title="我的订单" is-link value="查看全部订单" />
     <div class="sub-nav">
       <subNavItem @click.native="goToMyOrder">
         <img src="./img/pay.png" slot="icon"> 待支付
@@ -38,8 +42,8 @@
       </subNavItem>
     </div>
     <div class="list">
-      <router-link :to="{name:'mineBill'}">
-        <van-cell title="账户中心" is-link value="进出明细" />
+      <router-link :to="{name:'mineWallet'}">
+        <van-cell title="账户明细" is-link value="" />
       </router-link>
       <ul class="account-item">
         <li>

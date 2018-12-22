@@ -2,15 +2,17 @@
  * http配置
  */
 // 引入axios以及element ui中的loading和message组件
+import Vue from 'vue';
 import axios from 'axios'
 import { Toast } from 'vant';
+Vue.use(Toast)
 // 超时时间
 axios.defaults.timeout = 5000
 // http请求拦截器
 
 axios.interceptors.request.use(config => {
  // element ui Loading方法
- const toast = Toast.loading({
+ Toast.loading({
     duration: 0,       // 持续展示 toast
     forbidClick: true, // 禁用背景点击
     loadingType: 'spinner',

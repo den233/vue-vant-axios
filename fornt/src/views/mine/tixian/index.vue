@@ -1,6 +1,8 @@
 <template>
     <div class="account">
-        <van-nav-bar title="奖金提现" left-text="返回" right-text="" left-arrow @click-left="onClickLeft" />
+        <van-nav-bar title="奖金提现" left-text="返回" right-text="" left-arrow @click-left="onClickLeft">
+            <div class='view_d' slot='right'>查看明细</div>
+        </van-nav-bar>
         <van-cell-group>
 
             <van-field v-model="balance" readonly label="奖金余额" placeholder="请输入奖金余额" />

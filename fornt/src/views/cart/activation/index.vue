@@ -28,7 +28,7 @@
                              </div>
                         </div>
                         <div class="footer">
-                                <van-stepper v-model="item.number" integer :min="1" :max="99" :step="1" />
+                                <van-stepper @change='changeNum(item.id,item.number)' v-model="item.number" integer :min="1" :max="99" :step="1" />
                         </div>
                 </div>
             </div>
@@ -141,18 +141,42 @@
                     this.show=true;
                  }
             },
+            changeNum(id,number){
+                this.calc()
+                this.$http.post(
+                    '/api/cartupdate',
+                    {
+                        id:id,
+                        number:number
+                    }
+                ).then(data => {
+                   
+                })
+            },
             deleteAll(){
                  let len=this.dataActive.length;
-                 let newArr=[]
+                 let newArr=[];
+                 let delArray=[];
+                
+               
                 for(let i=0;i<len;i++){
                     if(!this.dataActive[i].checked){
                         newArr.push(this.dataActive[i]);
                     }
+                    else{
+                        delArray.push(this.dataActive[i].id);
+                    }
                 }
-                this.dataActive=newArr;
-                this.pickAll=[];
-                this.calc()
-                 
+                this.$http.post(
+                    '/api/cartdelete',
+                    {
+                        ids:delArray
+                    }
+                ).then(data => {
+                    this.dataActive=newArr;
+                    this.pickAll=[];
+                    this.calc()
+                })
             },
             beforeClose(){
 
@@ -199,8 +223,7 @@
                         this.dataActive[i].checked=false;
                    }
                 }
-               
-               
+
             },
             calc(){
                 let len=this.pickAll.length;
