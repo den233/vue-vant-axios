@@ -9,6 +9,7 @@ import service from './service';
 import shop from './shop';
 import cart from './cart';
 import personinfo from './personinfo';
+import mingxi from './mingxi';
 import login from './login';
 export default [
   {
@@ -19,4 +20,4 @@ export default [
     path: '/',
     redirect: 'login/index'
   }
-].concat(home, classify, news, mine, service, notfound, order, address,shop,cart,personinfo,login);
+].concat(home, classify, news, mine, service, notfound, order, address,shop,cart,personinfo,login,mingxi);

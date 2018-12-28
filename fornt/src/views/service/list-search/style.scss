@@ -13,35 +13,58 @@
     padding: 0;
     float: right;
   }
+  .__vuescroll{
+    background: #fff;
+  }
+  .tabs{
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+    height:calc(100vh - 140px);
+    .list{
+      flex: 0 0 42%;
+      width: 40%;
+      padding: 15px;
+      img{
+        width: 100%;
+      }
+      .title{
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+      }
+      .price{
+       font-size: 16px;
+       color: #ec2c0d;
+     }
+     .pv{
+       font-size: 16px;
+       color: #ec2c0d;
+     }
+     .addcart{
+       margin-top: 10px;
+     }
+     .van-stepper{
+       width: 120px;
+       display: inline-block;
+       float: left;
+       margin-top: 10px;
+     }
+     .cart_icon{
+       color: #fc8a04;
+       font-size: 25px;
+       margin-top: 10px;
+       margin-left: 10px;
+       display: inline-block;
+     }
+   }
+  }
+  
   .van-tab__pane{
     display: flex;
     flex-wrap: wrap;
     background: #fff;
-    .list{
-       flex: 0 0 42%;
-       width: 40%;
-       padding: 15px;
-       img{
-         width: 100%;
-       }
-       .title{
-         font-size: 16px;
-         overflow: hidden;
-         text-overflow:ellipsis;
-         white-space: nowrap;
-       }
-       .price{
-        font-size: 16px;
-        color: #ec2c0d;
-      }
-      .pv{
-        font-size: 16px;
-        color: #ec2c0d;
-      }
-      .addcart{
-        margin-top: 10px;
-      }
-    }
+    
   }
-  
 }

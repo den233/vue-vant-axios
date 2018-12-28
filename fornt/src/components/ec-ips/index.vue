@@ -1,14 +1,18 @@
 <template>
   <ul class="ec-ips">
-    <li class="ec-ips-item jing">精</li>
-    <li class="ec-ips-item xin">信</li>
-    <li class="ec-ips-item jian">荐</li>
-    <li class="ec-ips-item hui">惠</li>
+    <li class="ec-ips-item jing">热</li>
+    <li class="ec-ips-item xin">门</li>
+    <li class="ec-ips-item jian">推</li>
+    <li class="ec-ips-item hui">荐</li>
+     <div class="clear"></div>
   </ul>
 </template>
 <style lang="scss" scoped>
 $ips--size: 0.48rem /* 18/37.5 */;
 .ec-ips {
+  .clear{
+    clear: both;
+  }
   &-item {
     float: left;
     height: $ips--size;

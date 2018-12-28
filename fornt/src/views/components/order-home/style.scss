@@ -4,22 +4,19 @@
   display: flex;
   flex-wrap: wrap;
   &-item {
-    padding: half(16px) 0;
-    background: #fff;
     overflow: hidden;
     position: relative;
-    flex:1;
-    min-width: 40%;
-    max-width: 50%;
-    margin-right: 2px;
-    margin-left: 2px;
-    margin-bottom: half(16px);
+    flex:0 0 50%;
+    width:50%;
     &:last-child {
       border: 0;
     }
     .inner{
-      padding-left: half(16px);
-      padding-right: half(16px);
+      position: relative;
+      margin: 2.5px;
+      padding: 10px 5px 15px;
+      background-color: #fff;
+      border-radius: 5px;
       .imgs {
         background: #fff;
         text-align: center;

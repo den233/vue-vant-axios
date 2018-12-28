@@ -3,7 +3,7 @@
     <div class="lists-item" v-for="(item,index) in data" :key="index">
       <div class='inner'>
         <div class="imgs">
-          <img :src="item.imgSrc || 'https://via.placeholder.com/170x170'" alt="">
+          <img :src="imgLazyLoad" v-lazy="item.imgSrc" alt="">
         </div>
         <div class="info">
           <h6 class="label">{{item.name}}</h6>
@@ -36,7 +36,8 @@
     },
     data() {
       return {
-        category_id: 1
+        category_id: 1,
+        imgLazyLoad:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545648228300&di=bb84061edfb4e3b3d1379fc2eddde08a&imgtype=0&src=http%3A%2F%2Fwx1.sinaimg.cn%2Forj360%2F727b474aly1fuypmvz7rzj20qo0qogms.jpg'
       }
     },
     mounted() {

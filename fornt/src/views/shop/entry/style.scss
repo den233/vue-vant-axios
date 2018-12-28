@@ -4,6 +4,9 @@
   .van-tabs--line{
     padding-top:0;
   }
+  .van-tabs__wrap{
+    position:static;
+  }
   .van-tabs{
     font-size: half(28px);
     /deep/ .van-tab--active{
@@ -15,15 +18,16 @@
    
     .content{
       display: flex;
-      height:calc(100vh - 190px);
+      height:calc(100vh - 210px);
       margin-bottom:15px;
       .catlog{
-        min-width: 80px;
-        flex: 0 0 15%;
+         width: 20%;
+        flex: 0 0 20%;
         padding: 0;
       }
       .list{
-        flex: 1;
+        flex: 0 0 80%;
+        width: 80%;
       }
     }
   }
@@ -62,5 +66,54 @@
     }
   }
 
-   
+   .van-popup{
+      height: 60%;
+      
+     .buttons{
+       padding-top: 20px;
+       padding-bottom:15px;
+       .btn{
+          width: 100px;
+          height: 30px;
+          border-radius: 4px;
+          float: left;
+          margin-left: 10px;
+       }
+      
+       .btn-reset{
+         background: #fff;
+         border: none;
+         border: 1px solid #eee;
+       }
+       .btn-confirm{
+        background: #1989fa;
+        border: none;
+        color: #fff;
+        float: right;
+        margin-right: 10px;
+       }
+       .buttonActive{
+        background: #fa8d19;
+       }
+     }
+     .search{
+       padding-left: 10px;
+       padding-right: 10px;
+       .item{
+          margin-bottom:10px;
+         .title{
+           font-size: 14px;
+         }
+         .price{
+           border-radius: 5px;
+           height:30px;
+           border: 1px solid #eee;
+           padding-left:5px;
+         }
+       }
+     }
+   }
+   .clear{
+     clear: both;
+   }
 }

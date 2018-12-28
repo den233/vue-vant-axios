@@ -26,6 +26,7 @@
     "vant": "^1.5.0-beta2",
     "vue": "^2.5.2",
     "vue-clipboard2": "^0.2.1",
+    "vue-feedback": "^1.1.2",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vuescroll": "^4.9.0-beta.18",

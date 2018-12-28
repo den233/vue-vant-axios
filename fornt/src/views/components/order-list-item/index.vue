@@ -3,7 +3,7 @@
     <li class="lists-item" v-for="(item,index) in data" :key="index">
       <router-link :to="{path:'/service/details'}" tag="div" style="display:flex">
         <div class="imgs">
-          <img :src="item.imgSrc || 'https://via.placeholder.com/170x170'" alt="">
+          <img  v-lazy="item.imgSrc || 'https://via.placeholder.com/170x170'" alt="">
         </div>
         <div class="info">
           <h6 class="label">{{item.name}}</h6>

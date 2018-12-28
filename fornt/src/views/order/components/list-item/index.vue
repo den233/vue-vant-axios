@@ -29,6 +29,7 @@
     
     <div class="tool-bar">
       <van-button @click='getMenuID(detail)' type="primary">支付</van-button>
+      <van-button @click='searchWuliu(detail)' type="default">查看物流</van-button>
     </div>
   
   </div>
@@ -54,6 +55,9 @@
         }
       },
       methods: {
+        searchWuliu(id){
+          this.$emit('searchWuliu', id)
+        },
         getMenuID(id) {
           this.$emit('descList', id)
         }

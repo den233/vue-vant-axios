@@ -1,8 +1,9 @@
 <template>
   <div id="OrderList">
+      <van-nav-bar title="我的订单" left-text="返回" right-text="" left-arrow @click-left="onClickLeft" />
     <van-tabs v-model="currentStatus" sticky>
       <van-tab v-for="(item,index) in statusList" :title="item.name" :key="item.value">
-        <listItem v-if="index === currentStatus" v-for="order in orderList" needToolBar :key="order.id" :detail='order' @descList='goToOrderDetail' />
+        <listItem v-if="index === currentStatus" v-for="order in orderList" needToolBar :key="order.id" :detail='order' @searchWuliu='searchWuliu' @descList='goToOrderDetail' />
       </van-tab>
     </van-tabs>
   </div>
@@ -80,10 +81,28 @@ export default {
     };
   },
   methods: {
+    onClickLeft(){
+      this.$router.go(-1);
+    },
+    searchWuliu(val){
+     
+      this.$router.push({ name: 'wlindex',params:val });
+    },
     goToOrderDetail (val) {
        
       console.log(val)
-      this.$router.push({ name: 'neworder',params:val });
+      //重消单
+      if(val.orderType==21){
+        this.$router.push({ name: 'repeatorder',params:val });
+      }
+      //激活单
+      if(val.orderType==22){
+        this.$router.push({ name: 'neworder',params:val });
+      }
+      if(val.orderType==20){
+        
+      }
+    
     },
   }
 };

@@ -7,6 +7,11 @@
               </div>
           </van-nav-bar>
       <div class="van-tabs van-tabs--line" >
+          <van-tabs v-model="active">
+              <van-tab title="激活单"></van-tab>
+              <van-tab title="重消单"></van-tab>
+              <van-tab title="升级单"></van-tab>
+            </van-tabs>
           <div class="van-tabs__content">
            
                 <div class="content">
@@ -39,14 +44,27 @@
           </div>
       </div>
       <van-popup v-model="show" position="bottom" :overlay="true">
-        <van-picker :columns="columns" @change="onChange" />  
-      </van-popup>
+        <div class="buttons">
+            <button class="btn btn-reset"  v-fb="{cls:'buttonActive'}">重置</button>
+            <button class="btn btn-confirm"  v-fb="{cls:'buttonActive'}">确定</button>
+            <div class="clear"></div>
+        </div>
+        <div class="search">
+           <div class="item">
+              <div class="title">价格区间(元)</div>
+              <input @click="inputFun" class='price'  type="text"> - <input @click="inputFun" class='price' type="text">
+           </div>
+           <div class="item">
+              <div class="title">pv区间(元)</div>
+              <input  @click="inputFun" class='price'  type="text"> - <input @click="inputFun" class='price' type="text">
+           </div>
+        </div>   
+      </van-popup>  
     </div>
   </template>
+  <style lang="scss"   src="./style.scss"></style>
   <script>
-  import Vue from 'vue';
-  import { Toast } from 'vant';
-  Vue.use(Toast);
+ 
   import OrderListItem from '@/views/components/order-list-item';
   import CategoryItem from '../category';
   import $http from '@/utils/http.js';
@@ -57,6 +75,7 @@
     },
     data () {
       return {
+        active:'0',
         pagecon:{
           total:0,
           page_size:10
@@ -150,15 +169,18 @@
           this.show=true;
       },
       onChange(picker, value, index){
-        Toast(`当前值：${value}, 当前索引：${index}`);
+        this.Toast(`当前值：${value}, 当前索引：${index}`);
         this.title=value;
         this.show=false;
       },
       onSearch(){
         this.$router.push({path: '/service/list-search', query: {orderType:this.orderType}});
+      },
+      inputFun(){
+        console.log(1)
       }
     }
   };
   </script>
-  <style lang="scss" scoped src="./style.scss"></style>
+
   

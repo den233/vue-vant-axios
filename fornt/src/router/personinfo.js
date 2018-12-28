@@ -48,10 +48,30 @@ export default [
         meta: { title: '银行卡绑定' }
       }
       ,{
+        path: 'addcard',
+        name: 'addcard',
+        component: _import('mine/addcard'),
+        meta: { title: '添加银行卡' }
+      }
+      ,{
         path: 'password',
         name: 'password',
         component: _import('mine/password'),
         meta: { title: '修改密码' }
+      },
+      {
+        path: 'wuliu',
+        name: 'wuliu',
+        component: _import('wuliu'),
+        meta: { title: '物流查询' },
+        children:[
+          {
+            path: 'index',
+            name: 'wlindex',
+            component: _import('wuliu/entry'),
+            meta: { title: '物流查询' }
+          } 
+        ]
       }
     ]
   }

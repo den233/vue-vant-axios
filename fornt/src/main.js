@@ -18,17 +18,22 @@ import VueLazyload from 'vue-lazyload'
 import vuescroll from 'vuescroll';
 import 'vuescroll/dist/vuescroll.css';
 import http from '@/utils/fetch';
-import VueClipboards from 'vue-clipboard2'
+import VueClipboards from 'vue-clipboard2';
+import { Toast } from 'vant';
+import vueFeedback from 'vue-feedback';
+
+Vue.use(vueFeedback)
 window.Vue = Vue;
 Vue.prototype.$http = http;
+Vue.prototype.Toast= Toast;
 Vue.use(Vant);
 Vue.use(VueClipboards);
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: require('./assets/images/err.png'),
-  loading: require('./assets/images/loading.gif'),
-  attempt: 1,
-  listenEvents: ['scroll']
+  loading: require('./assets/images/ld1.gif'),
+  attempt: 5,
+  listenEvents:['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 });
 
 

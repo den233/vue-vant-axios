@@ -40,11 +40,15 @@
       <subNavItem @click.native="goToMyOrder" :info='50'>
         <img src="./img/shouhuo.png" slot="icon"> 待收货
       </subNavItem>
+      <subNavItem @click.native="goToWuliu"  >
+          <img src="./img/logist.png" slot="icon"> 查看物流
+      </subNavItem>
     </div>
     <div class="list">
       <router-link :to="{name:'mineWallet'}">
         <van-cell title="账户明细" is-link value="" />
       </router-link>
+      
       <ul class="account-item">
         <li>
             <router-link :to="{name:'account'}">
@@ -122,6 +126,9 @@ export default {
   methods: {
     goToMyOrder () {
       this.$router.push({ name: 'OrderList' });
+    },
+    goToWuliu(){
+      this.$router.push({ name: 'wlindex' });
     }
   }
 };

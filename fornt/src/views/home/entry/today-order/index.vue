@@ -1,6 +1,7 @@
 <template>
   <div class="todayOrder">
-    <h6 class="title"> <i class="iconfont1 icon-hot"></i>   热销商品</h6>
+     
+    <h6 class="title"> <i class="iconfont1 icon-hot"></i>  <div class='hot'  ><EcIps/></div>  </h6>
     <OrderHome :data="serviceList.list"></OrderHome>
   </div>
 </template>

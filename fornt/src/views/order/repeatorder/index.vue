@@ -5,7 +5,6 @@
     <div class="form">
       <van-steps :active="active">
         <van-step>基本信息</van-step>
-        <van-step>支付</van-step>
         <van-step>支付完成</van-step>
       </van-steps>
       <div class="step1" v-if='active==0'>
@@ -17,29 +16,18 @@
               <van-radio name="2">多期购买 </van-radio>
             </van-radio-group>
           </div>
-          <van-cell title="开始时间" @click='pickMonth' is-link arrow-direction="down" value="请选择" />
-          <van-cell title="期数" @click='pickQshu' is-link arrow-direction="down" value="请选择" />
+          <van-cell title="开始时间" @click='pickMonth' is-link arrow-direction="down" :value="startTime.name" />
+          <van-cell title="期数" @click='pickQshu' is-link arrow-direction="down" :value="qishuValue.name" />
         </van-cell-group>
         <div class="btn-group">
-          <van-button @click='nexHandle(1)' type="warning">下一步</van-button>
+            <van-button @click='paySubmit(1)' type="warning">确认支付</van-button>
         </div>
         <van-actionsheet v-model="show" :actions="actions" @select="onSelect"    />
         <van-actionsheet v-model="showQishu" :actions="qiShu" @select="onSelectQishu"    />
       </div>
 
-      <div class="step3" v-if='active==1'>
-        <van-cell-group>
-          <van-field :value="paylist.userName" label="用户名" left-icon="contact" disabled />
-
-          <van-field :value="paylist.salesMan" label="销售人编号" left-icon="friends-o" disabled />
-          <van-field :value="paylist.serviceMan" label="服务人编号" left-icon="manager-o" disabled />
-        </van-cell-group>
-        <div class="btn-group">
-          <van-button @click='preveHandle(0)' type="primary">上一步</van-button>
-          <van-button @click='paySubmit(2)' type="warning">确认支付</van-button>
-        </div>
-      </div>
-      <div class="step4" v-if='active==2'>
+      
+      <div class="step4" v-if='active==1'>
         <van-icon name="passed" />
         <p>恭喜支付完成</p>
         订单编号：xxxxxx
@@ -93,6 +81,8 @@
         tabactive: 0,
         show: false,
         showQishu: false,
+        qishuValue:{id:0,name:'请选择'},
+        startTime:{id:0,name:'请选择'},
         imageURL: 'http://placehold.it/85x85',
         itemDetail: {
           id: '11112',
@@ -195,11 +185,14 @@
       },
       onSelectQishu(item){
             console.log(item)
+            this.showQishu=false;
+            this.qishuValue=item;
       },
       onSelect(item) {
         // 点击选项时默认不会关闭菜单，可以手动关闭
         this.show = false;
         console.log(item)
+        this.startTime=item;
       },
       getMonth(type) {
         var date = new Date();

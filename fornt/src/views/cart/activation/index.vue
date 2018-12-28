@@ -15,7 +15,7 @@
                                 <van-checkbox v-model="item.checked" ref="checkbox"  ></van-checkbox>
                         </div>
                         <div class="imgs" >
-                             <img :src="imageURL" alt="">
+                             <img  v-lazy="imageURL" alt="">
                         </div>
                         <div class="content">
                              <div class="title">
@@ -31,7 +31,33 @@
                                 <van-stepper @change='changeNum(item.id,item.number)' v-model="item.number" integer :min="1" :max="99" :step="1" />
                         </div>
                 </div>
+                <div class="orderInfo">
+                        <h2>订单信息：</h2>
+                      <div class="item" >
+                          <div class="leabel"><label for="cost">运费:</label></div>
+                          <div class="number" id="total_fee">￥0.00</div>
+                      </div>
+          
+                      <div class="item">
+                          <div class="leabel"><label for="buyqty">订购数量:</label></div>
+                          <div class="number" id="total_qty">0</div>
+                      </div>
+                      
+                      <div class="item fund">
+                          <div class="leabel"><label for="cash">现金账户余额:</label></div>
+                          <div class="number" id="cash">¥0.00</div>
+                      </div>
+                      <div class="item fund">
+                          <div class="leabel"><label for="buyqty">奖金账户余额:</label></div>
+                          <div class="number" id="bonus">¥0.00</div>
+                      </div>
+                      <div class="item fund">
+                          <div class="leabel"><label for="buyqty">电子币账户余额:</label></div>
+                          <div class="number" id="coin">¥0.00</div>
+                      </div>
+                 </div>
             </div>
+            
         </vue-scroll>
         <van-submit-bar :price='totalPrice'  :button-text="buttonText" @submit="onSubmit">
              <div class="checkbox" @click="toggle()">
@@ -56,6 +82,31 @@
                 @save="onSave"
                 save-button-text="提交订单"
               />
+              <div class="orderInfo">
+                  <h2>订单信息：<span>( 总价：<i>¥ {{totalPrice}}</i> ,折后PV：<i>{{totalPv}}</i> )</span></h2>
+                <div class="item" >
+                    <div class="leabel"><label for="cost">运费:</label></div>
+                    <div class="number" id="total_fee">￥0.00</div>
+                </div>
+    
+                <div class="item">
+                    <div class="leabel"><label for="buyqty">订购数量:</label></div>
+                    <div class="number" id="total_qty">0</div>
+                </div>
+                
+                <div class="item fund">
+                    <div class="leabel"><label for="cash">现金账户余额:</label></div>
+                    <div class="number" id="cash">¥0.00</div>
+                </div>
+                <div class="item fund">
+                    <div class="leabel"><label for="buyqty">奖金账户余额:</label></div>
+                    <div class="number" id="bonus">¥0.00</div>
+                </div>
+                <div class="item fund">
+                    <div class="leabel"><label for="buyqty">电子币账户余额:</label></div>
+                    <div class="number" id="coin">¥0.00</div>
+                </div>
+           </div>
        </van-popup>
     </div>
 </template>

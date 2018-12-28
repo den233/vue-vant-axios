@@ -9,7 +9,12 @@ Vue.use(Toast)
 // 超时时间
 axios.defaults.timeout = 5000
 // http请求拦截器
-
+const defaultHeaders = {
+  Accept: 'application/json, text/plain, */*; charset=utf-8',
+  'Content-Type': 'application/json; charset=utf-8',
+  Pragma: 'no-cache',
+  'Cache-Control': 'no-cache',
+}
 axios.interceptors.request.use(config => {
  // element ui Loading方法
  Toast.loading({
@@ -18,6 +23,7 @@ axios.interceptors.request.use(config => {
     loadingType: 'spinner',
     message: '加载中'
   });
+  config.headers=defaultHeaders;
  return config
 }, error => {
    Toast.clear();
