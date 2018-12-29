@@ -6,10 +6,7 @@
           <span>陈不二</span>
           <div class="email"><span>1@11.com</span></div>
       </div>
-    
-      <router-link :to="{name:'mineSetting'}">
-        <van-icon class="setting" name="setting" />
-      </router-link>
+ 
       <div class="account">
           <div class="a1">
               <p>12.5</p>

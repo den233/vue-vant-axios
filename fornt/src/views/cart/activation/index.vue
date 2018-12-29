@@ -4,8 +4,8 @@
             <div slot="right" v-if='!deleteType' @click='changeHandle(0)'>{{manage}}</div>
             <div style='color:#f70101' slot="right" v-if='deleteType' @click='changeHandle(1)'>完成</div>
         </van-nav-bar>
-        <van-tabs>
-            <van-tab v-for="(item,index) in typeArr" :title="item.name" :key="index" v-model="active">
+        <van-tabs v-model="active" @click='tabClick'>
+            <van-tab v-for="(item,index) in orderType" :title="item.name" :key="index">
             </van-tab>
         </van-tabs>
         <vue-scroll ref="vs" :ops="ops">
@@ -22,7 +22,7 @@
                                  {{item.name}}
                              </div>
                              <div class="price">
-                                 价格：{{item.price}}
+                                 价格：<i class="van-card__origin-price">¥667</i>{{item.price}}
                                  <br>
                                 pv: {{item.pv}}
                              </div>
@@ -73,7 +73,7 @@
                 </van-nav-bar>
                 <van-address-edit
                 :area-list="areaList"
-                show-postal
+                :show-postal='false'
                 :show-delete='false'
                 :show-set-default='false'
                 :show-search-result='false'
@@ -108,6 +108,7 @@
                 </div>
            </div>
        </van-popup>
+      
     </div>
 </template>
 <script>
@@ -126,10 +127,10 @@
             return {
                 imageURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545041802973&di=b84700a7120e266d233244f8bcce3487&imgtype=0&src=http%3A%2F%2Fpic164.nipic.com%2Ffile%2F20180514%2F24821412_143226344000_2.jpg',
                 dataActive: [],
-                dataRepeat: [],
-                dataUpgrage: [],
+                active:this.$store.getters.active,
+                orderType:PLATFORM_CONFIG.orderType,
+                currentOrderType:this.$store.getters.currentOrderType,
                 pickAll:[],
-                active: '0',
                 checked:false,
                 show:false,
                 areaList:{},
@@ -183,6 +184,10 @@
             },
             goBack() {
                 this.$router.go(-1);
+            },
+            tabClick(index){
+                this.currentOrderType=this.orderType[index].type;
+                this.$store.commit('changeTab',{type:this.currentOrderType,index,index});
             },
             onSubmit() {
                 //this.deleteType==true  删除
@@ -288,6 +293,35 @@
             },
             onSave() {
                 Toast.success('提交成功');
+                let data={
+                    "orderType": "21",
+                    "paid": false,
+                    "receiverAddress": "常南村隆力奇金牛大楼",
+                    "receiverCity": "苏州市",
+                    "receiverDistrict": "常熟市",
+                    "receiverMobile": "18012345678",
+                    "receiverName": "陆六",
+                    "receiverState": "江苏省",
+                    "totalPrice": "6900",
+                    "totalPv": "885",
+                    "userCode": "999999",
+                    "createdTime": "2018-11-23 14:10:03",
+                    "createdUserCode": "999999",
+                    "details": [
+                        {
+                            "imgUrl":'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545041802973&di=b84700a7120e266d233244f8bcce3487&imgtype=0&src=http%3A%2F%2Fpic164.nipic.com%2Ffile%2F20180514%2F24821412_143226344000_2.jpg',
+                            "price": "2300",
+                            "productName": "精致生活纯钛玉石环",
+                            "productNo": "hazz126a",
+                            "pv": "295",
+                            "quantity": 3
+                        }
+                    ],
+                    "id": 1,
+                    "orderNumber": "CZ20181123000001",
+                }
+                this.$store.commit('payOrderInfo', data)
+                this.$router.push({name:'neworder'})
             },
             onDelete() {
                 this.show=false;

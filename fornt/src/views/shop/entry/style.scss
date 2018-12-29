@@ -9,10 +9,10 @@
   }
   .van-tabs{
     font-size: half(28px);
-    /deep/ .van-tab--active{
+      .van-tab--active{
       color: #fc8a04;
     }
-    /deep/ .van-tabs__line{
+     .van-tabs__line{
       background-color: #fc8a04;
     }
    
@@ -67,7 +67,7 @@
   }
 
    .van-popup{
-      height: 60%;
+      height: 80%;
       
      .buttons{
        padding-top: 20px;
@@ -92,9 +92,54 @@
         float: right;
         margin-right: 10px;
        }
-       .buttonActive{
-        background: #fa8d19;
-       }
+      //  .buttonActive{
+      //   background: #fa8d19;
+      //   transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 5000;
+      //  }
+      .btn{
+        position: relative;
+        //此处不需要设置overflow:hidden,因为after元素需要溢出显示
+      }
+      .btn:focus{
+          outline: none;
+      }
+      .btn:active:after {
+        opacity: .3;
+        //设置初始状态
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: 0s;
+    }
+
+      .btn:after {
+        content: "";
+        display: block;
+        position: absolute;
+        //扩大伪类元素4个方向各10px
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        opacity: 0;
+        transition: all .3s;
+      }
+      .btn-reset:after {
+        background-color: rgb(97, 174, 236);
+      }
+      .btn-confirm:after {
+       
+        background-color: rgb(224, 128, 18);
+      }
+      .btn-confirm:active:after {
+        opacity: 0.5; 
+      }
+      
+  
      }
      .search{
        padding-left: 10px;

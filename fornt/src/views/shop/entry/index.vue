@@ -7,10 +7,8 @@
               </div>
           </van-nav-bar>
       <div class="van-tabs van-tabs--line" >
-          <van-tabs v-model="active">
-              <van-tab title="激活单"></van-tab>
-              <van-tab title="重消单"></van-tab>
-              <van-tab title="升级单"></van-tab>
+          <van-tabs v-model="active" @click='tabClick'>
+              <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
             </van-tabs>
           <div class="van-tabs__content">
            
@@ -50,16 +48,29 @@
             <div class="clear"></div>
         </div>
         <div class="search">
+            <van-cell-group>
+                <van-field v-model="pName" placeholder="请输入产品名" />
+              </van-cell-group>
            <div class="item">
               <div class="title">价格区间(元)</div>
-              <input @click="inputFun" class='price'  type="text"> - <input @click="inputFun" class='price' type="text">
+              <input  readonly v-model='searchList.minPrice'  @click="inputFun('minPrice')" class='price'  type="text"> - <input readonly v-model='searchList.maxPrice'   @click="inputFun('maxPrice')" class='price' type="text">
            </div>
            <div class="item">
               <div class="title">pv区间(元)</div>
-              <input  @click="inputFun" class='price'  type="text"> - <input @click="inputFun" class='price' type="text">
+              <input readonly v-model='searchList.minPv'   @click="inputFun('minPv')" class='price'  type="text"> - <input readonly v-model='searchList.maxPv'   @click="inputFun('maxPv')" class='price' type="text">
            </div>
         </div>   
+        <van-number-keyboard
+          :show="showboard"
+          extra-key="."
+          close-button-text="完成"
+          @blur="showboard = false"
+          @input="onInput"
+          @delete="onDelete"
+          :hide-on-click-outside='true'
+      />
       </van-popup>  
+     
     </div>
   </template>
   <style lang="scss"   src="./style.scss"></style>
@@ -75,46 +86,18 @@
     },
     data () {
       return {
-        active:'0',
+        
         pagecon:{
           total:0,
           page_size:10
         },
         currentPage:1,
         show:false,
-        orderType:{
-          name:'激活单',
-          id:0
-        },
-        columns:['会员激活','重消单','升级单'],
-        title:'会员激活',
-        subnavList: [
-          {
-            label: '定点巡逻',
-            id: 1
-          },
-          {
-            label: '定岗保安',
-            id: 2
-          },
-          {
-            label: '门卫服务',
-            id: 3
-          },
-          {
-            label: '形象站岗',
-            id: 4
-          },
-          {
-            label: '高端保安',
-            id: 5
-          },
-          {
-            label: '私人保镖',
-            id: 5
-          }
-        ],
-       
+        showboard:false,
+        active:this.$store.getters.active,
+        orderType:PLATFORM_CONFIG.orderType,
+        currentOrderType:this.$store.getters.currentOrderType,
+        title:'商城',
         serviceList: [],
         current_id:'',
         ops: {
@@ -128,11 +111,19 @@
               enable: false,
              
             }
+          },
+          priceType:'',
+          pName:'',
+          searchList:{
+             minPrice:'',
+             maxPrice:'',
+             minPv:'',
+             maxPv:''
           }
       };
     },
     mounted(){
-      
+        console.log(this.$store.getters.currentOrderType)
     },
     methods:{
       async getCategory(id){
@@ -164,6 +155,10 @@
             page_size:10
           }
       },
+      tabClick(index){
+        this.currentOrderType=this.orderType[index].type;
+        this.$store.commit('changeTab',{type:this.currentOrderType,index,index});
+      },
       //筛选
       pickType(){
           this.show=true;
@@ -176,8 +171,17 @@
       onSearch(){
         this.$router.push({path: '/service/list-search', query: {orderType:this.orderType}});
       },
-      inputFun(){
-        console.log(1)
+      inputFun(type){
+        this.showboard=true;
+        this.priceType=type;
+      },
+      
+      onInput(value) {
+        this.searchList[this.priceType]+=''+value
+       
+      },
+      onDelete() {
+        this.searchList[this.priceType]=this.searchList[this.priceType].substr(0, this.searchList[this.priceType].length-1);
       }
     }
   };

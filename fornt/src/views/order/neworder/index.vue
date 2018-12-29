@@ -72,9 +72,9 @@
         <div style="display:inline-block" class="price">(合计：<span>¥667</span></div>
         <div style="display:inline-block" class="price">PV：<span>¥667</span>)</div>
       </div>
-      <van-card tag="标签" desc="描述信息" title="董事长套餐" :thumb="imageURL" num='3'>
-        <div slot='desc'>+++
-          <div class="price">单价：<span>¥667</span></div>
+      <van-card tag="标签" desc="描述信息" title="董事长套餐" :thumb="imageURL" num='3'  >
+        <div slot='desc'>
+          <div class="price">单价:<i class="van-card__origin-price">¥667</i>&nbsp<span>¥667</span></div>
           <div class="price">PV：<span>¥667</span></div>
         </div>
       </van-card>
@@ -105,7 +105,7 @@
   </div>
 </template>
 <script>
-
+ import {mapGetters} from 'vuex';
   export default {
 
     data() {
@@ -152,8 +152,14 @@
 
       };
     },
+    computed: {
+      ...mapGetters([
+         'payOrderInfo'
+     ])
+    },
     mounted() {
-      console.log(this.$route.params)
+      console.log(this.payOrderInfo)
+      //console.log(this.$route.params)
     },
     methods: {
       onClickLeft() {

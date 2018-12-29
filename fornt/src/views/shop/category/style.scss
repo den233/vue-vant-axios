@@ -4,6 +4,7 @@
             text-align: center;
             border: 1px solid #eee;
             padding: 5px 0;
+            position: relative;
             a{
               color:#333;
               text-decoration: none;
@@ -11,6 +12,15 @@
         }
         .active{
             background: #fff;
+            &:before{
+                position: absolute;
+                content:'';
+                height:28px;
+                left:0;
+                top:2px;
+                width: 3px;
+                background: #ce2323;
+            }
         }
         
     }

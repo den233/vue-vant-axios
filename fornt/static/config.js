@@ -22,3 +22,24 @@ PLATFORM_CONFIG.fileUpClient = PLATFORM_CONFIG.fileUrl + 'upClient';
 PLATFORM_CONFIG.fileImage = PLATFORM_CONFIG.fileUrl + 'image';
 //平台标识
 PLATFORM_CONFIG.platformFlag = 'partner_';
+//订单类型
+PLATFORM_CONFIG.orderType=[
+    {
+      name: '会员激活',
+      path: '/shop/entry',
+      type: '22',
+      icon:'iconfont1 icon-jiating'
+    },
+    {
+      name: '重消单',
+      path: '/shop/entry',
+      type: '21',
+      icon:'iconfont1 icon-dingdan'
+    },
+    {
+      name: '升级单',
+      path: '/shop/entry',
+      type: '23',
+      icon:'iconfont1 icon-huiyuan1'
+    }
+  ]

@@ -3,6 +3,7 @@
 import 'vant/lib/index.css';
 import './assets/css/index.scss';
 import './assets/js/screen-adaptation';
+//import 'font-awesome/scss/font-awesome.scss'
 
 import * as directives from './directives';
 import * as filters from './filters';

@@ -5,7 +5,13 @@
 </template>
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  mounted(){
+    window.onload=function(){
+       var div = document.getElementById("initBody"); 
+       div.removeAttribute('id');
+     }
+  }
 };
 </script>
 <style>

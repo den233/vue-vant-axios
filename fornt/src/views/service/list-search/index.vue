@@ -6,11 +6,9 @@
         <div slot="action" @click="onSearch">搜索</div>
       </van-search>
     </div>
-    <van-tabs v-model="active">
-      <van-tab title="激活单">
+    <van-tabs v-model="active"  @click='tabClick'>
+      <van-tab v-for="(item,index) in orderType" :title="item.name" :key="index">
       </van-tab>
-      <van-tab title="重消单"></van-tab>
-      <van-tab title="升级单"></van-tab>
     </van-tabs>
     <vue-scroll ref="vs" :ops="ops"  @handle-scroll="handleScroll">
       <div class="tabs">
@@ -45,7 +43,9 @@
     data() {
       return {
         searchValue: '',
-        active: '0',
+        active:this.$store.getters.active,
+        orderType:PLATFORM_CONFIG.orderType,
+        currentOrderType:this.$store.getters.currentOrderType,
         pagecon:{
           total:0,
           page_size:10
@@ -107,6 +107,10 @@
 
         })
       },
+      tabClick(index){
+            this.currentOrderType=this.orderType[index].type;
+            this.$store.commit('changeTab',{type:this.currentOrderType,index,index});
+        },
       //分页
        chagePage(val){
           this.currentPage=val;
