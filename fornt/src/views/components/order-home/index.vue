@@ -82,7 +82,7 @@
         console.log(item)
         let _this = this;
         this.$http.post(
-          '/api/addcart', { id: id, number: number, category_id: _this.category_id }
+          '/api/addcart', { id: '1', number: item.number, category_id:'' }
         ).then(data => {
           Toast.success('成功');
 
