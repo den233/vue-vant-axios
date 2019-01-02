@@ -13,11 +13,19 @@ export default [
         component: _import('login'),
         children: [
           {
-            path: '/login/index',
+            path: 'index',
             meta: {
               title: '登录'
             },
             component: _import('login/entry')
+            
+          },
+          {
+            path: 'register',
+            meta: {
+              title: '注册'
+            },
+            component: _import('login/register')
             
           }
         ]

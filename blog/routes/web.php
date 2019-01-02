@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+$api = app('Dingo\Api\Routing\Router');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,3 +23,22 @@ Route::get('/api/cartlist', 'Home\CartController@index');
 Route::post('/api/cartdelete', 'Home\CartController@delete');
 Route::post('/api/cartupdate', 'Home\CartController@update');
 Route::get('user/{id}', 'UserController@show');
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
+
+    # Auth
+    // signin
+    $api->post('auth/login', [
+        'as' => 'auth.login',
+        'uses' => 'LoginController@login',
+    ]);
+    // register
+    $api->post('auth/register', [
+        'as' => 'auth.register',
+        'uses' => 'LoginController@register',
+    ]);
+    // refresh jwt token
+    $api->post('auth/token/refresh', [
+        'as' => 'auth.token.refresh',
+        'uses' => 'AuthController@refreshToken',
+    ]);
+});

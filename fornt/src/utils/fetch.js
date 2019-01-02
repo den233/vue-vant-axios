@@ -32,6 +32,22 @@ var http = {
           reject( error );
         });
       })
+    },
+      /** post 请求
+     * @param  {接口地址} url
+     * @param  {请求参数} params
+     */
+    postLogin: function(url,params){
+      return new Promise((resolve,reject) => {
+        axios.post(url,params)
+        .then((response) => {
+          resolve( response );
+        })
+        .catch((error) => {
+         // console.log(error)
+          reject( error );
+        });
+      })
     }
   }
   export default http

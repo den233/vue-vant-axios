@@ -10,9 +10,9 @@ Vue.use(Toast)
 axios.defaults.timeout = 5000
 // http请求拦截器
 const defaultHeaders = {
-  Accept: 'application/json, text/plain, */*; charset=utf-8',
-  'Content-Type': 'application/json; charset=utf-8',
-  Pragma: 'no-cache',
+  // Accept: 'application/json, text/plain, */*; charset=utf-8',
+  // 'Content-Type': 'application/json; charset=utf-8',
+  // Pragma: 'no-cache',
   'Cache-Control': 'no-cache',
 }
 axios.interceptors.request.use(config => {
@@ -27,7 +27,6 @@ axios.interceptors.request.use(config => {
  return config
 }, error => {
    Toast.clear();
-  
  return Promise.reject(error)
 })
 // http响应拦截器

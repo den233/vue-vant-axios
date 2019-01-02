@@ -36,6 +36,7 @@
     </template>
     <style lang='scss' src='./index.scss'></style>
     <script>
+      import axios from 'axios'
        export default{
            data(){
              return{
@@ -50,18 +51,25 @@
                 this.imgUrl=`http://www.longliqicn.cn/generateverifycode?rnd=629434${Math.random()}`
             },
             onLogin(){
-               let url='api/auth/login';
+               let url='api/auth/register';
                let questParam={
                  name:this.username,
                  password:this.password
                }
-               this.$http.post(url,questParam).then(data=>{
-                 // console.log(data)
-               }).catch((res,v)=>{
-                 console.log(res,v)
-               // this.Toast.fail(JSON.parse(res).message.name);
-               })
-                this.$router.push({path: '/home/entry'})
+               axios.post(url,questParam)
+                .then(function (response) {
+                console.log(response);
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+              //  this.$http.postLogin(url,questParam).then(data=>{
+              //     console.log(data)
+              //  }).catch((res)=>{
+              //    console.log(res)
+              //  // this.Toast.fail(JSON.parse(res).message.name);
+              //  })
+               // this.$router.push({path: '/home/entry'})
             }
            }
        }
