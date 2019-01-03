@@ -43,14 +43,15 @@
                 username:'',
                 password:'',
                 sms:'',
-                imgUrl:'http://www.longliqicn.cn/generateverifycode?rnd=629434.1582903175'
+                imgUrl:`api/captcha/${Math.random()}`
              }
            },
            methods:{
             codeChange(){
-                this.imgUrl=`http://www.longliqicn.cn/generateverifycode?rnd=629434${Math.random()}`
+                this.imgUrl=`api/captcha/${Math.random()}`
             },
             onLogin(){
+              let _this=this;
                let url='api/auth/register';
                let questParam={
                  name:this.username,
@@ -58,10 +59,12 @@
                }
                axios.post(url,questParam)
                 .then(function (response) {
-                console.log(response);
+                  _this.Toast.success('注册成功');
+                  _this.$router.push({path: '/login/index'})
                 })
                 .catch(function (error) {
-                console.log(error);
+                console.log();
+                  _this.Toast.fail( JSON.parse(error.response.data.message).name[0]);
                 });
               //  this.$http.postLogin(url,questParam).then(data=>{
               //     console.log(data)

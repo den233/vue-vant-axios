@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use Api\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
+use Api\Models\User;
 
 class LoginController extends BaseController
 {
@@ -68,28 +68,24 @@ class LoginController extends BaseController
     }
     public function register(Request $request) {
         $validator = \Validator::make($request->input(), [
-            'name' => 'required|min:5|unique:ls_users',
+            'name' => 'required|min:5|unique:users',
             'password' => 'required|min:5',
         ]);
 
         if ($validator->fails()) {
             return $this->errorBadRequest($validator->messages());
-           // return $this->errorBadRequest($validator->messages());
         }
 
         $name = $request->get('name');
         $password = $request->get('password');
 
         $attributes = [
-            'name'          => $name,
-            'password'      => app('hash')->make($password),
-            'registered_at' => date("Y-m-d H:i:s"),
-            'store_code'    => app('config')->get('config.store_code'),
-            'key'           => $this->key(16)
+            'name' => $name,
+            'password' => app('hash')->make($password),
+            'registered_at' => date("Y-m-d H:i:s")
         ];
 
         $user = User::create($attributes);
-
         // 用户注册事件
         //$token = $this->auth->guard('api')->fromUser($user);
 

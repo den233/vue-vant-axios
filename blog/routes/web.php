@@ -23,8 +23,13 @@ Route::get('/api/cartlist', 'Home\CartController@index');
 Route::post('/api/cartdelete', 'Home\CartController@delete');
 Route::post('/api/cartupdate', 'Home\CartController@update');
 Route::get('user/{id}', 'UserController@show');
-$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
 
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
+    //Route::get('api/captcha/{tmp}', 'KitController@captcha');
+    $api->get('captcha/{tmp}', [
+        'as' => 'auth.captcha',
+        'uses' => 'KitController@captcha',
+    ]);
     # Auth
     // signin
     $api->post('auth/login', [
