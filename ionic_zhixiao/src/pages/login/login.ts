@@ -116,6 +116,7 @@ export class LoginPage {
 
     let inputs = {
       principal: name,
+      name:name,
       password: self.user.password
     };
 

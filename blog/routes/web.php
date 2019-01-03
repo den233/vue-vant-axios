@@ -30,6 +30,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api)
         'as' => 'auth.captcha',
         'uses' => 'KitController@captcha',
     ]);
+    $api->post('auth/token', [
+        'as' => 'auth.Users',
+        'uses' => 'UsersController@token',
+    ]);
     # Auth
     // signin
     $api->post('auth/login', [

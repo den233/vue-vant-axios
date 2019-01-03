@@ -2,9 +2,13 @@
   "name": "myApp",
   "app_id": "",
   "type": "ionic-angular",
-  "watchPatterns": [],
   "integrations": {
-    "gulp": {},
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://zhixiao.cn/api"
+    }
+  ]
 }

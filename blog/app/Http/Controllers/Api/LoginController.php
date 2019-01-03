@@ -32,39 +32,34 @@ class LoginController extends BaseController
      *     }
      */
     public function login(Request $request) {
-        $credentials = request(['name', 'password']);
+       
+        //return $this->respondWithToken($token);
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required',
+            'password' => 'required',
+        ]);
 
-        if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if ($validator->fails()) {
+            //return $this->errorBadRequest($validator->messages());
+           //return $this->response->errorForbidden(trans('auth.failed'));
+           return $this->errorBadRequest($validator->messages());
         }
 
-        return $this->respondWithToken($token);
-        // $validator = \Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     'password' => 'required',
-        // ]);
+        $credentials = $request->only('name', 'password');
 
-        // if ($validator->fails()) {
-        //     //return $this->errorBadRequest($validator->messages());
-        //    //return $this->response->errorForbidden(trans('auth.failed'));
-        //    return $this->errorBadRequest($validator->messages());
-        // }
+        // 验证失败返回403
+        if (!$token = $this->auth->guard('api')->attempt($credentials)) {
+            $this->response->errorForbidden(trans('auth.failed'));
+        }
 
-        // $credentials = $request->only('name', 'password');
-
-        // // 验证失败返回403
-        // if (!$token = $this->auth->guard('api')->attempt($credentials)) {
-        //     $this->response->errorForbidden(trans('auth.failed'));
-        // }
-
-        // $user = User::where('name', $credentials['name'])->firstOrFail();
+        $user = User::where('name', $credentials['name'])->firstOrFail();
 
 
-        // if ($user->actived) {
-        //     return $this->response->array(compact('token', 'user'));
-        // } else {
-        //     $this->response->errorForbidden('该账户未激活,请联系平台管理员');
-        // }
+        if ($user->actived) {
+            return $this->response->array(compact('token', 'user'));
+        } else {
+            $this->response->errorForbidden('该账户未激活,请联系平台管理员');
+        }
     }
     public function register(Request $request) {
         $validator = \Validator::make($request->input(), [
