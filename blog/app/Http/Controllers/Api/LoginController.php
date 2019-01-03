@@ -56,6 +56,7 @@ class LoginController extends BaseController
 
 
         if ($user->actived) {
+            dd($this->response->array(compact('token', 'user')));
             return $this->response->array(compact('token', 'user'));
         } else {
             $this->response->errorForbidden('该账户未激活,请联系平台管理员');
