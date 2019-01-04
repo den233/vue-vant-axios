@@ -3,7 +3,7 @@
       <ul >
            <li v-for="(item,index) in catArr" :key="index" :class='{active:item.active}' @click='indexHandle(index)'>
              <a href="javascript:;" >
-                {{item.name}}
+                {{item.categoryName}}
              </a>
             </li>
       </ul>
@@ -23,18 +23,24 @@
     },
    async mounted(){
       let _this=this;
-      let v1=_this.catArr= await _this.getCategory()
-      _this.catArr[0].active= true;
-      _this.$set(this.catArr,0,_this.catArr[0])
-      bus.$emit('useBusEvent', _this.catArr[0].category_id)
-      _this.$emit('useBusEvent',_this.catArr[0].category_id)
+      _this.getCategory()
+   
 
     },
     methods:{
-      async getCategory(){
-        return await this.$http.get(
-            '/api/category'
-            )
+       getCategory(){
+         let _this=this;
+         let questParam={};
+          this.$api.apiConfig.categoryList(
+            questParam
+            ).then(res=>{
+               _this.catArr=res.productsale_category_query_response;
+               _this.catArr[0].active= true;
+               _this.$set(this.catArr,0,_this.catArr[0]);
+               bus.$emit('useBusEvent', _this.catArr[0].categoryId)
+            }).catch(error=>{
+
+            })
       },
       indexHandle(index){
         for(let i=0,len=this.catArr.length;i<len;i++){
@@ -43,8 +49,7 @@
         }
         this.catArr[index].active=true;  
         this.$set(this.catArr,index,this.catArr[index])
-        bus.$emit('useBusEvent', this.catArr[index].category_id)
-        this.$emit('useBusEvent',this.catArr[index].category_id)
+        bus.$emit('useBusEvent', this.catArr[index].categoryId)
       }
     }
   };

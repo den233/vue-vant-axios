@@ -3,7 +3,7 @@
         li{
             text-align: center;
             border: 1px solid #eee;
-            padding: 5px 0;
+            padding: 5px 5px;
             position: relative;
             a{
               color:#333;
@@ -15,7 +15,7 @@
             &:before{
                 position: absolute;
                 content:'';
-                height:28px;
+                height:85%;
                 left:0;
                 top:2px;
                 width: 3px;

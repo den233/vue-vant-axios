@@ -8,16 +8,21 @@
     background: #fff;
     padding: half(28px) half(32px);
     border-bottom: half(1px) solid #ddd;
-    text-align: center;
+    text-align: left;
     .hot{
       display:inline-block;
       width:120px;
       margin-left:5px; 
   
     }
+    .fa-filter{
+      float: right
+    }
   }
   
   .icon-hot{
      color: rgb(253, 10, 1);
+     position: relative;
+     top: -4px;
   }
 }

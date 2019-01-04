@@ -3,6 +3,7 @@
 .security{
   .van-tabs--line{
     padding-top:0;
+  
   }
   .van-tabs__wrap{
     position:static;
@@ -20,6 +21,9 @@
       display: flex;
       height:calc(100vh - 210px);
       margin-bottom:15px;
+      .nodata{
+        width:100%;
+      }
       .catlog{
          width: 20%;
         flex: 0 0 20%;

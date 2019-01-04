@@ -27,15 +27,17 @@
                         ref="vs" :ops="ops"
                         >
                          <OrderListItem  :data="serviceList"></OrderListItem>
+                         <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
                         </vue-scroll>
                       
                     </div>
                   
                 </div>
+              
                 <van-pagination 
                 v-model="currentPage" 
                 :total-items=pagecon.total
-                :show-page-size=pagecon.page_size
+                :show-page-size='5'
                 force-ellipses
                 @change='chagePage'
               />
@@ -75,7 +77,6 @@
   </template>
   <style lang="scss"   src="./style.scss"></style>
   <script>
- 
   import OrderListItem from '@/views/components/order-list-item';
   import CategoryItem from '../category';
   import $http from '@/utils/http.js';
@@ -94,12 +95,14 @@
         currentPage:1,
         show:false,
         showboard:false,
+        hasData:false,
         active:this.$store.getters.active,
         orderType:PLATFORM_CONFIG.orderType,
         currentOrderType:this.$store.getters.currentOrderType,
         title:'商城',
         serviceList: [],
         current_id:'',
+        imgUrl:require('@/assets/images/timg.jpg'),
         ops: {
             bar: {
                background:'#eee'
@@ -123,41 +126,87 @@
       };
     },
     mounted(){
+      let _this=this;
+      bus.$on('useBusEvent',function(id){
+          _this.catEvent(id)
+         })
         console.log(this.$store.getters.currentOrderType)
     },
     methods:{
       async getCategory(id){
         let _this=this;
-        return await this.$http.post(
-            '/api/goods',{category_id:id,currentpage_num:_this.currentPage,perpage:_this.pagecon.page_size}
+        _this.serviceList=[];
+        _this.hasData=false;
+        _this.productsale_list_response
+        let querydata=  {
+          strAction:'productsale_list',
+          productName:_this.pName,
+          category:id,
+          _currPageNo:_this.currentPage,
+          _pageSize:_this.pagecon.page_size,
+          orderType:_this.currentOrderType};
+        return await this.$api.apiConfig.productSale(
+               querydata
             ) 
       },
-      
-      async catEvent(id){
-        let _this=this;
-		    _this.currentPage=1;
-        let v1= await  _this.getCategory(id);
-        _this.serviceList=v1.data;
+     async categoryHandle(id){
+         let _this=this;
+       
+         let v1= await  _this.getCategory(id);
+         v1=v1.productsale_list_response;
+         var arr = Object.getOwnPropertyNames(v1);
+         if(arr.length==0){
+           this.hasData=true
+           return false;
+         }
+         if(v1.content.length==0){
+           this.hasData=true
+           return false;
+         }
+        _this.serviceList=v1.content.map(v=>{
+          return {
+            id: v.id,
+            imgUrl: v.imgUrl,
+            price: v.price,
+            productName: v.productName,
+            productNo: v.productNo,
+            pv: v.pv
+          }
+        });
         _this.current_id=id;
         _this.pagecon={
           total:v1.total,
           page_size:10
         }
       },
+      async catEvent(id){
+        let _this=this;
+        _this.pagecon={
+          total:0,
+          page_size:10
+        }
+        _this.currentPage=1;
+        _this.categoryHandle(id)
+      },
       //分页
-      async  chagePage(val){
+        chagePage(val){
           this.currentPage=val;
           let _this=this;
-          let v1= await  _this.getCategory(_this.current_id);
-          _this.serviceList=v1.data;
-          _this.pagecon={
-            total:v1.total,
-            page_size:10
-          }
+          let id=_this.current_id;
+          _this.categoryHandle(id);
       },
+      //切换订单类型
       tabClick(index){
-        this.currentOrderType=this.orderType[index].type;
-        this.$store.commit('changeTab',{type:this.currentOrderType,index,index});
+        let _this=this;
+        _this.currentOrderType=_this.orderType[index].type;
+        _this.pagecon={
+          total:0,
+          page_size:10
+        }
+        let id=_this.current_id;
+        _this.currentPage=1;
+        _this.categoryHandle(id)
+        _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
       },
       //筛选
       pickType(){

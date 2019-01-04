@@ -11,6 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/v2': {
+        target: 'http://192.168.120.58:8080',
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': '/'
+        // }
+      },
       '/api': {
         target: 'http://zhixiao.cn',
         changeOrigin: true,
@@ -20,6 +27,16 @@ module.exports = {
       }
 
     },
+    // proxyTable: {
+    //   '/api': {
+    //     target: 'http://zhixiao.cn',
+    //     changeOrigin: true,
+    //     // pathRewrite: {
+    //     //   '^/api': '/'
+    //     // }
+    //   }
+
+    // },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

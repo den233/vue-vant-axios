@@ -3,14 +3,13 @@
 import 'vant/lib/index.css';
 import './assets/css/index.scss';
 import './assets/js/screen-adaptation';
-//import 'font-awesome/scss/font-awesome.scss'
 
 import * as directives from './directives';
 import * as filters from './filters';
 import * as mixins from './mixins';
 
 import App from './App';
-import Vant from 'vant';
+import Vant, { Toast } from 'vant';
 import Vue from 'vue';
 import components from './components';
 import router from './router';
@@ -20,13 +19,13 @@ import vuescroll from 'vuescroll';
 import 'vuescroll/dist/vuescroll.css';
 import http from '@/utils/fetch';
 import VueClipboards from 'vue-clipboard2';
-import { Toast } from 'vant';
 import vueFeedback from 'vue-feedback';
-
-Vue.use(vueFeedback)
+import api from './api/index.js';
+Vue.use(api);
+Vue.use(vueFeedback);
 window.Vue = Vue;
 Vue.prototype.$http = http;
-Vue.prototype.Toast= Toast;
+Vue.prototype.Toast = Toast;
 Vue.use(Vant);
 Vue.use(VueClipboards);
 Vue.use(VueLazyload, {
@@ -34,7 +33,7 @@ Vue.use(VueLazyload, {
   error: require('./assets/images/err.png'),
   loading: require('./assets/images/ld1.gif'),
   attempt: 5,
-  listenEvents:['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
+  listenEvents: ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 });
 
 

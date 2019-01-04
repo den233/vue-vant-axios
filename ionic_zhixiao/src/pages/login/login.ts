@@ -124,28 +124,22 @@ export class LoginPage {
 
     this.commonService.login(inputs).subscribe(
       data => {
-
-     
-
+        load && load.dismiss(); //关闭加载框
+        console.log(data)
         if (data.statusCode == 0) {
-
           let token = data["tokenid"];
-
           localStorage.setItem("tokenid", token);
           this.getArea();
-
           /**
            * 若记住密码&&登陆成功，则保存密码
            */
-         
-           
             if(self.isSaveName){
 
               localStorage.setItem("principal", inputs.principal);
   
               localStorage.setItem("password", self.compileStr(inputs.password));
             }
-            load && load.dismiss(); //关闭加载框
+         
             self.showToast('登录成功');
   
             this.navCtrl.push('tabs');

@@ -18,22 +18,7 @@
         <!-- <van-button class="add_cart" size="small" type="danger"  @click='addCart(item.id,item.number)'>加入购物车</van-button> -->
       </div>
     </div>
-    <van-dialog
-      v-model="show"
-      :show-cancel-button='true'
-      show-confirm-button
-      @confirm='confirm'
-      @cancel='cancel'
-    >
-    <van-radio-group v-model="radio">
-        <van-cell-group>
-          <van-cell v-for='(item,index) in orderType' :key='index' :title="item.name" clickable @click="radioType(item.type)">
-            <van-radio :name="index" />
-          </van-cell>
-          
-        </van-cell-group>
-      </van-radio-group>
-    </van-dialog>
+    
   </div>
 </template>
 <script>
@@ -52,8 +37,6 @@
     },
     data() {
       return {
-        show:false,
-        radio:'',
         goods:{
           id: 1018706,
           imgUrl: "/upload/files/20161215031806.jpg",
@@ -78,7 +61,7 @@
         })
       },
       addCart(item) {
-        this.show=true;
+     
         console.log(item)
         let _this = this;
         this.$http.post(

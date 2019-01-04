@@ -55,13 +55,20 @@
                  name:this.username,
                  password:this.password
                }
-               this.$http.post(url,questParam).then(data=>{
-                 // console.log(data)
-               }).catch((res,v)=>{
-                 console.log(res,v)
-               // this.Toast.fail(JSON.parse(res).message.name);
-               })
-                this.$router.push({path: '/home/entry'})
+               this.$api.login(questParam).then((res) => {
+                 console.log(res);
+                //this.$router.push({path: '/home/entry'})
+              }).catch(e=>{
+                console.log(e)
+              });
+              this.$router.push({path: '/home/entry'})
+              //  this.$http.post(url,questParam).then(data=>{
+              //    // console.log(data)
+              //  }).catch((res,v)=>{
+              //    console.log(res,v)
+              //  // this.Toast.fail(JSON.parse(res).message.name);
+              //  })
+              //   this.$router.push({path: '/home/entry'})
             }
            }
        }
