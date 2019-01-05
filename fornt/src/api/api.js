@@ -21,9 +21,7 @@ const login = params => {
     data: params
   });
 };
-let apiConfig={
-
-}
+let apiConfig = {};
 // 2 商品分类
 //  {baseurl}/v2/productSale.html?strAction=productsale_category_query
 apiConfig.categoryList = params => {
@@ -56,9 +54,9 @@ apiConfig.productSale = params => {
 // }
 apiConfig.trolley = params => {
   return fetch({
-    url: configPath + '/v2/trolley.html?strAction= trolley_detail_add',
+    url: configPath + '/v2/trolley.html?strAction=trolley_detail_add',
     method: 'post',
-    params: params
+    data: params
   });
 };
 //  5修改商品至购物车
@@ -81,7 +79,7 @@ apiConfig.trolleyList = params => {
   return fetch({
     url: configPath + '/v2/trolley.html?strAction=trolley_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  7移除购物车条目
@@ -91,7 +89,7 @@ apiConfig.deleteTrolley = params => {
   return fetch({
     url: configPath + '/v2/trolley.html?strAction=trolley_detail_remove',
     method: 'post',
-    params: params
+    data: params
   });
 };
 //  8查询购物车条目
@@ -109,7 +107,7 @@ apiConfig.addTmpOrder = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_add',
     method: 'post',
-    params: params
+    data: params
   });
 };
 //  10查询所有待支付订单
@@ -118,7 +116,7 @@ apiConfig.allTmpOrder = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_list',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  11查询单个待支付订单
@@ -163,7 +161,7 @@ apiConfig.payment_query = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_payment_query',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  17.待支付激活单详情页
@@ -172,7 +170,7 @@ apiConfig.tmporder_czk_checkout = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_czk_checkout',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  18.当前会员信息
@@ -181,7 +179,7 @@ apiConfig.member_me_get = params => {
   return fetch({
     url: configPath + '/v2/member.html?strAction=member_me_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  19.会员信息
@@ -190,7 +188,7 @@ apiConfig.member_get = params => {
   return fetch({
     url: configPath + '/v2/member.html?strAction=member_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  20.查询销售网节点信息
@@ -199,7 +197,7 @@ apiConfig.member_linkno_get = params => {
   return fetch({
     url: configPath + '/v2/member.html?strAction=member_linkno_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  20.查询推荐网（服务人）节点信息
@@ -208,7 +206,7 @@ apiConfig.member_recommendno_get = params => {
   return fetch({
     url: configPath + '/v2/member.html?strAction=member_recommendno_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  21.确认支付超值卡重销订单
@@ -217,7 +215,7 @@ apiConfig.tmporder_czkre_checkout = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_czkre_checkout',
     method: 'get',
-    data: params
+    params: params
   });
 };
 const apiList = {

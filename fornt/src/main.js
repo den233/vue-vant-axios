@@ -35,8 +35,6 @@ Vue.use(VueLazyload, {
   attempt: 5,
   listenEvents: ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 });
-
-
 Vue.use(vuescroll);
 // 全局组件
 Object.keys(components).forEach(key => {

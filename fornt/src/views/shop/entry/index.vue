@@ -23,14 +23,15 @@
                     </div>
                   
                     <div class="list">
-                        <vue-scroll
+                        <vue-scroll   
                         ref="vs" :ops="ops"
                         >
-                         <OrderListItem  :data="serviceList"></OrderListItem>
+                         <OrderListItem :currentOrderType="currentOrderType"  :data="serviceList"></OrderListItem>
                          <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
                         </vue-scroll>
                       
                     </div>
+                    
                   
                 </div>
               
@@ -105,11 +106,27 @@
         imgUrl:require('@/assets/images/timg.jpg'),
         ops: {
             bar: {
-               background:'#eee'
+               background:'transparent'
             },
             rail: {
              
             },
+            scrollPanel: {
+            // 当组件mounted了以后，自动滚动到一个坐标
+            initialScrollY: false,
+            initialScrollX: false,
+            // 是否禁止x或y方向上的滚动
+            scrollingX: false,
+            scrollingY: true,
+            // 滚动的速度。在你点击滚动轨道或者调用scrollTo或者scrollBy的时候
+            // 起作用。
+            speed: 300,
+            // 滚动动画
+            easing: undefined,
+            // 有时候原声滚动条可能在左侧,
+            // 请查看 https://github.com/YvesCoding/vuescroll/issues/64
+            verticalNativeBarPos: 'right'
+          },
             scrollButton: {
               enable: false,
              
@@ -170,7 +187,8 @@
             price: v.price,
             productName: v.productName,
             productNo: v.productNo,
-            pv: v.pv
+            pv: v.pv,
+            number:1
           }
         });
         _this.current_id=id;
