@@ -6,13 +6,22 @@
             padding-left: 5px;
             .price_submit{
                 padding-left:10px;
-                font-size:13px;
+                font-size:15px;
+                float: right;
                 b{
+                    font-size:13px; 
                     color: #f10303;
                 }
             }
            
         }
+        .van-submit-bar__text{
+            display: none;
+        }
+       .van-button {
+            position: absolute;
+            right: 0;
+       }   
     }
     .van-popup--right{
         width:100%;

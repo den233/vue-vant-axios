@@ -21,7 +21,7 @@
           catArr:[]
       };
     },
-   async mounted(){
+     mounted(){
       let _this=this;
       _this.getCategory()
    
@@ -35,9 +35,13 @@
             questParam
             ).then(res=>{
                _this.catArr=res.productsale_category_query_response;
+               _this.catArr.unshift({
+                categoryId: "",
+                categoryName: "全部商品"
+               })
                _this.catArr[0].active= true;
                _this.$set(this.catArr,0,_this.catArr[0]);
-               bus.$emit('useBusEvent', _this.catArr[0].categoryId)
+             
             }).catch(error=>{
 
             })

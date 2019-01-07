@@ -4,7 +4,7 @@
             <div slot="right" v-if='!deleteType' @click='changeHandle(0)'>{{manage}}</div>
             <div style='color:#f70101' slot="right" v-if='deleteType' @click='changeHandle(1)'>完成</div>
         </van-nav-bar>
-        <van-tabs v-model="active" @click='tabClick'>
+        <van-tabs v-model="active"  >
             <van-tab v-for="(item,index) in orderType" :title="item.name" :key="index">
             </van-tab>
         </van-tabs>
@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <van-stepper @change='changeNum(item.ppsId,item.quantity)' v-model="item.quantity" integer :min="1"
-                            :max="99" :step="1" />
+                        <van-stepper :integer=true :disable-input=false @blur='blur(item.ppsId,item.quantity,index)' :async-change=true @overlimit='overlimit' @plus='plus(item.ppsId,item.quantity,index)' @minus='minus(item.ppsId,item.quantity,index)' v-model="item.quantity" integer :min="1"
+                            :max="99" :step="0" />
                     </div>
                 </div>
                 <div class="orderInfo">
@@ -66,18 +66,18 @@
                 </div>
             </div>
         </vue-scroll>
-        <van-submit-bar :button-text="buttonText" @submit="onSubmit">
+        <van-submit-bar :button-text="buttonText" @submit="onSubmit" :disabled='disabled'>
             <div class="checkbox" @click="toggle()">
                 <van-checkbox ref="checkboxes" v-model="checked">全选</van-checkbox>
             </div>
 
             <span class="all-label">
-                <p class="price_submit"> pv: <b>{{totalPv}}</b></p>
-                <p slot='price' class="price_submit">合计：¥ <b>{{totalPrice}}</b></p>
+                <p class="price_submit"> pv :<br> <b>{{totalPv}}</b></p>
+                <p slot='price' class="price_submit">总价 ：<br> ¥ <b>{{totalPrice}}</b></p>
             </span>
         </van-submit-bar>
         <van-popup v-model="show" position="right" :overlay="false">
-            <van-nav-bar title="填写收货信息" left-text="返回" left-arrow @click-left='onDelete'>
+            <van-nav-bar title="填写收货信息" left-text="返回" left-arrow @click-left='onQuxiao'>
             </van-nav-bar>
             <van-address-edit :area-list="areaList" :show-postal='false' :show-delete='false' :show-set-default='false'
                 :show-search-result='false' :is-deleting='false' :search-result="searchResult" @save="onSave"
@@ -118,6 +118,7 @@
 
     </div>
 </template>
+<style lang="scss"  src="./style.scss"></style>
 <script>
     import areas from '@/utils/area.js'
     import { Dialog } from 'vant';
@@ -133,19 +134,19 @@
         },
         data() {
             return {
-                imageURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545041802973&di=b84700a7120e266d233244f8bcce3487&imgtype=0&src=http%3A%2F%2Fpic164.nipic.com%2Ffile%2F20180514%2F24821412_143226344000_2.jpg',
                 dataActive: [],
                 active: this.$store.getters.active,
                 orderType: PLATFORM_CONFIG.orderType,
-                currentOrderType: this.$store.getters.currentOrderType,
+                currentOrderType: this.$store.getters.payOrderInfo,
                 pickAll: [],
                 checked: false,
                 show: false,
                 areaList: {},
                 searchResult: [],
-                buttonText: '提交订单',
+                buttonText: '下一步',
                 manage: '管理',
                 deleteMsg: '删除',
+                disabled:true,
                 deleteType: false,
                 totalPrice: 0,
                 totalPv: 0,
@@ -183,6 +184,33 @@
             this.areaList = getArea.arreaList;
 
         },
+        watch:{
+            dataActive :{
+        　　　　handler(newValue, oldValue) {
+                  let arr=[];
+        　　　　　　for (let i = 0; i < newValue.length; i++) {
+        　　　　　　　　 if(newValue[i].checked){
+                            arr.push(i)
+                        }
+        　　　　　　}
+                   if(arr.length == 0){
+                    this.disabled = true;
+                   }else{
+                    this.disabled = false;
+                   }
+        　　　　},
+        　　　　deep: true
+        　　},
+           active(newValue, oldValue){
+                if(newValue== oldValue){
+                    return false;
+                }
+                this.currentOrderType = this.orderType[newValue].type;
+                this.$store.commit('changeTab', { type: this.currentOrderType, index:newValue });
+                this.memberData();
+                this.getList();
+           }
+        },
         methods: {
             memberData() {
                 let _this = this;
@@ -197,13 +225,25 @@
 
                 })
             },
+            clearALL(){
+                this.totalPrice= 0;
+                this.totalPv= 0;
+                this.discountPv= 0;
+                this.discountPrice= 0;
+                this.orderDetail.fee= '0.00';
+                this.orderDetail.number= '0';
+            },
             getList() {
                 let _this = this;
                 _this.dataActive = [];
+                _this.clearALL();
+               _this.checked=false;
+               _this.pickAll=[];
                 let queryParam = {
                     //"strAction": "trolley_detail_add",
                     "orderType": _this.currentOrderType
                 }
+              
                 _this.$api.apiConfig.trolleyList(queryParam).then(data => {
                     let v1 = data.trolley_get_response;
                     var arr = Object.getOwnPropertyNames(v1);
@@ -215,7 +255,7 @@
                         return false;
                     }
 
-                    this.dataActive = v1.details.map(v => {
+                    _this.dataActive = v1.details.map(v => {
                         return {
                             createdTime: v.createdTime,
                             discountPrice: v.discountPrice,
@@ -235,6 +275,7 @@
                             checked: false
                         }
                     })
+                    _this.calc();
                 }).catch(e => {
 
                 })
@@ -243,11 +284,12 @@
             goBack() {
                 this.$router.go(-1);
             },
-            tabClick(index) {
-                this.currentOrderType = this.orderType[index].type;
-                this.$store.commit('changeTab', { type: this.currentOrderType, index, index });
-                this.getList();
-            },
+            // tabClick(index) {
+            //     this.currentOrderType = this.orderType[index].type;
+            //     this.$store.commit('changeTab', { type: this.currentOrderType, index, index });
+            //     this.clearALL();
+            //     this.getList();
+            // },
 
             onSubmit() {
                 //this.deleteType==true  删除
@@ -257,41 +299,106 @@
                     this.show = true;
                 }
             },
-            changeNum(id, number) {
-                this.calc()
-                this.$http.post(
-                    '/api/cartupdate',
-                    {
-                        id: id,
-                        number: number
+            //购物车值变化
+            blur(id, number, index){
+                let _this=this;
+                let queryData={
+                    "ppsId": id,
+                    "orderType": _this.currentOrderType,
+                    "quantity": number
+                }
+                _this.$api.apiConfig.editTrolley(queryData)
+                .then(data=>{
+                    let v1=data.trolley_detail_modify_response;
+                    var arr = Object.getOwnPropertyNames(v1);
+                    if (arr.length == 0) {
+                        _this.dataActive[index].quantity=number;
+                        return false;
                     }
-                ).then(data => {
-
+                    this.calc();
+                     
+                }).catch(e=>{
+                    
                 })
             },
+            //编辑购物车加
+            plus(id, number, index) {
+                number++;
+                let _this=this;
+                let queryData={
+                    "ppsId": id,
+                    "orderType": _this.currentOrderType,
+                    "quantity": number
+                }
+                _this.$api.apiConfig.editTrolley(queryData)
+                .then(data=>{
+                    let v1=data.trolley_detail_modify_response;
+                    var arr = Object.getOwnPropertyNames(v1);
+                    if (arr.length == 0) {
+                        return false;
+                    }
+                    _this.dataActive[index].quantity++;
+                    this.calc();
+                     
+                }).catch(e=>{
+                    
+                })
+            },
+            minus(id, number, index) {
+                number--
+               let _this=this;
+               let queryData={
+                   "ppsId": id,
+                   "orderType": _this.currentOrderType,
+                   "quantity": number
+               }
+               _this.$api.apiConfig.editTrolley(queryData)
+               .then(data=>{
+                   let v1=data.trolley_detail_modify_response;
+                   var arr = Object.getOwnPropertyNames(v1);
+                   if (arr.length == 0) {
+                       return false;
+                   }
+                   _this.dataActive[index].quantity--;
+                   this.calc();
+                    
+               }).catch(e=>{
+                   
+               })
+            },
+            overlimit(){
+                return false;
+            },
+            //删除
             deleteAll() {
                 let len = this.dataActive.length;
                 let newArr = [];
                 let delArray = [];
 
-
+                  console.log(this.dataActive)
                 for (let i = 0; i < len; i++) {
                     if (!this.dataActive[i].checked) {
                         newArr.push(this.dataActive[i]);
                     }
                     else {
-                        delArray.push(this.dataActive[i].id);
+                        delArray.push(this.dataActive[i].ppsId);
                     }
                 }
-                this.$http.post(
-                    '/api/cartdelete',
-                    {
-                        ids: delArray
-                    }
-                ).then(data => {
+                if(delArray.length == 0){
+                    return false;
+                }
+                let _this=this;
+                let queryData={
+                    ppsId:delArray
+                }
+                _this.$api.apiConfig.deleteTrolley(queryData)
+                .then(data=>{
                     this.dataActive = newArr;
-                    this.pickAll = [];
-                    this.calc()
+                     this.pickAll = [];
+                     this.calc()  
+                })
+                .catch(e=>{
+
                 })
             },
             beforeClose() {
@@ -303,7 +410,7 @@
                     this.buttonText = '删除'
                 }
                 if (val == 1) {
-                    this.buttonText = '提交订单'
+                    this.buttonText = '下一步'
                 }
             },
             pickState(v) {
@@ -326,6 +433,7 @@
                 this.checkAll(this.checked)
                 this.calc()
             },
+            //全选
             checkAll(v) {
                 let len = this.dataActive.length;
                 this.pickAll = [];
@@ -341,27 +449,27 @@
                 }
 
             },
+            //计算
             calc() {
                 let len = this.pickAll.length;
-                this.discountlPrice = 0;
-                this.discountPv = 0;
-                this.totalPrice = 0;
-                this.totalPv = 0;
-                this.orderDetail.fee = '0.00';
-                this.orderDetail.number = '0';
+              
+                this.clearALL()
+                
                 for (let i = 0; i < len; i++) {
                     this.orderDetail.number = Number(this.orderDetail.number) + this.pickAll[i].quantity;
-                    this.discountlPrice = this.discountlPrice + this.pickAll[i].quantity * Number(this.pickAll[i].price);
+                    this.discountPrice = this.discountPrice + this.pickAll[i].quantity * Number(this.pickAll[i].price);
                     this.discountPv = this.discountPv + this.pickAll[i].quantity * Number(this.pickAll[i].discountPv);
                 }
+                console.log(this.discountPrice)
                 this.paymentQuery();
             },
+            //提交
             paymentQuery() {
                 let _this = this;
                 let queryParam = {
                     orderType: _this.currentOrderType,
                     pv: _this.discountPv,
-                    price: _this.discountlPrice
+                    price: _this.discountPrice
                 }
                 _this.$api.apiConfig.payment_query(queryParam).then(data => {
                     let bank = data.tmporder_payment_query_response;
@@ -406,7 +514,6 @@
                 if(_this.currentOrderType=='22'){
                      locationURL='neworder'
                 }
-                alert(locationURL)
                 _this.$api.apiConfig.addTmpOrder(queryParam).then(data => {
                    let payArray=data.tmporder_add_response;
                    var arr = Object.getOwnPropertyNames(payArray);
@@ -423,7 +530,7 @@
                         message: '请前往支付'
                         }).then(() => {
                             this.$store.commit('payOrderInfo', payArray)
-                            this.$router.push({ name: locationURL })
+                            this.$router.push({ name: locationURL})
                     });
                 }).catch(e => {
                     Toast.fail('提交失败');
@@ -431,10 +538,9 @@
                 // this.$store.commit('payOrderInfo', data)
                 //this.$router.push({ name: 'neworder' })
             },
-            onDelete() {
+            onQuxiao() {
                 this.show = false;
             }
         }
     };
 </script>
-<style lang="scss" scoped src="./style.scss"></style>

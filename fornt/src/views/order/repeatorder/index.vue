@@ -83,6 +83,7 @@
         showQishu: false,
         qishuValue:{id:0,name:'请选择'},
         startTime:{id:0,name:'请选择'},
+        payOrderInfo:this.$store.getters.payOrderInfo,
         imageURL: 'http://placehold.it/85x85',
         itemDetail: {
           id: '11112',
@@ -127,18 +128,32 @@
       };
     },
     mounted() {
-      console.log(this.$route.params)
+       if(this.payOrderInfo== ''){
+         //this.$router.push({path:'/home/entry'})
+       }
 
     },
     methods: {
       onClickLeft() {
-        this.$router.go(-1);
+        this.$router.back(-1);
       },
       onCopy: function (e) {
         console.log('复制成功！')
       },
       onError: function (e) {
         console.log('复制失败！')
+      },
+      initData(){
+        let _this=this;
+        let queryData={
+           orderNo:''
+        }
+        _this.$api.apiConfig.oneTmpOrder(queryData)
+        .then(data=>{
+
+        }).catch(e=>{
+
+        })
       },
       onSubmit() {
 

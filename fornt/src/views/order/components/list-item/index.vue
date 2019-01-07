@@ -3,10 +3,10 @@
     <div class="top">
       订单编号：
       <span class="userName">{{detail.orderNumber}}</span>
-      <span class="status">{{detail.statusName}}</span>
+      <span class="status">{{currentText}}</span>
     </div>
     <div class="desc">
-      <img :src='detail.imgUrl' />
+      <img   v-lazy='detail.imgUrl' />
       <div class="right">
         <h6 class="title van-ellipsis">{{detail.servericeName}}</h6>
         <span class="titleName"> {{detail.productName}}</span>
@@ -37,6 +37,7 @@
 <script> 
     export default {
       props: {
+        currentStatus:'',
         detail: { type: Object, default: () => ({}) },
         descClick: {
           type: Function, default: (res) => {
@@ -47,13 +48,39 @@
         },
         needToolBar: { type: Boolean }
       },
+      
       computed: {
-        // a computed getter
+         currentText(){
+           let newVal=this.currentStatus
+          switch (newVal){
+              case 0:
+              return '';
+              break;
+              case 1:
+              return '待支付';
+              break;
+              case 2:
+              return '待发货';
+              break;
+              case 3:
+              return '待收货';
+              break;
+              default :
+              return '';
+            }
+         },
         item: function () {
           // `this` points to the vm instance
           return 111
         }
       },
+      data() {
+         return {
+          //currentText:'',
+          
+         }
+      },
+       
       methods: {
         searchWuliu(id){
           this.$emit('searchWuliu', id)

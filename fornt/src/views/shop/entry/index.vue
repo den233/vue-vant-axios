@@ -46,8 +46,8 @@
       </div>
       <van-popup v-model="show" position="bottom" :overlay="true">
         <div class="buttons">
-            <button class="btn btn-reset"  v-fb="{cls:'buttonActive'}">重置</button>
-            <button class="btn btn-confirm"  v-fb="{cls:'buttonActive'}">确定</button>
+            <button @click='reset' class="btn btn-reset"  v-fb="{cls:'buttonActive'}">重置</button>
+            <button @click='confirmSearch' class="btn btn-confirm"  v-fb="{cls:'buttonActive'}">确定</button>
             <div class="clear"></div>
         </div>
         <div class="search">
@@ -81,7 +81,8 @@
   import OrderListItem from '@/views/components/order-list-item';
   import CategoryItem from '../category';
   import $http from '@/utils/http.js';
-  import bus from '@/components/bus'
+  import bus from '@/components/bus';
+  import tools from '@/utils/tools.js'
   export default {
     components: {
       OrderListItem,CategoryItem
@@ -144,6 +145,7 @@
     },
     mounted(){
       let _this=this;
+      _this.catEvent('')
       bus.$on('useBusEvent',function(id){
           _this.catEvent(id)
          })
@@ -152,6 +154,7 @@
     methods:{
       async getCategory(id){
         let _this=this;
+        let {minPrice,maxPrice,minPv,maxPv}= _this.searchList;
         _this.serviceList=[];
         _this.hasData=false;
         _this.productsale_list_response
@@ -161,7 +164,13 @@
           category:id,
           _currPageNo:_this.currentPage,
           _pageSize:_this.pagecon.page_size,
-          orderType:_this.currentOrderType};
+          orderType:_this.currentOrderType,
+          minPrice:minPrice,
+          maxPrice:maxPrice,
+          minPv:minPv,
+          maxPv:maxPv
+          };
+          tools.deleteKey(_this.searchList, querydata)
         return await this.$api.apiConfig.productSale(
                querydata
             ) 
@@ -245,7 +254,22 @@
       
       onInput(value) {
         this.searchList[this.priceType]+=''+value
-       
+      },
+      confirmSearch(){
+        let _this=this;
+        let id=_this.current_id;
+        
+        _this.categoryHandle(id);
+        _this.show=false;
+      },
+      reset(){
+        _this.pName= '';
+         _this.searchList= {
+             minPrice:'',
+             maxPrice:'',
+             minPv:'',
+             maxPv:''
+          }
       },
       onDelete() {
         this.searchList[this.priceType]=this.searchList[this.priceType].substr(0, this.searchList[this.priceType].length-1);

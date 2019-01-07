@@ -68,9 +68,9 @@ apiConfig.trolley = params => {
 // }
 apiConfig.editTrolley = params => {
   return fetch({
-    url: configPath + '/v2/trolley.html?strAction= trolley_detail_modify',
+    url: configPath + '/v2/trolley.html?strAction=trolley_detail_modify',
     method: 'post',
-    params: params
+    data: params
   });
 };
 //  6用户购物车
