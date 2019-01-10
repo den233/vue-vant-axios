@@ -263,6 +263,7 @@
         _this.show=false;
       },
       reset(){
+        let _this=this;
         _this.pName= '';
          _this.searchList= {
              minPrice:'',

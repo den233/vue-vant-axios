@@ -118,13 +118,19 @@
               _this.hasData = true;
               return false;
             }  
-            _this.orderList = v1 
+            _this.pagecon={
+              total: v1.total,
+              page_size: 10
+            }
+            _this.orderList = v1 ;
           }).catch(e => {
             _this.hasData = true;
           })
       },
-      chagePage(){
-
+      chagePage(val){
+        this.currentPage=val;
+          let _this=this;
+          _this.initData('pagecon');
       },
       searchWuliu(val) {
 
@@ -138,12 +144,13 @@
 
         console.log(val)
         //重消单
+        this.$store.commit('payOrderInfo', val)
         if (val.orderType == 21) {
-          this.$router.push({ name: 'repeatorder', params: val });
+          this.$router.push({ name: 'repeatorder' });
         }
         //激活单
         if (val.orderType == 22) {
-          this.$router.push({ name: 'neworder', params: val });
+          this.$router.push({ name: 'neworder' });
         }
         if (val.orderType == 20) {
 

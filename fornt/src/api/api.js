@@ -125,7 +125,7 @@ apiConfig.oneTmpOrder = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_get',
     method: 'get',
-    data: params
+    params: params
   });
 };
 //  12移除待支付订单
@@ -214,8 +214,8 @@ apiConfig.member_recommendno_get = params => {
 apiConfig.tmporder_czkre_checkout = params => {
   return fetch({
     url: configPath + '/v2/tmpOrder.html?strAction=tmporder_czkre_checkout',
-    method: 'get',
-    params: params
+    method: 'post',
+    data: params
   });
 };
 const apiList = {

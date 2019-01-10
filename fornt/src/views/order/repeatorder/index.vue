@@ -20,13 +20,13 @@
           <van-cell title="期数" @click='pickQshu' is-link arrow-direction="down" :value="qishuValue.name" />
         </van-cell-group>
         <div class="btn-group">
-            <van-button @click='paySubmit(1)' type="warning">确认支付</van-button>
+          <van-button @click='paySubmit(1)' type="warning">确认支付</van-button>
         </div>
-        <van-actionsheet v-model="show" :actions="actions" @select="onSelect"    />
-        <van-actionsheet v-model="showQishu" :actions="qiShu" @select="onSelectQishu"    />
+        <van-actionsheet v-model="show" :actions="actions" @select="onSelect" />
+        <van-actionsheet v-model="showQishu" :actions="qiShu" @select="onSelectQishu" />
       </div>
 
-      
+
       <div class="step4" v-if='active==1'>
         <van-icon name="passed" />
         <p>恭喜支付完成</p>
@@ -36,32 +36,34 @@
     <div class="goods">
       <div class="header">
         商品信息
-        <div style="display:inline-block" class="price">(合计：<span>¥667</span></div>
-        <div style="display:inline-block" class="price">PV：<span>¥667</span>)</div>
+        <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
+        <div style="display:inline-block" class="price">PV：<span>¥{{discountPv}}</span>)</div>
       </div>
-      <van-card tag="标签" desc="描述信息" title="董事长套餐" :thumb="imageURL" num='3'>
-        <div slot='desc'>+++
-          <div class="price">单价：<span>¥667</span></div>
-          <div class="price">PV：<span>¥667</span></div>
+      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
+        :num='item.quantity'>
+        <div slot='desc'>
+          <div class="price">单价：<span>¥ {{item.price}}</span></div>
+          <div class="price">PV：<span> {{item.pv}}</span></div>
         </div>
       </van-card>
     </div>
     <div class="location">
       <van-icon name="location" />
       <div class="address">
-        <div class="name">收货人：ccc</div>
-        <div class="mobile">联系电话：15556688899</div>
-        <div>常熟市，xxxxxxx </div>
+        <div class="name">收货人：{{orderParams.receiverName}}</div>
+        <div class="mobile">联系电话：{{orderParams.receiverMobile}}</div>
+        <div>收货地址：{{orderParams.receiverState}},{{orderParams.receiverCity}},{{orderParams.receiverDistrict}},{{orderParams.receiverAddress}}
+        </div>
       </div>
     </div>
 
     <div class="footer">
-      <span>订单编号：{{footerInfo.orderNum}}</span>
-      <span>创建时间：{{footerInfo.createTime}}</span>
-      <span>创建人编号：{{footerInfo.createdUserCode}}</span>
-      <span>订单类型：{{footerInfo.orderName}}</span>
-      <span>运费：{{footerInfo.total_fee}}</span>
-      <van-button class="copy" style="width:auto" v-clipboard:copy="footerInfo.orderNum" v-clipboard:success="onCopy"
+      <span>订单编号：{{orderParams.orderNumber}}</span>
+      <span>创建时间：{{orderParams.createdTime}}</span>
+      <span>用户编号：{{orderParams.userCode}}</span>
+      <span>订单类型：{{orderType}}</span>
+      <span>运费：¥{{orderParams.total_fee}}</span>
+      <van-button class="copy" style="width:auto" v-clipboard:copy="orderParams.orderNumber" v-clipboard:success="onCopy"
         v-clipboard:error="onError">复制单号 </van-button>
     </div>
     <!-- <van-submit-bar
@@ -81,33 +83,12 @@
         tabactive: 0,
         show: false,
         showQishu: false,
-        qishuValue:{id:0,name:'请选择'},
-        startTime:{id:0,name:'请选择'},
-        payOrderInfo:this.$store.getters.payOrderInfo,
+        qishuValue: { id: 0, name: '请选择' },
+        startTime: { id: 0, name: '请选择' },
+        payOrderInfo: this.$store.getters.payOrderInfo,
         imageURL: 'http://placehold.it/85x85',
-        itemDetail: {
-          id: '11112',
-          userName: '七星广场物业管理处',
-          status: 1,
-          statusName: '待接单',
-          servericeImgUrl: 'http://placehold.it/85x85',
-          imgUrl: 'http://placehold.it/35x35',
-          servericeName:
-            '保安巡逻服务，定岗服务，安全保障保安巡逻服务，定岗服务，安全保障',
-          servericeTime: '2018-07-25 14:00',
-          duration: '2个小时',
-          createOrderTime: '2018-07-24 09:00',
-          count: 2,
-          money: 120
-        },
-        footerInfo: {
-          orderNum: '5555777777777',
-          createTime: '2018-07-24 09:00',
-          createdUserCode: 'ssd447',
-          orderName: '激活单',
-          orderType: '22',
-          total_fee: '556'
-        },
+        itemDetail: [],
+
         venture: '1',//创业基金
         paylist: { userName: '', salesMan: '', serviceMan: '' },
         formItem: {
@@ -123,15 +104,50 @@
         },
         actions: [
         ],
-        qiShu:[]
-
+        qiShu: [],
+        discountPrice: '',
+        discountPv: "",
+        orderParams: {
+          id: 350,
+          orderNumber: "",
+          orderType: "",
+          paid: false,
+          receiverAddress: "",
+          receiverCity: "",
+          receiverDistrict: "",
+          receiverMobile: "",
+          receiverName: "",
+          receiverState: "",
+          totalPrice: "",
+          totalPv: "",
+          userCode: "",
+          createdTime: '',
+          createdUserCode: '',
+          total_fee: '0.00',
+          orderTypeName: ''
+        }
       };
     },
     mounted() {
-       if(this.payOrderInfo== ''){
-         //this.$router.push({path:'/home/entry'})
-       }
-
+      if (this.payOrderInfo == '') {
+        //this.$router.push({path:'/home/entry'})
+      }
+      this.initData();
+      this.initMonth();
+      this.renderQi();
+    },
+    computed: {
+      orderType() {
+        if (this.orderParams.orderType == '21') {
+          return '重消单'
+        }
+        if (this.orderParams.orderType == '22') {
+          return '激活单'
+        }
+        if (this.orderParams.orderType == '23') {
+          return ''
+        }
+      }
     },
     methods: {
       onClickLeft() {
@@ -143,18 +159,54 @@
       onError: function (e) {
         console.log('复制失败！')
       },
-      initData(){
-        let _this=this;
-        let queryData={
-           orderNo:''
+      initData() {
+        let _this = this;
+        let params = _this.payOrderInfo;
+        let orderNo = params['orderNumber'];
+        _this.itemDetail = params['details'];
+        _this.orderParams = {
+          id: params['id'],
+          orderNumber: params['orderNumber'],
+          orderType: params['orderType'],
+          paid: params['paid'],
+          receiverAddress: params['receiverAddress'],
+          receiverCity: params['receiverCity'],
+          receiverDistrict: params['receiverDistrict'],
+          receiverMobile: params['receiverMobile'],
+          receiverName: params['receiverName'],
+          receiverState: params['receiverState'],
+          totalPrice: params['totalPrice'],
+          totalPv: params['totalPv'],
+          userCode: params['userCode'],
+          createdTime: params['createdTime'],
+          createdUserCode: params['createdUserCode'],
         }
-        _this.$api.apiConfig.oneTmpOrder(queryData)
-        .then(data=>{
+        console.log(_this.orderParams)
+        let queryData = {
+          price: _this.orderParams['totalPrice'],
+          orderType: _this.orderParams['orderType'],
+          pv: _this.orderParams['totalPv'],
+        }
+        _this.$api.apiConfig.payment_query(queryData)
+          .then(data => {
+            let bank = data.tmporder_payment_query_response;
+            let len = bank.length;
+            for (var i = 0; i < len; i++) {
+              if (bank[i].bankType == "pv") {
+                _this.discountPv = Number(bank[i].payment).toFixed(2);
+              }
+              if (bank[i].bankType == "amount") {
+                _this.discountPrice = Number(bank[i].payment).toFixed(2);
+              }
+              if (bank[i].bankType == "postfee") {
+                _this.orderParams.total_fee = Number(bank[i].payment).toFixed(2);
+              }
+            }
+          }).catch(e => {
 
-        }).catch(e=>{
-
-        })
+          })
       },
+
       onSubmit() {
 
       },
@@ -166,48 +218,69 @@
         this.paylist.userName = '555'
       },
       paySubmit(id) {
-        this.active = id;
+        let _this=this;
+        let params={
+          "tmporderId": _this.orderParams["id"],
+          "period": _this.qishuValue.id,
+          "repeatStartTime": _this.startTime.id
+        }
+       // console.log(_this.startTime)
+        _this.$api.apiConfig.tmporder_czkre_checkout (params).then(data=>{
+          let v1 = data.tmporder_czkre_checkout_response;
+              var arr = Object.getOwnPropertyNames(v1);
+              if (arr.length == 0) {
+                  _this.Toast.fail(data.msg);
+                  return false;
+              }
+        }).catch(e=>{
+
+        })
+       // this.active = id;
+      },
+      initMonth() {
+        let mothValue = this.getMonth(1);
+        let mothText = this.getMonth(2);
+        for (let i = 0, len = mothText.length; i < len; i++) {
+          this.actions.push(
+            {
+              id: mothValue[i],
+              name: mothText[i]
+            }
+          )
+        }
+
       },
       pickMonth() {
         this.show = true;
-        console.log(this.getMonth(2))
-         var mothValue=this.getMonth(1);
-         var mothText=this.getMonth(2);
-         for(var i=0,len=mothText.length;i<len;i++){
-            this.actions.push(
-              {
-                id:mothValue[i],
-                name:mothText[i]
-              }
-            )
-         }
-        
+        //console.log(this.getMonth(2))
+
+
       },
-      pickQshu(){
-        this.showQishu=true;
-         this.renderQi();
+      pickQshu() {
+        this.showQishu = true;
+
       },
-      renderQi(){
-			  	for(var i=0;i<12;i++){
-			  		var index=i+1
-            var total=(i+1)*30;
-            let name=`购买${index}个月：累计总$PV必须>=${total}PV`;
-			  	 this.qiShu.push({
-             name:name,
-             id:index
-           })
-          }
+      renderQi() {
+        for (var i = 0; i < 12; i++) {
+          var index = i + 1
+          var total = (i + 1) * 30;
+          let name = `购买${index}个月：累计总$PV必须>=${total}PV`;
+          this.qiShu.push({
+            name: name,
+            id: index
+          })
+        }
       },
-      onSelectQishu(item){
-            console.log(item)
-            this.showQishu=false;
-            this.qishuValue=item;
+      onSelectQishu(item) {
+        console.log(item)
+        this.showQishu = false;
+        this.qishuValue = item;
       },
       onSelect(item) {
         // 点击选项时默认不会关闭菜单，可以手动关闭
         this.show = false;
         console.log(item)
-        this.startTime=item;
+        this.startTime = item;
       },
       getMonth(type) {
         var date = new Date();

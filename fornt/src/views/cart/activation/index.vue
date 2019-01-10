@@ -15,7 +15,7 @@
                         <van-checkbox v-model="item.checked" ref="checkbox"></van-checkbox>
                     </div>
                     <div class="imgs">
-                        <img v-lazy="imageURL" alt="">
+                        <img v-lazy="item.imgUrl" alt="">
                     </div>
                     <div class="content">
                         <div class="title">
@@ -137,7 +137,7 @@
                 dataActive: [],
                 active: this.$store.getters.active,
                 orderType: PLATFORM_CONFIG.orderType,
-                currentOrderType: this.$store.getters.payOrderInfo,
+                currentOrderType: this.$store.getters.currentOrderType,
                 pickAll: [],
                 checked: false,
                 show: false,

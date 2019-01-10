@@ -1,7 +1,7 @@
 <template>
   <div class="todayOrder">
      
-    <h6 class="title"> <i class="iconfont1 icon-hot"></i>  <div class='hot'  ><EcIps/></div> <i @click='filter' class="fa fa-filter">{{orderName}}</i> </h6>
+    <h6 class="title"> <i class="iconfont1 icon-hot"></i>  <div class='hot'  > 热门推荐</div> <i @click='filter' class="fa fa-filter">{{orderName}}</i> </h6>
     <OrderHome :data="serviceList.list" ></OrderHome>
     <van-dialog
       v-model="show"

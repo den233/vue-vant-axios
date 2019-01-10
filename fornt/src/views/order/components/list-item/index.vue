@@ -8,9 +8,11 @@
     <div class="desc">
       <img   v-lazy='detail.imgUrl' />
       <div class="right">
-        <h6 class="title van-ellipsis">{{detail.servericeName}}</h6>
-        <span class="titleName"> {{detail.productName}}</span>
-        <span>下单时间：{{detail.createdTime}}</span>
+        <span class='userCode'><b>用户编号：</b>{{detail.userCode}}</span>
+        <span><b>收货人:</b>{{detail.receiverName}}</span>
+        <span><b>收货电话</b>{{detail.receiverMobile}}</span>
+        <span class="address"><b>收货地址：</b>{{detail.receiverState}} {{detail.receiverCity}} {{detail.receiverDistrict}} {{detail.receiverAddress}}</span>
+        <span><b>下单时间：</b>{{detail.createdTime}}</span>
         <span class="money">
           <van-tag v-if='detail.orderType==22' color="#f2826a" plain >激活单</van-tag>
           <van-tag v-if='detail.orderType==21' color="#7232dd"  >重消单</van-tag>
@@ -19,12 +21,12 @@
       </div>
     </div>
     <div class="statistics van-hairline--bottom">
-      PV: <span class="pv">{{detail.totalPv}}</span> 合计：
+      PV: &nbsp<span class="pv">{{detail.totalPv}}</span> 合计：
       <span class="total">
         <i>￥</i>
-        <span>{{detail.totalPrice}}</span>
+        {{detail.totalPrice}} 
       </span>
-      <span class="end-text"> 元(含保险)</span>
+      
     </div>
     
     <div class="tool-bar">
@@ -245,7 +247,7 @@
 
     .desc {
       display: flex;
-      padding: half(23px) $paddingLeftAndRight 0;
+      padding: half(23px) $paddingLeftAndRight half(23px);
 
       .titleName {
         color: #333;
@@ -264,17 +266,29 @@
         color: #bbc0cb;
         flex: 1;
         flex-direction: column;
-
+        position: relative;
         .title {
           max-width: half(474px);
           font-size: half(28px);
           color: $font-color-black;
         }
-
+        span{
+          color:#aba6a6;
+          b{
+            font-weight:normal;
+            color:#333;
+          }
+        }  
         .money {
           align-self: flex-end;
           font-size: half(28px);
           color: $font-color-black;
+          position: absolute;
+          top: 0;
+          right: 0px;
+          span{
+            color:#fff;
+          }
         }
       }
     }

@@ -8,13 +8,13 @@ export default {
   },
   mutations: {
     // 列表类型
-    GOODS_PRODUCTTYPE(state, active) {
+    GOODS_PRODUCTTYPE (state, active) {
       state.goodsProducttype = active;
     },
-    payOrderInfo(state, data) {
+    payOrderInfo (state, data) {
       state.payOrderInfo = data;
     },
-    changeTab(state, data) {
+    changeTab (state, data) {
       state.currentOrderType = data.type;
       state.active = data.index;
     }

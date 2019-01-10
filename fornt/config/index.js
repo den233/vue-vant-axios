@@ -18,6 +18,13 @@ module.exports = {
         //   '^/api': '/'
         // }
       },
+      '/upload': {
+        target: 'http://192.168.120.58:8080',
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': '/'
+        // }
+      },
       '/api': {
         target: 'http://zhixiao.cn',
         changeOrigin: true,
