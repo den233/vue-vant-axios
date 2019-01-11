@@ -29,9 +29,9 @@
          // catArr:[]
       };
     },
-    onShow(){
+    created() {
       let _this=this;
-    console.log(this.catArr)
+    console.log('555')
       _this.getCategory()
    
 

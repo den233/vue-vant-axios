@@ -139,7 +139,7 @@ export default {
       bus.$on('useBusEvent',function(id){
           _this.catEvent(id)
          })
-        console.log(this.$store.getters.currentOrderType)
+         
     },
     methods:{
       getCategory(){
