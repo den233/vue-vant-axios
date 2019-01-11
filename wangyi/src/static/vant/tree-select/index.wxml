@@ -1,5 +1,3 @@
-<wxs src="../wxs/utils.wxs" module="utils" />
-
 <view
   class="van-tree-select"
   style="height: {{ mainHeight }}px"
@@ -8,7 +6,7 @@
     <view
       wx:for="{{ items }}"
       wx:key="index"
-      class="van-ellipsis main-item-class {{ utils.bem('tree-select__nitem', { active: mainActiveIndex === index, disabled: item.disabled }) }} {{ mainActiveIndex === index ? 'main-active-class' : '' }} {{ item.disabled ? 'main-disabled-class' : '' }}"
+      class="van-tree-select__nitem van-ellipsis {{ mainActiveIndex === index ? 'van-tree-select__nitem--active' : '' }}"
       data-index="{{ index }}"
       bind:tap="onClickNav"
     >
@@ -23,15 +21,14 @@
     <view
       wx:for="{{ subItems }}"
       wx:key="item.id"
-      class="van-ellipsis van-hairline--bottom content-item-class {{ utils.bem('tree-select__item', { active: activeId === item.id, disabled: item.disabled }) }} {{ activeId === item.id ? 'content-active-class' : '' }} {{ item.disabled ? 'content-disabled-class' : '' }}"
+      class="van-tree-select__item van-ellipsis {{ activeId === item.id ? 'van-tree-select__item--active' : '' }} {{ item.disabled ? 'van-tree-select__item--disabled' : '' }}"
       data-item="{{ item }}"
       bind:tap="onSelectItem"
     >
       {{ item.text }}
       <van-icon
         wx:if="{{ activeId === item.id }}"
-        name="checked"
-        size="16px"
+        name="success"
         class="van-tree-select__selected"
       />
     </view>

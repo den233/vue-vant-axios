@@ -51,10 +51,11 @@
   },
   "dependencies": {
     "@megalo/vhtml-plugin": "^0.1.2",
+    "axios": "^0.18.0",
+    "flyio": "^0.6.9",
     "megalo": "^0.6.0",
     "megalo-router-patch": "^0.1.5",
     "octoparse": "^0.3.2",
-    "vue-lazyload": "^1.2.6",
-    "vuescroll": "^4.9.0-beta.18"
+    "vant": "^1.5.2"
   }
 }

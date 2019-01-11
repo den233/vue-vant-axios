@@ -1,9 +1,7 @@
-<wxs src="../wxs/utils.wxs" module="utils" />
-
 <button
   id="{{ id }}"
   lang="{{ lang }}"
-  class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, unclickable: disabled || loading }]) }}"
+  class="custom-class {{ classes }}"
   open-type="{{ openType }}"
   session-from="{{ sessionFrom }}"
   app-parameter="{{ appParameter }}"
@@ -20,8 +18,8 @@
 >
   <van-loading
     wx:if="{{ loading }}"
+    size="20px"
     custom-class="loading-class"
-    size="{{ size === 'mini' ? '14px' : '20px' }}"
     color="{{ type === 'default' ? '#c9c9c9' : '' }}"
   />
   <slot wx:else />

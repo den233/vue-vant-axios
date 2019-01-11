@@ -15,9 +15,9 @@ VantComponent({
     }
   },
   props: {
-    max: Number,
     value: Array,
-    disabled: Boolean
+    disabled: Boolean,
+    max: Number
   },
   watch: {
     value: function value(_value) {

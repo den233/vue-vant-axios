@@ -3,8 +3,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VHtmlPlugin from '@megalo/vhtml-plugin'
 import MegaloRouterPatch from 'megalo-router-patch'
-import vuescroll from 'vuescroll';
-import 'vuescroll/dist/vuescroll.css';
+import fly from '@/utils/http'
+Vue.prototype.$fly = fly;
+import api from './api/index.js';
+Vue.use(api);
+// import vuescroll from 'vuescroll';
+// import 'vuescroll/dist/vuescroll.css';
 // Vue.use(VueLazyload, {
 //   preLoad: 1.3,
 //   error: require('./assets/images/err.png'),
@@ -12,15 +16,16 @@ import 'vuescroll/dist/vuescroll.css';
 //   attempt: 5,
 //   listenEvents: ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 // });
-Vue.use(vuescroll);
+// Vue.use(vuescroll);
 Vue.use(MegaloRouterPatch)
 Vue.use(Vuex)
 Vue.use(VHtmlPlugin)
 
 const store = require('./store').default
 Vue.prototype.$store = store
+
 App.mpType = 'app'
-let orderType = [
+let PLATFORM_CONFIG = [
   {
     name: '会员激活',
     path: '/shop/entry',
@@ -40,7 +45,7 @@ let orderType = [
     icon: 'iconfont1 icon-huiyuan1'
   }
 ]
-Vue.prototype.$orderType = orderType;
+Vue.prototype.$PLATFORM_CONFIG = PLATFORM_CONFIG;
 const app = new Vue( App )
 
 app.$mount()
@@ -48,20 +53,18 @@ app.$mount()
 export default {
   config: {
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      backgroundTextStyle: '#fff',
+      navigationBarBackgroundColor: '#42aaf5',
+      navigationBarTitleText: '隆力奇商城',
+      navigationBarTextStyle: '#fff'
+    },
+    "usingComponents": {
+      "van-toast": "/static/vant/toast/index"
     },
     pages: [
-      'pages/index/index',
-      'pages/todomvc/index',
-      'pages/v-model/index',
-      'pages/v-html/index',
-      'pages/vuex/index',
-      'pages/native/index',
-      'pages/webview/index',
-      'pages/img/index'
+      'pages/home/index',
+      'pages/shop/index',
+       
     ],
     subPackages: [
       {
@@ -80,16 +83,36 @@ export default {
        
     ],
    
-    tabBar: {
-      list: [
-        {
-        pagePath: 'pages/index/index',
-        text: '首页'
-        },
-        {
-        pagePath: 'pages/todomvc/index',
-        text: 'todo'
-        }
+    "tabBar": {
+      "backgroundColor": "#fafafa",
+      "borderStyle": "white",
+      "selectedColor": "#42aaf5",
+      "color": "#666",
+      "list": [{
+        "pagePath": "pages/home/index",
+        "iconPath": "static/images/ic_menu_choice_nor.png",
+        "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
+        "text": "首页"
+      },
+      
+      {
+        "pagePath": "pages/shop/index",
+        "iconPath": "static/images/ic_menu_sort_nor.png",
+        "selectedIconPath": "static/images/ic_menu_sort_pressed.png",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/images/ic_menu_shoping_nor.png",
+        "selectedIconPath": "static/images/ic_menu_shoping_pressed.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/images/ic_menu_me_nor.png",
+        "selectedIconPath": "static/images/ic_menu_me_pressed.png",
+        "text": "我的"
+      }
       ]
     },
     _alipay: {

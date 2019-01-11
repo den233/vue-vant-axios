@@ -6,10 +6,9 @@ VantComponent({
   field: true,
   classes: ['input-class', 'plus-class', 'minus-class'],
   props: {
-    value: null,
+    value: Number,
     integer: Boolean,
     disabled: Boolean,
-    asyncChange: Boolean,
     disableInput: Boolean,
     min: {
       type: null,
@@ -34,15 +33,10 @@ VantComponent({
   },
   watch: {
     value: function value(_value) {
-      if (_value !== '') {
-        this.set({
-          value: this.range(_value)
-        });
-      }
+      this.set({
+        value: this.range(_value)
+      });
     }
-  },
-  data: {
-    focus: false
   },
   created: function created() {
     this.set({
@@ -50,11 +44,6 @@ VantComponent({
     });
   },
   methods: {
-    onFocus: function onFocus() {
-      this.setData({
-        focus: true
-      });
-    },
     // limit value range
     range: function range(value) {
       return Math.max(Math.min(this.data.max, value), this.data.min);
@@ -90,7 +79,7 @@ VantComponent({
     },
     triggerInput: function triggerInput(value) {
       this.set({
-        value: this.data.asyncChange ? this.data.value : value
+        value: value
       });
       this.$emit('change', value);
     }

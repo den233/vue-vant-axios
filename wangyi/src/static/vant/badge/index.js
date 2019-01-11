@@ -5,7 +5,7 @@ VantComponent({
     name: 'badge-group'
   },
   props: {
-    info: null,
+    info: Number,
     title: String
   },
   methods: {

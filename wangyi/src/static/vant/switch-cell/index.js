@@ -7,11 +7,9 @@ VantComponent({
     checked: Boolean,
     loading: Boolean,
     disabled: Boolean,
-    activeColor: String,
-    inactiveColor: String,
     size: {
       type: String,
-      value: '24px'
+      value: '26px'
     }
   },
   watch: {

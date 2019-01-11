@@ -11,8 +11,4 @@ function isNumber(value) {
   return /^\d+$/.test(value);
 }
 
-function range(num, min, max) {
-  return Math.min(Math.max(num, min), max);
-}
-
-export { isObj, isDef, isNumber, range };
+export { isObj, isDef, isNumber };

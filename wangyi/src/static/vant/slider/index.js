@@ -4,9 +4,6 @@ VantComponent({
   mixins: [touch],
   props: {
     disabled: Boolean,
-    useButtonSlot: Boolean,
-    activeColor: String,
-    inactiveColor: String,
     max: {
       type: Number,
       value: 100
@@ -72,9 +69,6 @@ VantComponent({
       this.set({
         value: value,
         barStyle: "width: " + value + "%; height: " + this.data.barHeight + ";"
-      });
-      this.$emit('drag', {
-        value: value
       });
 
       if (end) {

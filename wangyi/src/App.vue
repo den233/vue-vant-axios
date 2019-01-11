@@ -1,5 +1,5 @@
 <template>
-  <div>aaxs</div>
+  <div></div>
 </template>
 <style  lang="scss">
     @font-face {
@@ -242,7 +242,7 @@
 .icon-xiugai:before {
   content: "\e601";
 }
-
+ 
 </style>
 <script>
   export default {
