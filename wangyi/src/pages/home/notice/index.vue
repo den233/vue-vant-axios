@@ -50,7 +50,6 @@
             };
         },
         created() {
-            console.log(1)
               this.setInval=setInterval(this.scroll, 3000)
         },
         destroyed() {

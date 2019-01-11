@@ -92,7 +92,7 @@
 </template>
 <style lang="scss" src="./style.scss"></style>
 <script>
-  //  import OrderListItem from './order-list-item';
+  // import OrderListItem from './order-list-item';
    import CategoryItem from './category';
   import $http from '@/utils/http.js';
   import bus from '@/components/bus';
@@ -100,7 +100,8 @@
  
 export default {
     components: {
-     // OrderListItem,CategoryItem
+     // OrderListItem,
+      CategoryItem
     },
     data () {
       return {

@@ -33,9 +33,14 @@
       let _this=this;
     console.log('555')
       _this.getCategory()
-   
-
     },
+      onReady() {
+    console.log('onReady')
+  },
+
+  onShow() {
+    console.log('onShow')
+  },
     methods:{
        getCategory(){
    

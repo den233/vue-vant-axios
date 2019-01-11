@@ -42,7 +42,7 @@ export default {
     };
   },
   mounted(){
-    console.log(this.orderType)
+    //console.log(this.orderType)
   },
   methods:{
     filter(index){

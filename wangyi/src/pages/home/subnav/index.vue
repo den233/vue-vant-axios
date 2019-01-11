@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted(){
-     console.log('nav')
+    // console.log('nav')
   },
   methods:{
       goShop(item,index){
