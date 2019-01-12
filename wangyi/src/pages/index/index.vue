@@ -98,7 +98,7 @@ export default {
   align-items: center;
   justify-content: stretch;
   &__item {
-    padding: 10px;
+    padding: 10rpx;
     color: blue;
   }
 }

@@ -1,11 +1,11 @@
 .category{
-    ul{
-        li{
+    .cat_ul{
+        .cat_li{
             text-align: center;
-            border: 1px solid #eee;
-            padding: 5px 5px;
+            border: 1rpx solid #eee;
+            padding: 10rpx 10rpx;
             position: relative;
-            a{
+            .cat_span{
               color:#333;
               text-decoration: none;
             }
@@ -17,8 +17,8 @@
                 content:'';
                 height:85%;
                 left:0;
-                top:2px;
-                width: 3px;
+                top:2rpx;
+                width: 3rpx;
                 background: #ce2323;
             }
         }

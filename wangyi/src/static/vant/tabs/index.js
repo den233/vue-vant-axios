@@ -144,7 +144,7 @@ VantComponent({
         left += (rect.width - width) / 2;
 
         _this.set({
-          lineStyle: "\n            width: " + width + "px;\n            background-color: " + color + ";\n            -webkit-transform: translateX(" + left + "px);\n            -webkit-transition-duration: " + duration + "s;\n            transform: translateX(" + left + "px);\n            transition-duration: " + duration + "s;\n          "
+          lineStyle: "\n            width: " + width + "rpx;\n            background-color: " + color + ";\n            -webkit-transform: translateX(" + left + "rpx);\n            -webkit-transition-duration: " + duration + "s;\n            transform: translateX(" + left + "rpx);\n            transition-duration: " + duration + "s;\n          "
         });
       });
     },
@@ -160,7 +160,7 @@ VantComponent({
         var width = rect.width;
 
         _this2.set({
-          trackStyle: "\n            width: " + width * _this2.child.length + "px;\n            transform: translateX(" + -1 * active * width + "px);\n            transition-duration: " + duration + "s;\n          "
+          trackStyle: "\n            width: " + width * _this2.child.length + "rpx;\n            transform: translateX(" + -1 * active * width + "rpx);\n            transition-duration: " + duration + "s;\n          "
         });
 
         _this2.setTabsProps({
@@ -257,7 +257,7 @@ VantComponent({
 
       switch (position) {
         case 'top':
-          wrapStyle = "\n            top: " + offsetTop + "px;\n            position: fixed;\n          ";
+          wrapStyle = "\n            top: " + offsetTop + "rpx;\n            position: fixed;\n          ";
           break;
 
         case 'bottom':

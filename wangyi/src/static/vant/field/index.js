@@ -49,7 +49,7 @@ VantComponent({
     },
     titleWidth: {
       type: String,
-      value: '90px',
+      value: '90rpx',
     },
   },
   data: {

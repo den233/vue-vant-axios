@@ -2,17 +2,17 @@
 @import '~@/assets/css/function.scss';
 .todayOrder {
   .title {
-    font-size: half(32px);
+    font-size: half(32rpx);
     color: #333b46;
     font-weight: 500;
     background: #fff;
-    padding: half(28px) half(32px);
-    border-bottom: half(1px) solid #ddd;
+    padding: half(28rpx) half(32rpx);
+    border-bottom: half(1rpx) solid #ddd;
     text-align: left;
     .hot{
       display:inline-block;
-      width:120px;
-      margin-left:5px; 
+      width:120rpx;
+      margin-left:5rpx; 
   
     }
     .fa-filter{
@@ -20,7 +20,7 @@
     }
     .a_link{
       float: right;
-      margin-right: 5px;
+      margin-right: 5rpx;
       text-align: right;
     }
   }
@@ -28,6 +28,6 @@
   .icon-hot{
      color: rgb(253, 10, 1);
      position: relative;
-     top: 0px;
+     top: 0rpx;
   }
 }

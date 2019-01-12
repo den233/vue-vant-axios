@@ -9,7 +9,7 @@
     position:static;
   }
   .van-tabs{
-    font-size: half(28px);
+    font-size: half(28rpx);
       .van-tab--active{
       color: #fc8a04;
     }
@@ -19,29 +19,30 @@
    
     .content{
       display: flex;
-      height:calc(100vh - 210px);
-      margin-bottom:15px;
+    
+      margin-bottom:15rpx;
       .nodata{
         width:100%;
       }
+      .scroll-view{
+        height:calc(100vh - 150rpx);
+      }
       .catlog{
-         width: 20%;
-        flex: 0 0 20%;
-        padding: 0;
+         width: 170rpx;
+       
       }
       .list{
-        flex: 0 0 80%;
-        width: 80%;
+        flex:1
         
       }
     }
   }
   .sortList{
-    margin-bottom: half(16px);
+    margin-bottom: half(16rpx);
     @include clearfix;
-    height: half(120px);
+    height: half(120rpx);
     display:flex;
-    line-height: half(120px);
+    line-height: half(120rpx);
     &-item{
        flex:1;
       text-align: center;
@@ -49,13 +50,13 @@
       position: relative;
       color: #999faa;
       .name{
-        font-size: half(28px);
+        font-size: half(28rpx);
         float: left;
       }
       .search{
         position: absolute;
-        top: half(54px);
-        left: half(120px);
+        top: half(54rpx);
+        left: half(120rpx);
       }
       &.is-active{
         color: #fc8a04;
@@ -66,7 +67,7 @@
     }
     .price{
       .search{
-        top: half(48px);
+        top: half(48rpx);
       }
     }
   }
@@ -75,28 +76,28 @@
       height: 80%;
       
      .buttons{
-       padding-top: 20px;
-       padding-bottom:15px;
+       padding-top: 20rpx;
+       padding-bottom:15rpx;
        .btn{
-          width: 100px;
-          height: 30px;
-          line-height: 30px;
-          border-radius: 4px;
+          width: 100rpx;
+          height: 30rpx;
+          line-height: 30rpx;
+          border-radius: 4rpx;
           float: left;
-          margin-left: 10px;
+          margin-left: 10rpx;
        }
       
        .btn-reset{
          background: #fff;
          border: none;
-         border: 1px solid #eee;
+         border: 1rpx solid #eee;
        }
        .btn-confirm{
         background: #1989fa;
         border: none;
         color: #fff;
         float: right;
-        margin-right: 10px;
+        margin-right: 10rpx;
        }
       //  .buttonActive{
       //   background: #fa8d19;
@@ -123,11 +124,11 @@
         content: "";
         display: block;
         position: absolute;
-        //扩大伪类元素4个方向各10px
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
+        //扩大伪类元素4个方向各10rpx
+        top: -10rpx;
+        left: -10rpx;
+        right: -10rpx;
+        bottom: -10rpx;
         pointer-events: none;
         background-repeat: no-repeat;
         background-position: 50%;
@@ -148,12 +149,12 @@
   
      }
      .search{
-       padding-left: 10px;
-       padding-right: 10px;
+       padding-left: 10rpx;
+       padding-right: 10rpx;
        .item{
-          margin-bottom:10px;
+          margin-bottom:10rpx;
          .title{
-           font-size: 14px;
+           font-size: 14rpx;
          }
           
        }

@@ -18,7 +18,7 @@
 >
   <van-loading
     wx:if="{{ loading }}"
-    size="20px"
+    size="20rpx"
     custom-class="loading-class"
     color="{{ type === 'default' ? '#c9c9c9' : '' }}"
   />

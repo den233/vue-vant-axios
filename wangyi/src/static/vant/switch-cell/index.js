@@ -9,7 +9,7 @@ VantComponent({
     disabled: Boolean,
     size: {
       type: String,
-      value: '26px'
+      value: '26rpx'
     }
   },
   watch: {

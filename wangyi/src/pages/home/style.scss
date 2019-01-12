@@ -7,48 +7,48 @@
     top: 0;
     left: 0;
     right: 0;
-    height: half(80px);
-    padding: 0 half(16px);
+    height: half(80rpx);
+    padding: 0 half(16rpx);
     z-index: 999;
     @include clearfix;
     .selectbox{
       float: left;
-      margin-right: half(32px);
+      margin-right: half(32rpx);
       position: relative;
       color: #fff;
       height: 100%;
-      line-height: half(80px);
+      line-height: half(80rpx);
       .label{
-        max-width: half(180px);
-        margin-right: half(10px);
+        max-width: half(180rpx);
+        margin-right: half(10rpx);
         @include omit;
-        font-size: half(26px);
+        font-size: half(26rpx);
         float: left;
       }
     }
     .inputbox{
-      width: half(580px);
+      width: half(580rpx);
       position: absolute;
-      right: half(80px);
-      top: half(10px);
+      right: half(80rpx);
+      top: half(10rpx);
     }
   }
 }
 .vueBox {
-    margin-bottom:16rpx;
-    border-bottom:1px #eee solid;
-    padding-bottom:8px;
+    margin-bottom:16rrpx;
+    border-bottom:1rpx #eee solid;
+    padding-bottom:8rpx;
     
   i {
       color: #1296DB;
-      font-size: half(30px);
+      font-size: half(30rpx);
       float: left;
-      margin-top: 0px;
+      margin-top: 0rpx;
       vertical-align: middle;
   }
   .marquee {
       width: 100%;
-      height: 40px;
+      height: 40rpx;
       align-items: center;
       color: #3A3A3A;
       background-color: #fff;
@@ -56,20 +56,20 @@
       box-sizing: border-box;
   }
   .marquee_title {
-      padding: 0 10px;
-      height: 40px;
+      padding: 0 10rpx;
+      height: 40rpx;
       /*关键样式*/
-      font-size: half(30px);
-      line-height: 40px;
-      border-right: 1px solid #d8d8d8;
+      font-size: half(30rpx);
+      line-height: 40rpx;
+      border-right: 1rpx solid #d8d8d8;
       align-items: center;
   }
   .marquee_box {
       display: block;
       position: relative;
       width: 60%;
-      height: 30px;
-      margin-left:10px;
+      height: 30rpx;
+      margin-left:10rpx;
       /*关键样式*/
       overflow: hidden;
   }
@@ -85,13 +85,13 @@
   /*关键样式*/
   .marquee_list {
     .marquee_list_li {
-        height: 30px;
+        height: 30rpx;
         /*关键样式*/
-        line-height: 30px;
+        line-height: 30rpx;
         /*关键样式*/
-        font-size:13px;
+        font-size:13rpx;
         .span {
-           padding: 0 2px;
+           padding: 0 2rpx;
            color: #5f6161;
         }
     }
@@ -101,6 +101,6 @@
   }
   .anim {
     transition: all 0.5s;
-    margin-top: -80px;
+    margin-top: -80rpx;
   }
 }

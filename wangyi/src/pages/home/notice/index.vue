@@ -25,7 +25,7 @@
             return {
                 animate: false,
                 setInval: "",
-                marginTop:'0px',
+                marginTop:'0rpx',
                 marqueeList: [{
                     name: '隆力奇护手霜1折',
                 },

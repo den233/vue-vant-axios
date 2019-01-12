@@ -3,7 +3,7 @@ VantComponent({
   props: {
     size: {
       type: String,
-      value: '30px'
+      value: '30rpx'
     },
     type: {
       type: String,

@@ -1,0 +1,75 @@
+@import '~@/assets/css/mixin.scss';
+@import '~@/assets/css/function.scss';
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+  &-item {
+    overflow: hidden;
+    position: relative;
+    flex:0 0 50%;
+    width:50%;
+    &:last-child {
+      border: 0;
+    }
+    .inner{
+      position: relative;
+      margin: 2.5px;
+      padding: 10px 5px 15px;
+      background-color: #fff;
+      border-radius: 5px;
+      .imgs {
+        background: #fff;
+        text-align: center;
+        .imagesLazy{
+          width: half(200px);
+          height: half(200px);
+        }
+      }
+      .van-stepper{
+        margin-top:20px;
+        float:left;
+      }
+      .add_cart{
+        margin-top:20px;
+        float:left;
+        margin-left:15px;
+      }
+      .cart_icon{
+        margin-top: 20px;
+        margin-left: 10px;
+        color: #fc8a04;
+        font-size: 20px;
+        position:absolute;
+        right:15px;
+        bottom:16px;
+      }
+    }
+   
+    .info {
+      margin: half(15px) 0 half(8px) 0;
+      .label {
+        font-size: half(28px);
+        margin-bottom: half(20px);
+        color: #333b46;
+        height: half(30px);
+        line-height: half(30px);
+        @include omit;
+        
+      }
+      .desc {
+        color: #bbc0cb;
+        font-size: half(24px);
+        @include omit;
+        line-height: half(26px);
+        margin-bottom: half(8px);
+      }
+      .price {
+        color: #fc8a04;
+        font-size: half(20px);
+        .total {
+          font-size: half(40px);
+        }
+      }
+    }
+  }
+}

@@ -32,13 +32,13 @@ export default {
 
 <style lang="less" scoped>
   .app {
-    font-size: 29px;
+    font-size: 29rpx;
   }
   .textarea,
   .input {
-    border: 1px solid #e5e5e5;
+    border: 1rpx solid #e5e5e5;
   }
   .textarea {
-    height: 100px;
+    height: 100rpx;
   }
 </style>

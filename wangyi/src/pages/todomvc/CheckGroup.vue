@@ -35,15 +35,15 @@ export default {
   .m-checkgroup {
     &__item {
       display: inline-block;
-      height: 20px;
-      padding: 0 6px;
-      margin: 0 6px 0 0;
+      height: 20rpx;
+      padding: 0 6rpx;
+      margin: 0 6rpx 0 0;
       color: inherit;
-      margin: 3px;
-      padding: 3px 7px;
+      margin: 3rpx;
+      padding: 3rpx 7rpx;
       text-decoration: none;
-      border: 1px solid transparent;
-      border-radius: 3px;
+      border: 1rpx solid transparent;
+      border-radius: 3rpx;
     }
     &__item.z-checked {
       border-color: rgba(175, 47, 47, 0.2);

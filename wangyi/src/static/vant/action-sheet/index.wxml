@@ -28,7 +28,7 @@
       {{ item.name }}
       <text wx:if="{{ item.subname }}" class="van-action-sheet__subname" >{{ item.subname }}</text>
     </block>
-    <van-loading wx:else size="20px" />
+    <van-loading wx:else size="20rpx" />
   </button>
   <view
     wx:if="{{ cancelText }}"

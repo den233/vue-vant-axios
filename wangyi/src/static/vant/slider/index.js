@@ -22,7 +22,7 @@ VantComponent({
     },
     barHeight: {
       type: String,
-      value: '2px'
+      value: '2rpx'
     }
   },
   watch: {

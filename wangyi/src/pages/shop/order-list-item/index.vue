@@ -1,27 +1,30 @@
 <template>
-  <ul class="lists">
-    <li class="lists-item" v-for="(item,index) in data" :key="index">
-      <router-link :to="{path:'/service/details'}" tag="div" style="display:flex">
-        <div class="imgs">
-          <img v-lazy="item.imgUrl" alt="">
-        </div>
-        <div class="info">
-          <h6 class="label">{{item.productName}}</h6>
-          <p class="desc">pv：{{item.pv}}</p>
-          <p class="price">￥
-            <span class="total">{{item.price}}</span>
-          </p>
-        </div>
-      </router-link>
-      <van-stepper integer :min="1" :step="1" v-model='item.number' @change='changeNum()' />
-      <van-button class="add_cart" size="small" type="danger" @click='addCart(item.id,item.number)'>加入购物车</van-button>
-    </li>
-  </ul>
+  <div>
+      <ul class="lists">
+          <li class="lists-item" v-for="(item,index) in data" :key="index">
+            <router-link :to="{path:'/service/details'}" tag="div" style="display:flex">
+              <div class="imgs">
+                <img class="img" :src="item.imgUrl" alt="">
+              </div>
+              <div class="info">
+                <h6 class="label">{{item.productName}}</h6>
+                <p class="desc">pv：{{item.pv}}</p>
+                <p class="price">￥
+                  <span class="total">{{item.price}}</span>
+                </p>
+              </div>
+            </router-link>
+            <van-stepper class="van-stepper" integer :min="1" :step="1" :value='item.number' @change='changeNum()' />
+            <van-button class="add_cart" size="small" type="warning" @click='addCart(item.id,item.number)'>加入购物车</van-button>
+          </li>
+        </ul>
+      <van-toast id="van-toast" />
+  </div>
+  
 </template>
 <script>
 
-  import { Toast } from 'vant';
-  Vue.use(Toast);
+  import Toast from '@/static/vant/toast/toast';
   import bus from '@/components/bus';
   export default {
     props: {
@@ -69,10 +72,10 @@
             Toast.fail(data.msg);
             return false;
           }
-
           Toast.success('成功');
+          
         }).catch(e => {
-          Toast.fail('失败了');
+          Toast.fail("添加失败");
         })
         // this.$http.post(
         //     '/api/addcart',{id:id,number:number,category_id:_this.category_id}
@@ -90,4 +93,4 @@
     }
   };
 </script>
-<style lang="scss" scoped src="./style.scss"></style>
+<style lang="scss"   src="./style.scss"></style>

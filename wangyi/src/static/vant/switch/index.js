@@ -10,7 +10,7 @@ VantComponent({
     inactiveColor: String,
     size: {
       type: String,
-      value: '30px'
+      value: '30rpx'
     }
   },
   watch: {

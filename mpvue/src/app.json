@@ -1,0 +1,48 @@
+{
+  "window": {
+    "backgroundTextStyle": "#fff",
+    "navigationBarBackgroundColor": "#42aaf5",
+    "navigationBarTitleText": "隆力奇商城",
+    "navigationBarTextStyle": "#fff"
+  },
+  "usingComponents": {
+    "van-toast": "/static/vant/toast/index"
+  },
+  "pages": [
+    "pages/home/main",
+    "pages/shop/main" 
+  ] ,
+ 
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#42aaf5",
+    "color": "#666",
+    "list": [{
+      "pagePath": "pages/home/main",
+      "iconPath": "static/images/ic_menu_choice_nor.png",
+      "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
+      "text": "首页"
+    },
+    
+    {
+      "pagePath": "pages/shop/main",
+      "iconPath": "static/images/ic_menu_sort_nor.png",
+      "selectedIconPath": "static/images/ic_menu_sort_pressed.png",
+      "text": "商城"
+    },
+    {
+      "pagePath": "pages/home/main",
+      "iconPath": "static/images/ic_menu_shoping_nor.png",
+      "selectedIconPath": "static/images/ic_menu_shoping_pressed.png",
+      "text": "购物车"
+    },
+    {
+      "pagePath": "pages/home/main",
+      "iconPath": "static/images/ic_menu_me_nor.png",
+      "selectedIconPath": "static/images/ic_menu_me_pressed.png",
+      "text": "我的"
+    }
+    ]
+  }
+}

@@ -29,6 +29,6 @@ export default {
 
 <style lang="less">
 .pic {
-  width: 750rpx;
+  width: 750rrpx;
 }
 </style>

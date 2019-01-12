@@ -25,7 +25,7 @@ VantComponent({
       var _this = this;
 
       var gutter = this.data.gutter;
-      var margin = "-" + Number(gutter) / 2 + "px";
+      var margin = "-" + Number(gutter) / 2 + "rpx";
       var style = gutter ? "margin-right: " + margin + "; margin-left: " + margin + ";" : '';
       this.set({
         style: style

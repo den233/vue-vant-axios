@@ -13,7 +13,7 @@
 }
 .fa {
   display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal normal 14rpx/1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -1975,7 +1975,7 @@
 .fa-contao:before {
   content: "\f26d";
 }
-.fa-500px:before {
+.fa-500rpx:before {
   content: "\f26e";
 }
 .fa-amazon:before {
@@ -2318,10 +2318,10 @@
 }
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 1rpx;
+  height: 1rpx;
   padding: 0;
-  margin: -1px;
+  margin: -1rpx;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;

@@ -166,13 +166,13 @@ export default {
 </script>
 
 <style lang="less">
-@width: 700rpx;
-@height: 40px;
+@width: 700rrpx;
+@height: 40rpx;
 
 @font-face {font-family: "iconfont";
   src: url('//at.alicdn.com/t/font_638465_eirun4q043jl9pb9.eot?t=1524388336299'); /* IE9*/
   src: url('//at.alicdn.com/t/font_638465_eirun4q043jl9pb9.eot?t=1524388336299#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
+  url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
   url('//at.alicdn.com/t/font_638465_eirun4q043jl9pb9.ttf?t=1524388336299') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
   url('//at.alicdn.com/t/font_638465_eirun4q043jl9pb9.svg?t=1524388336299#iconfont') format('svg'); /* iOS 4.1- */
 }
@@ -192,13 +192,13 @@ export default {
 
 .todo-wrap {
   width: @width;
-  margin-left: (750rpx - @width)/2;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  margin-left: (750rrpx - @width)/2;
+  box-shadow: 0 2rpx 4rpx 0 rgba(0, 0, 0, 0.2), 0 25rpx 50rpx 0 rgba(0, 0, 0, 0.1);
 }
 
 .title {
   width: @width;
-  font-size: 100rpx;
+  font-size: 100rrpx;
   font-weight: 100;
   text-align: center;
   color: rgba(175, 47, 47, 0.15);
@@ -210,19 +210,19 @@ export default {
   margin: 0;
   width: @width;
   height: @height;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 18rpx;
+  line-height: 18rpx;
   border: 0;
   outline: none;
   color: inherit;
-  box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+  box-shadow: inset 0 -2rpx 1rpx rgba(0,0,0,0.03);
   box-sizing: border-box;
 
   &__checkbox {
     width: @height;
     height: @height;
     line-height: @height;
-    font-size: 22px;
+    font-size: 22rpx;
     color: #e6e6e6;
     text-align: center;
     &.z-show {
@@ -232,10 +232,10 @@ export default {
 
   &__input {
     flex: 1;
-    height: @height - 12px;
-    line-height: @height - 12px;
-    padding: 6px;
-    font-size: 12px;
+    height: @height - 12rpx;
+    line-height: @height - 12rpx;
+    padding: 6rpx;
+    font-size: 12rpx;
   }
 }
 
@@ -251,7 +251,7 @@ export default {
     height: @height;
     line-height: @height;
     text-align: center;
-    font-size: 22px;
+    font-size: 22rpx;
     &::before {
       color: #ddd;
       content: "\e64a";
@@ -261,15 +261,15 @@ export default {
   &__msg {
     flex: 1;
     line-height: @height;
-    font-size: 18px;
+    font-size: 18rpx;
     word-break: break-all;
     transition: color 0.4s;
   }
 
   &__remove {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 12rpx;
+    right: 12rpx;
     color: #757575;
   }
 
@@ -288,12 +288,12 @@ export default {
 
 .toolbar {
   color: #777;
-  padding: 10px 15px 30px;
+  padding: 10rpx 15rpx 30rpx;
   text-align: center;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1rpx solid #e6e6e6;
 
   &__label {
-    font-size: 12px;
+    font-size: 12rpx;
     float: left;
     text-align: left;
   }

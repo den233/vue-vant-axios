@@ -19,7 +19,7 @@
     input-class="input-class"
     placeholder="{{ placeholder }}"
     placeholder-style="{{ placeholderStyle }}"
-    custom-style="padding: 3px 10px"
+    custom-style="padding: 3rpx 10rpx"
     bind:blur="onBlur"
     bind:focus="onFocus"
     bind:change="onChange"

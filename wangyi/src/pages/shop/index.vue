@@ -7,7 +7,7 @@
       </div>
     </van-nav-bar>
     <div class="van-tabs van-tabs--line">
-      <van-tabs v-model="active" @click='tabClick'>
+      <van-tabs :active="active" @click='tabClick'>
         <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
       </van-tabs>
       <div class="van-tabs__content">
@@ -16,11 +16,10 @@
 
           <div class="catlog">
               <scroll-view
+              class="scroll-view"
               scroll-y
-              style="height: 200px;"
-               
             > 
-            <CategoryItem @useBusEvent="catEvent" :catArr="catArr"></CategoryItem>
+            <CategoryItem @useBusEvent="catEvent"></CategoryItem>
             </scroll-view>
             <!-- <vue-scroll ref="vs" :ops="ops">
                <CategoryItem @useBusEvent="catEvent"></CategoryItem>
@@ -28,17 +27,24 @@
           </div>
 
           <div class="list">
-            <!-- <vue-scroll ref="vs" :ops="ops">
+              <scroll-view
+              class="scroll-view"
+              scroll-y
+            > 
               <OrderListItem :currentOrderType="currentOrderType" :data="serviceList"></OrderListItem>
               <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
-            </vue-scroll> -->
+            </scroll-view>
 
           </div>
 
 
         </div>
-
-        <van-pagination v-model="currentPage" :total-items=pagecon.total :show-page-size='5' force-ellipses @change='chagePage' />
+      
+        <i-page :current="currentPage" :total="pagecon.total" @change="chagePage">
+            <div slot="prev">上一页</div>
+            <div slot="next">下一页</div>
+        </i-page>
+     
       </div>
     </div>
     <van-popup :show="show" position="bottom" :overlay="true">
@@ -51,10 +57,11 @@
         <div class="item">
              
           <van-cell-group>
-              <van-field label="产品名" :value="pName" placeholder="请输入产品名" />
+              <van-field  @change='changeName' label="产品名" :value="pName" placeholder="请输入产品名" />
               <van-field
                 type="number"
-                :value="searchList.minPrice"
+                 :value="searchList.minPrice"
+                 @change='changePriceMin'
                 label="价格区间"
                 placeholder="最小价格"
                
@@ -64,6 +71,7 @@
                 :value="searchList.maxPrice"
                 label=" -"
                 placeholder="最大价格"
+                @change='changePriceMax'
               />
             </van-cell-group>
             <van-cell-group>
@@ -73,13 +81,14 @@
                   :value="searchList.minPv"
                   label="积分区间"
                   placeholder="最小pv"
-                 
+                  @change='changePvMin'
                 />
                 <van-field
                  type="number"
                   :value="searchList.maxPv"
                   label=" -"
                   placeholder="最大pv"
+                  @change='changePvMax'
                 />
               </van-cell-group>
         </div>
@@ -92,15 +101,15 @@
 </template>
 <style lang="scss" src="./style.scss"></style>
 <script>
-  // import OrderListItem from './order-list-item';
+    import OrderListItem from './order-list-item';
    import CategoryItem from './category';
-  import $http from '@/utils/http.js';
+
   import bus from '@/components/bus';
-  import tools from '@/utils/tools.js'
+  import {deleteKey} from '@/utils/tools.js'
  
 export default {
     components: {
-     // OrderListItem,
+      OrderListItem,
       CategoryItem
     },
     data () {
@@ -133,12 +142,12 @@ export default {
           }
       };
     },
-    onShow(){
+    mounted(){
        let _this=this;
-      _this.catEvent("")
-      _this.getCategory()
+       _this.catEvent("")
+    //  // _this.getCategory()
       bus.$on('useBusEvent',function(id){
-          _this.catEvent(id)
+           _this.catEvent(id)
          })
          
     },
@@ -161,10 +170,11 @@ export default {
       async getGoodsList(id){
         let _this=this;
         let {minPrice,maxPrice,minPv,maxPv}= _this.searchList;
+        console.log(_this.searchList)
         _this.serviceList=[];
         _this.hasData=false;
-      
-        let querydata=  {
+        let querydata={};
+          querydata=  {
           productName:_this.pName,
           category:id,
           _currPageNo:_this.currentPage,
@@ -174,17 +184,18 @@ export default {
           maxPrice:maxPrice,
           minPv:minPv,
           maxPv:maxPv
-          };
-          tools.deleteKey(_this.searchList, querydata)
-        return await this.$api.apiConfig.productSale(
+          }; 
+          
+          querydata=deleteKey(_this.searchList, JSON.stringify(querydata));
+       
+          return await _this.$api.apiConfig.productSale(
                querydata
             ) 
       },
      async categoryHandle(id){
          let _this=this;
-       
          let v1= await  _this.getGoodsList(id);
-         v1=v1.productsale_list_response;
+           v1=v1.productsale_list_response;
          var arr = Object.getOwnPropertyNames(v1);
          if(arr.length==0){
            this.hasData=true
@@ -206,23 +217,24 @@ export default {
           }
         });
         _this.current_id=id;
-        _this.pagecon={
-          total:v1.total,
-          page_size:10
-        }
+         _this.pagecon.total=v1.total;
       },
-      async catEvent(id){
+       catEvent(id){
         let _this=this;
-        _this.pagecon={
-          total:0,
-          page_size:10
-        }
-        _this.currentPage=1;
-        _this.categoryHandle(id)
+        _this.pagecon.total=0;
+         _this.currentPage=1;
+         _this.categoryHandle(id)
       },
       //分页
-        chagePage(val){
-          this.currentPage=val;
+        chagePage({ detail }){
+          const type = detail.type;
+     
+          if (type === 'next') {
+             this.currentPage=this.currentPage + 1;
+          } else if (type === 'prev') {
+            this.currentPage=this.currentPage - 1;
+          }
+      
           let _this=this;
           let id=_this.current_id;
           _this.categoryHandle(id);
@@ -230,7 +242,8 @@ export default {
       //切换订单类型
       tabClick(index){
         let _this=this;
-        _this.currentOrderType=_this.orderType[index].type;
+        console.log(index)
+        _this.currentOrderType=_this.orderType[_this.active].type;
         _this.pagecon={
           total:0,
           page_size:10
@@ -238,7 +251,7 @@ export default {
         let id=_this.current_id;
         _this.currentPage=1;
         _this.categoryHandle(id)
-        _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
+       // _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
       },
       //筛选
       pickType(){
@@ -263,7 +276,6 @@ export default {
       confirmSearch(){
         let _this=this;
         let id=_this.current_id;
-        
         _this.categoryHandle(id);
         _this.show=false;
       },
@@ -276,6 +288,21 @@ export default {
              minPv:'',
              maxPv:''
           }
+      },
+      changeName({detail}){
+        this.pName=detail
+      },
+      changePriceMin({detail}){
+        this.searchList.minPrice=detail
+      },
+      changePriceMaxn({detail}){
+        this.searchList.maxPrice=detail
+      },
+      changePvMin({detail}){
+        this.searchList.minPv=detail
+      },
+      changePvMax({detail}){
+        this.searchList.maxPv=detail
       },
       onDelete() {
         this.searchList[this.priceType]=this.searchList[this.priceType].substr(0, this.searchList[this.priceType].length-1);

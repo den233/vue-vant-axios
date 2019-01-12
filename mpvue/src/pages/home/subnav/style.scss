@@ -1,0 +1,46 @@
+@import '~@/assets/css/mixin.scss';
+@import '~@/assets/css/function.scss';
+
+.subnav{
+  margin-bottom: half(16px);
+  border-bottom:1px solid #eee;
+  .nav{
+    @include clearfix;
+    background: #fff;
+    padding: half(30px) 0 half(15px);
+    &-item{
+      float: left;
+      width: 33%;
+      margin-bottom: 16px;
+      text-align: center;
+      .iconfont1{
+        font-size:40px;
+      }
+      .icon-jiating{
+        color: #8e9ee6;
+      }
+      .icon-dingdan {
+        color: #43d1f5;
+      }
+      .icon-huiyuan1 {
+          color: #43f5a2;
+      }
+      .icon-dingdan1 {
+          color: #43f5a2;
+      }
+      .icon{
+        height: half(88px);
+        width: half(88px);
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+      }
+      .label{
+        margin-top: half(8px);
+        font-size: half(22px);
+        color: #333b46;
+        line-height: half(18px);
+      }
+    }
+  }
+}

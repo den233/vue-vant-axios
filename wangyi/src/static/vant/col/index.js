@@ -24,7 +24,7 @@ VantComponent({
   },
   methods: {
     setGutter: function setGutter(gutter) {
-      var padding = gutter / 2 + "px";
+      var padding = gutter / 2 + "rpx";
       var style = gutter ? "padding-left: " + padding + "; padding-right: " + padding + ";" : '';
 
       if (style !== this.data.style) {

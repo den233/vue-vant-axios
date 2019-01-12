@@ -4,7 +4,7 @@
       wx:for="{{ steps }}"
       wx:key="index"
       class="van-step van-hairline van-step--{{ direction }} {{ item.status ? 'van-step--' + item.status : '' }}"
-      style="{{ width ? 'width:' + width + 'px' : '' }}"
+      style="{{ width ? 'width:' + width + 'rpx' : '' }}"
     >
       <view class="van-step__title" style="{{ item.status === 'process' ? 'color: ' + activeColor : '' }}">
         <view>{{ item.text }}</view>
