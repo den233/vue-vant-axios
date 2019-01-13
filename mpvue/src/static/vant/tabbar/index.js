@@ -31,38 +31,22 @@ VantComponent({
     zIndex: {
       type: Number,
       value: 1
-    },
-    safeAreaInsetBottom: {
-      type: Boolean,
-      value: true
     }
   },
   data: {
     items: [],
     currentActive: -1
   },
-  computed: {
-    tabbarClass: function tabbarClass() {
-      var _this$data = this.data,
-          fixed = _this$data.fixed,
-          isIPhoneX = _this$data.isIPhoneX,
-          safeAreaInsetBottom = _this$data.safeAreaInsetBottom;
-      return this.classNames('custom-class', 'van-tabbar', 'van-hairline--top-bottom', {
-        'van-tabbar--fixed': fixed,
-        'van-tabbar--safe': isIPhoneX && safeAreaInsetBottom
-      });
-    }
-  },
   watch: {
     active: function active(_active) {
-      this.set({
+      this.setData({
         currentActive: _active
       });
       this.setActiveItem();
     }
   },
   created: function created() {
-    this.set({
+    this.setData({
       currentActive: this.data.active
     });
   },
@@ -79,7 +63,7 @@ VantComponent({
 
       if (active !== this.data.currentActive && active !== -1) {
         this.$emit('change', active);
-        this.set({
+        this.setData({
           currentActive: active
         });
         this.setActiveItem();

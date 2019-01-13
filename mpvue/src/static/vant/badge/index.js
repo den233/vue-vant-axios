@@ -17,7 +17,7 @@ VantComponent({
       }
     },
     setActive: function setActive(active) {
-      this.set({
+      this.setData({
         active: active
       });
     }

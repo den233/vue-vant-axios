@@ -10,16 +10,17 @@ VantComponent({
   },
   data: {
     inited: false,
-    active: false,
-    animated: false,
-    width: null
+    active: false
   },
   watch: {
-    title: 'update',
-    disabled: 'update'
-  },
-  methods: {
-    update: function update() {
+    disabled: function disabled() {
+      var parent = this.getRelationNodes('../tabs/index')[0];
+
+      if (parent) {
+        parent.updateTabs();
+      }
+    },
+    title: function title() {
       var parent = this.getRelationNodes('../tabs/index')[0];
 
       if (parent) {

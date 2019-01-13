@@ -15,14 +15,14 @@ VantComponent({
   },
   watch: {
     checked: function checked(value) {
-      this.set({
+      this.setData({
         value: value
       });
     }
   },
   computed: {
     classes: function classes() {
-      return this.classNames('van-switch', {
+      return this.classNames('custom-class', 'van-switch', {
         'van-switch--on': this.data.checked,
         'van-switch--disabled': this.data.disabled
       });
@@ -33,7 +33,7 @@ VantComponent({
     }
   },
   created: function created() {
-    this.set({
+    this.setData({
       value: this.data.checked
     });
   },

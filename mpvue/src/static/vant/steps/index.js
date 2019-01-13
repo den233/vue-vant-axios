@@ -29,7 +29,7 @@ VantComponent({
       steps.forEach(function (step, index) {
         step.status = _this.getStatus(index);
       });
-      this.set({
+      this.setData({
         steps: steps
       });
     },

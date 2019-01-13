@@ -1,0 +1,108 @@
+.cart{
+    .van-submit-bar{
+        z-index: 100;
+        bottom:60px;
+        .all-label{
+            padding-left: 5px;
+            .price_submit{
+                padding-left:10px;
+                font-size:15px;
+                float: right;
+                b{
+                    font-size:13px; 
+                    color: #f10303;
+                }
+            }
+           
+        }
+        .van-submit-bar__text{
+            display: none;
+        }
+       .van-button {
+            position: absolute;
+            right: 0;
+       }   
+    }
+    .van-popup--right{
+        width:100%;
+        height:100%;
+    }
+    .cartList{
+          height:calc(100vh - 200px);
+          .cart-item{
+              display:flex;
+               flex-wrap: wrap;
+               height: 120px;
+               padding: 10px;
+               position: relative;
+               margin-bottom: 5px;
+               background: #fff;
+            .van-checkbox{
+                position: absolute;
+                left: 5px;
+                top: 20px
+            }
+            .imgs{
+                position: absolute;
+                left:30px;
+                width: 100px;
+                height: 100px;
+                img{
+                    width: 100%;
+                }
+            }
+            .content{
+                display: flex;
+                margin-left: 140px;
+                width: calc(100% - 150px);
+                font-size: 14px;
+                .title{
+                    flex: 1;
+                    max-height: 45px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                }
+                .price{
+                    text-align: right;
+                    flex: 1;
+                    color: #f10303;
+                    padding-right: 5px;
+                }
+            }
+            .van-stepper{
+                position: absolute;
+                bottom: 15px;
+                right: 20px;
+            }
+          }
+          .orderInfo{
+            margin-bottom: 5px;
+            padding:10px;
+          }
+      }
+      .orderInfo{
+          padding:0 20px;
+          background: #fff;
+          font-size: 13px;
+          h2{
+              font-size:18px;
+              span{
+                  font-size: 14px;
+                  i{
+                    color:#f44; 
+                  }
+              }
+          }
+          .leabel{
+             display:inline-block;  
+             color: #999;
+          }
+          .number{
+            display:inline-block;  
+            color:#f44;
+          }
+      }
+}

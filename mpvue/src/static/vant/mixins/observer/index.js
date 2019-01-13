@@ -3,7 +3,6 @@ import { observeProps } from './props';
 export function observe(vantOptions, options) {
   var watch = vantOptions.watch,
       computed = vantOptions.computed;
-  options.behaviors.push(behavior);
 
   if (watch) {
     var props = options.properties || {};
@@ -25,6 +24,7 @@ export function observe(vantOptions, options) {
   }
 
   if (computed) {
+    options.behaviors.push(behavior);
     options.methods = options.methods || {};
 
     options.methods.$options = function () {

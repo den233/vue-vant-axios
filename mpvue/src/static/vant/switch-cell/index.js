@@ -14,13 +14,13 @@ VantComponent({
   },
   watch: {
     checked: function checked(value) {
-      this.set({
+      this.setData({
         value: value
       });
     }
   },
   created: function created() {
-    this.set({
+    this.setData({
       value: this.data.checked
     });
   },

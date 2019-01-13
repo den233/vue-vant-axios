@@ -24,7 +24,7 @@ export function observeProps(props) {
         observer.apply(this, arguments);
       }
 
-      this.set();
+      this.setData();
     };
 
     props[key] = prop;

@@ -7,7 +7,7 @@ app.$mount()
 export default {
     config: {
       "usingComponents": {
-            
+        
       }
     },
   };

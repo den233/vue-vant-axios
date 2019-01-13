@@ -14,7 +14,7 @@
         </div>
 
         <van-stepper integer :min="1" :step="1" :value='item.number' @change='changeNum()' />
-        <van-icon class="cart_icon" name="cart" @click='addCart(item)' />
+        <van-icon class="cart_icon" name="shopping-cart-o" @click='addCart(item)' />
         <!-- <van-button class="add_cart" size="small" type="danger"  @click='addCart(item.id,item.number)'>加入购物车</van-button> -->
       </div>
     </div>

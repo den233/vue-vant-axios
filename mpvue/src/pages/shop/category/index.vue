@@ -31,7 +31,7 @@
     },
     created() {
       let _this=this;
-      _this.getCategory()
+     // _this.getCategory()
     },
       onReady() {
     console.log('onReady')

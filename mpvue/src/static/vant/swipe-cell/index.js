@@ -24,9 +24,7 @@ VantComponent({
       var _this$data = this.data,
           offset = _this$data.offset,
           draging = _this$data.draging;
-      var transform = "translate3d(" + offset + "px, 0, 0)";
-      var transition = draging ? 'none' : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)';
-      return "\n        -webkit-transform: " + transform + ";\n        -webkit-transition: " + transition + ";\n        transform: " + transform + ";\n        transition: " + transition + ";\n      ";
+      return "\n        transform: translate3d(" + offset + "px, 0, 0);\n        transition: " + (draging ? 'none' : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)') + ";\n      ";
     }
   },
   methods: {
@@ -42,7 +40,7 @@ VantComponent({
       this.resetSwipeStatus();
     },
     close: function close() {
-      this.set({
+      this.setData({
         offset: 0
       });
     },
@@ -55,7 +53,7 @@ VantComponent({
         offset = 0;
       }
 
-      this.set({
+      this.setData({
         offset: offset
       });
       offset && (this.swiping = true);
@@ -81,7 +79,7 @@ VantComponent({
         return;
       }
 
-      this.set({
+      this.setData({
         draging: true
       });
       this.touchStart(event);
@@ -114,7 +112,7 @@ VantComponent({
         return;
       }
 
-      this.set({
+      this.setData({
         draging: false
       });
 

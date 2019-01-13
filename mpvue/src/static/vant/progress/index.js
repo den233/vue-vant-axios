@@ -53,12 +53,12 @@ VantComponent({
       var _this = this;
 
       this.getRect('.van-progress').then(function (rect) {
-        _this.set({
+        _this.setData({
           progressWidth: rect.width
         });
       });
       this.getRect('.van-progress__pivot').then(function (rect) {
-        _this.set({
+        _this.setData({
           pivotWidth: rect.width || 0
         });
       });

@@ -22,7 +22,7 @@ VantComponent({
 
       var duration = this.data.duration;
       clearTimeout(this.timer);
-      this.set({
+      this.setData({
         show: true
       });
 
@@ -34,7 +34,7 @@ VantComponent({
     },
     hide: function hide() {
       clearTimeout(this.timer);
-      this.set({
+      this.setData({
         show: false
       });
     }

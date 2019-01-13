@@ -11,9 +11,7 @@
         <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
       </van-tabs>
       <div class="van-tabs__content">
-
-        <div class="content">
-
+        <div class="content" :style="{ height: second_height + 'px' }"  >
           <div class="catlog">
               <scroll-view
               class="scroll-view"
@@ -34,10 +32,7 @@
               <OrderListItem :currentOrderType="currentOrderType" :data="serviceList"></OrderListItem>
               <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
             </scroll-view>
-
           </div>
-
-
         </div>
       
         <i-page :current="currentPage" :total="pagecon.total" @change="chagePage">
@@ -114,6 +109,7 @@ export default {
     },
     data () {
       return {
+        second_height:0,
         catArr:[],//分类
         //分页
         pagecon:{
@@ -144,29 +140,32 @@ export default {
     },
     mounted(){
        let _this=this;
-       _this.catEvent("")
-    //  // _this.getCategory()
+      _this.catEvent("")
+
       bus.$on('useBusEvent',function(id){
            _this.catEvent(id)
          })
          
     },
-    methods:{
-      getCategory(){
-         let _this=this;
-         let questParam={};
-          this.$api.apiConfig.categoryList(
-            questParam
-            ).then(res=>{
-               _this.catArr=res.productsale_category_query_response;
-               _this.catArr.unshift({
-                categoryId: "",
-                categoryName: "全部商品"
-               })
-            }).catch(error=>{
-
-            })
+    onLoad: function () {
+        console.log('onLoad')
+        var that = this
+        // 获取系统信息
+        wx.getSystemInfo({
+          success: function (res) {
+            console.log(res);
+            // 可使用窗口宽度、高度
+            console.log('height=' + res.windowHeight);
+            console.log('width=' + res.windowWidth);
+            // 计算主体部分高度,单位为px
+            
+              // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将300rpx转换为px）
+              that.second_height= res.windowHeight - 150
+            
+          }
+        })
       },
+    methods:{
       async getGoodsList(id){
         let _this=this;
         let {minPrice,maxPrice,minPv,maxPv}= _this.searchList;

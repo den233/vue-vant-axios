@@ -10,13 +10,12 @@
     error="{{ error }}"
     border="{{ false }}"
     confirm-type="search"
-    class="van-search__field field-class"
+    class="van-search__field"
     value="{{ value }}"
     disabled="{{ disabled }}"
     readonly="{{ readony }}"
     maxlength="{{ maxlength }}"
     input-align="{{ inputAlign }}"
-    input-class="input-class"
     placeholder="{{ placeholder }}"
     placeholder-style="{{ placeholderStyle }}"
     custom-style="padding: 3px 10px"
@@ -24,7 +23,6 @@
     bind:focus="onFocus"
     bind:change="onChange"
     bind:confirm="onSearch"
-    bind:clear="onClear"
   />
   <view wx:if="{{ showAction || useActionSlot }}" class="van-search__action">
     <slot wx:if="{{ useActionSlot }}" name="action" />

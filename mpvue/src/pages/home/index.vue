@@ -9,13 +9,10 @@
     <!-- <view>
         <web-view src="http://localhost:8085/#/login/index">aaaa</web-view>
     </view> -->
-    <TheBanner></TheBanner>
+     <TheBanner></TheBanner>
     <Subnav></Subnav>
     <NoticeCard></NoticeCard>
     <TheTodayOrder></TheTodayOrder>
-    <!-- <Subnav></Subnav>
-       <NoticeCard></NoticeCard>
-       <TheTodayOrder></TheTodayOrder> -->
   </div>
 </template>
 <script>

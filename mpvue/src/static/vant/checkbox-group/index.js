@@ -8,7 +8,7 @@ VantComponent({
       var _this$data = this.data,
           value = _this$data.value,
           disabled = _this$data.disabled;
-      target.set({
+      target.setData({
         value: value.indexOf(target.data.name) !== -1,
         disabled: disabled || target.data.disabled
       });
@@ -23,7 +23,7 @@ VantComponent({
     value: function value(_value) {
       var children = this.getRelationNodes('../checkbox/index');
       children.forEach(function (child) {
-        child.set({
+        child.setData({
           value: _value.indexOf(child.data.name) !== -1
         });
       });
@@ -31,7 +31,7 @@ VantComponent({
     disabled: function disabled(_disabled) {
       var children = this.getRelationNodes('../checkbox/index');
       children.forEach(function (child) {
-        child.set({
+        child.setData({
           disabled: _disabled || child.data.disabled
         });
       });

@@ -16,10 +16,6 @@ VantComponent({
     buttonType: {
       type: String,
       value: 'danger'
-    },
-    safeAreaInsetBottom: {
-      type: Boolean,
-      value: true
     }
   },
   computed: {
@@ -32,14 +28,6 @@ VantComponent({
     tipStr: function tipStr() {
       var tip = this.data.tip;
       return typeof tip === 'string' ? tip : '';
-    },
-    barClass: function barClass() {
-      var _this$data = this.data,
-          isIPhoneX = _this$data.isIPhoneX,
-          safeAreaInsetBottom = _this$data.safeAreaInsetBottom;
-      return this.classNames('van-submit-bar__bar', 'bar-class', {
-        'van-submit-bar__bar--safe': safeAreaInsetBottom && isIPhoneX
-      });
     }
   },
   methods: {

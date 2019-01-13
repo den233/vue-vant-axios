@@ -11,8 +11,7 @@ VantComponent({
     value: null,
     disabled: Boolean,
     labelDisabled: Boolean,
-    labelPosition: String,
-    checkedColor: String
+    labelPosition: String
   },
   computed: {
     iconClass: function iconClass() {

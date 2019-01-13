@@ -58,29 +58,14 @@ export default {
       navigationBarTextStyle: '#fff'
     },
     "usingComponents": {
-      "van-toast": "/static/vant/toast/index"
+      "van-toast": "/static/vant/toast/index",
+      "van-icon": "/static/vant/icon/index"
     },
     pages: [
       'pages/home/index',
       'pages/shop/index',
        
-    ],
-    subPackages: [
-      {
-          root: 'packageA',
-          pages: [
-            'pages/a/index',
-            'pages/todomvc/index',
-          ]
-      },
-      {
-        root: 'packageB',
-        pages: [
-          'pages/home/index',
-        ]
-      }
-       
-    ],
+    ] ,
    
     "tabBar": {
       "backgroundColor": "#fafafa",
