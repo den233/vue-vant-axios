@@ -27,7 +27,7 @@
       show="{{showArea}}"
       position="bottom"
     >
-      <van-area area-list="{{cData}}" />
+      <van-area area-list="{{areaList}}" />
     </van-popup>
  </view>
    

@@ -5,9 +5,9 @@ const app = new Vue( App )
 
 app.$mount()
 export default {
-  // "usingComponents": {
-  //   "van-area": "/static/vant/area/index"
-  //   }
+    // "usingComponents": {
+    // "van-address-edit": "/static/vant/address-edit/index"
+    //   }
  
 };
   

@@ -3,7 +3,8 @@ import { VantComponent } from '../common/component';
 VantComponent({
   classes: ['title-class'],
   props:{
-    //areaList: Object
+    test:String,
+    areaList: Object
   },
   watch: {
     // areaList: {
@@ -14,11 +15,14 @@ VantComponent({
     //    deep: true
     // }
 },
-  data: {
-    value:'11',
+data() {
+  return {  
+    value:'',
     showArea:false,
-    cData:{}
-  },
+    cData:{} 
+  }
+ },
+ 
   methods: {
     onChange: function onChange (){
      // console.log(getArea())
@@ -28,7 +32,8 @@ VantComponent({
         showArea:true,
           cData:getArea().arreaList
       })
-      console.log(this.data.cData)
+
+      console.log(this.test)
     }
   }
 });

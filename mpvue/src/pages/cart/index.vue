@@ -13,6 +13,7 @@
               class="scroll-view"
               scroll-y
             > 
+              <van-address-edit  :areaList="areaList" > </van-address-edit>
             <div class='cartList'>
                 <div class="cart-item" v-for='(item,index) in dataActive' :key="index">
                     <div>
@@ -73,7 +74,9 @@
                     </div>
                 </div>
             </div>
+             
         </scroll-view>
+      
         <van-submit-bar :button-text="buttonText" @submit="onSubmit" :disabled='disabled'>
             <div class="checkbox">
                 <van-checkbox   @change="toggle()" :value="checked">全选</van-checkbox>
@@ -87,7 +90,7 @@
         <van-popup :show="show" position="right" :overlay="false">
             <van-nav-bar title="填写收货信息" left-text="返回" left-arrow @click-left='onQuxiao'>
             </van-nav-bar>
-            <van-address-edit  />
+           
            
             <div class="orderInfo">
                 <h2>订单信息：<span>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</span></h2>
