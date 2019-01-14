@@ -2,7 +2,7 @@
   <div>
       <ul class="lists">
           <li class="lists-item" v-for="(item,index) in data" :key="index">
-            <div>
+            <div style="display:flex">
               <div class="imgs">
                 <img class="img" :src="item.imgUrl" alt="">
               </div>

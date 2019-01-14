@@ -1,10 +1,11 @@
 <template>
     <div class="cart">
-        <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="goBack">
+        <van-nav-bar title="购物车"    >
             <div slot="right" v-if='!deleteType' @click='changeHandle(0)'>{{manage}}</div>
             <div style='color:#f70101' slot="right" v-if='deleteType' @click='changeHandle(1)'>完成</div>
         </van-nav-bar>
-        <van-tabs :value="active"  >
+         
+        <van-tabs :active="active"  >
             <van-tab v-for="(item,index) in orderType" :title="item.name" :key="index">
             </van-tab>
         </van-tabs>
@@ -14,18 +15,22 @@
             > 
             <div class='cartList'>
                 <div class="cart-item" v-for='(item,index) in dataActive' :key="index">
-                    <div @click='pickState(item.checked)'>
-                        <van-checkbox v-model="item.checked" ref="checkbox"></van-checkbox>
+                    <div>
+                        <van-checkbox @change='pickState(index,item.checked)' :value="item.checked"  ></van-checkbox>
                     </div>
                     <div class="imgs">
                         <img :src="item.imgUrl" alt="">
                     </div>
                     <div class="content">
                         <div class="title">
-                            {{item.productName}}
+                            <h2>{{item.productName}}</h2>
+                             <b class="p_t">
+                               价格： {{item.price}}
+                             </b>
                         </div>
+                        
                         <div class="price">
-                            价格：<i class="van-card__origin-price">¥{{item.discountPrice}}</i>{{item.price}}
+                            原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
                             <br>
                             pv: {{item.discountPv}}
                         </div>
@@ -36,7 +41,7 @@
                     </div>
                 </div>
                 <div class="orderInfo">
-                    <h2>订单信息：<span>( 总价：<i>¥ {{totalPrice}}</i> ,折后PV：<i>{{totalPv}}</i> )</span></h2>
+                    <h2>订单信息：<text>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</text></h2>
                     <div class="item">
                         <div class="leabel"><label for="cost">运费:</label></div>
                         <div class="number" id="total_fee">￥{{orderDetail.fee}}</div>
@@ -70,23 +75,22 @@
             </div>
         </scroll-view>
         <van-submit-bar :button-text="buttonText" @submit="onSubmit" :disabled='disabled'>
-            <div class="checkbox" @click="toggle()">
-                <van-checkbox ref="checkboxes" v-model="checked">全选</van-checkbox>
+            <div class="checkbox">
+                <van-checkbox   @change="toggle()" :value="checked">全选</van-checkbox>
             </div>
 
             <span class="all-label">
-                <p class="price_submit"> pv :<br> <b>{{totalPv}}</b></p>
-                <p slot='price' class="price_submit">总价 ：<br> ¥ <b>{{totalPrice}}</b></p>
+                <text class="price_submit"> pv :{{totalPv}}</text>
+                <text slot='price' class="price_submit">总价 ： ¥ {{totalPrice}}</text>
             </span>
         </van-submit-bar>
-        <van-popup v-model="show" position="right" :overlay="false">
+        <van-popup :show="show" position="right" :overlay="false">
             <van-nav-bar title="填写收货信息" left-text="返回" left-arrow @click-left='onQuxiao'>
             </van-nav-bar>
-            <van-address-edit :area-list="areaList" :show-postal='false' :show-delete='false' :show-set-default='false'
-                :show-search-result='false' :is-deleting='false' :search-result="searchResult" @save="onSave"
-                save-button-text="提交订单" />
+            <van-address-edit  />
+           
             <div class="orderInfo">
-                <h2>订单信息：<span>( 总价：<i>¥ {{totalPrice}}</i> ,折后PV：<i>{{totalPv}}</i> )</span></h2>
+                <h2>订单信息：<span>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</span></h2>
                 <div class="item">
                     <div class="leabel"><label for="cost">运费:</label></div>
                     <div class="number" id="total_fee">￥{{orderDetail.fee}}</div>
@@ -167,11 +171,12 @@
                 }
             }
         },
-        mounted() {
-            // this.getList();
-            // this.memberData();
-            // var getArea = areas();
-            // this.areaList = getArea.arreaList;
+        onShow() {
+               this.getList();
+                this.memberData();
+                var getArea = areas();
+                this.areaList = getArea.arreaList;
+               // console.log(this.areaList)
 
         },
         watch:{
@@ -230,10 +235,8 @@
                _this.checked=false;
                _this.pickAll=[];
                 let queryParam = {
-                    //"strAction": "trolley_detail_add",
                     "orderType": _this.currentOrderType
                 }
-              
                 _this.$api.apiConfig.trolleyList(queryParam).then(data => {
                     let v1 = data.trolley_get_response;
                     var arr = Object.getOwnPropertyNames(v1);
@@ -244,7 +247,7 @@
                     if (v1.details.length == 0) {
                         return false;
                     }
-
+                    
                     _this.dataActive = v1.details.map(v => {
                         return {
                             createdTime: v.createdTime,
@@ -403,8 +406,9 @@
                     this.buttonText = '下一步'
                 }
             },
-            pickState(v) {
+            pickState(index,event) {
                 this.pickAll = [];
+                this.dataActive[index].checked=!event
                 let len = this.dataActive.length;
                 for (let i = 0; i < len; i++) {
                     if (this.dataActive[i].checked) {
@@ -416,10 +420,10 @@
                 } else {
                     this.checked = true;
                 }
-                this.calc()
+               this.calc()
             },
             toggle() {
-                this.$refs.checkboxes.toggle();
+                this.checked=!this.checked 
                 this.checkAll(this.checked)
                 this.calc()
             },

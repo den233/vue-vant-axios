@@ -13,7 +13,7 @@
       <div class="van-tabs__content">
         <div class="content" :style="{ height: second_height + 'px' }"  >
           <div class="catlog">
-              <scroll-view
+              <scroll-view  :style="{ height: second_height + 'px' }"
               class="scroll-view"
               scroll-y
             > 
@@ -25,7 +25,7 @@
           </div>
 
           <div class="list">
-              <scroll-view
+              <scroll-view  :style="{ height: second_height + 'px' }"
               class="scroll-view"
               scroll-y
             > 

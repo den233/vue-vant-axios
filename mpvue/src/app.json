@@ -26,7 +26,8 @@
       "van-checkbox-group": "/static/vant/checkbox-group/index",
       "van-area": "/static/vant/area/index",
       "van-card": "/static/vant/card/index",
-      "van-submit-bar": "/static/vant/submit-bar/index"
+      "van-submit-bar": "/static/vant/submit-bar/index",
+      "van-address-edit": "/static/vant/address-edit/index"
   },
   "pages": [
     "pages/home/main",

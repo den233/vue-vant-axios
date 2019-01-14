@@ -1,24 +1,33 @@
 .cart{
+    background:#eee;
     .van-submit-bar{
         z-index: 100;
-        bottom:60px;
+        bottom:0;
+        .van-submit-bar__bar {
+            height: 1.33333rem;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 0.37333rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background-color: #fff;
+        }
         .all-label{
             padding-left: 5px;
+            width: 200px;
             .price_submit{
-                padding-left:10px;
-                font-size:15px;
-                float: right;
-                b{
-                    font-size:13px; 
-                    color: #f10303;
-                }
+                padding-left:20rpx;
+                font-size:30rpx;
+                display:inline-block;
             }
            
         }
         .van-submit-bar__text{
             display: none;
         }
-       .van-button {
+       .van-submit-bar__button {
             position: absolute;
             right: 0;
        }   
@@ -43,33 +52,44 @@
                 top: 20px
             }
             .imgs{
-                position: absolute;
-                left:30px;
-                width: 100px;
-                height: 100px;
+                flex:none;
+                width: 80px;
+                height: 80px;
+                margin-left:20px;
+                margin-right:20px;
                 img{
                     width: 100%;
+                    height: 100%;
                 }
             }
             .content{
                 display: flex;
-                margin-left: 140px;
                 width: calc(100% - 150px);
                 font-size: 14px;
-                .title{
+                .title {
                     flex: 1;
-                    max-height: 45px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
+                    h2{
+                        max-height: 35px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                    }
+                    .p_t{
+                        margin-top: 10px;
+                        color: #f10303;
+                    }
                 }
                 .price{
                     text-align: right;
                     flex: 1;
                     color: #f10303;
                     padding-right: 5px;
+                    .van-card__origin-price{
+                        text-decoration: line-through;
+                        color:#666;
+                    }
                 }
             }
             .van-stepper{

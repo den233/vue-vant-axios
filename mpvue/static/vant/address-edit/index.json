@@ -1,0 +1,14 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "../icon/index",
+    "van-field": "../field/index",
+    "van-cell": "../cell/index",
+    "van-cell-group": "../cell-group/index",
+    "van-popup": "../popup/index",
+    "van-switch": "../switch/index",
+    "van-dialog": "../dialog/index",
+    "van-toast": "../toast/index",
+    "van-area": "../area/index"
+  }
+}
