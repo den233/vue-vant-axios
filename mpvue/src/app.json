@@ -32,7 +32,8 @@
   "pages": [
     "pages/home/main",
     "pages/shop/main" ,
-    "pages/cart/main" 
+    "pages/cart/main" ,
+    "pages/mine/main" 
   ] ,
  
   "tabBar": {
@@ -60,7 +61,7 @@
       "text": "购物车"
     },
     {
-      "pagePath": "pages/home/main",
+      "pagePath": "pages/mine/main" ,
       "iconPath": "static/images/ic_menu_me_nor.png",
       "selectedIconPath": "static/images/ic_menu_me_pressed.png",
       "text": "我的"

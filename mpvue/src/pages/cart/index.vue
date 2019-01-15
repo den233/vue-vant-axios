@@ -5,15 +5,15 @@
             <div style='color:#f70101' slot="right" v-if='deleteType' @click='changeHandle(1)'>完成</div>
         </van-nav-bar>
          
-        <van-tabs :active="active"  >
-            <van-tab v-for="(item,index) in orderType" :title="item.name" :key="index">
+        <van-tabs :active="active" @change='tabClick'>
+            <van-tab   v-for="(item,index) in orderType" :title="item.name" :key="index">
             </van-tab>
         </van-tabs>
         <scroll-view
               class="scroll-view"
               scroll-y
             > 
-              <van-address-edit  :areaList="areaList" > </van-address-edit>
+            
             <div class='cartList'>
                 <div class="cart-item" v-for='(item,index) in dataActive' :key="index">
                     <div>
@@ -88,9 +88,12 @@
             </span>
         </van-submit-bar>
         <van-popup :show="show" position="right" :overlay="false">
-            <van-nav-bar title="填写收货信息" left-text="返回" left-arrow @click-left='onQuxiao'>
-            </van-nav-bar>
-           
+            <van-nav-bar
+                title="填写收货信息"   
+            >
+            <label class="navebar_left" slot="left" @click="onClickLeft"><van-icon name="arrow-left" />取消</label>
+           </van-nav-bar>
+            <van-address-edit @onSave="onSave" :cData="cData"  :areaList="areaList" > </van-address-edit>
            
             <div class="orderInfo">
                 <h2>订单信息：<span>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</span></h2>
@@ -125,13 +128,15 @@
                 </div>
             </div>
         </van-popup>
-
+        <van-toast id="van-toast" />
+        <van-dialog id="van-dialog" />
     </div>
 </template>
 <style lang="scss"  src="./style.scss"></style>
 <script>
     import areas from '@/utils/area.js'
- 
+    import Toast from 'staticA/vant/toast/toast';
+    import Dialog from 'staticA/vant/dialog/dialog';
     export default {
         props: {
             data: {
@@ -171,7 +176,16 @@
                 memberInfo: {
                     userCode: '',
                     userName: ''
-                }
+                },
+                cData:{
+                    name:'cc',
+                    tel:'15190215925',
+                    province:'ss',
+                    area:'99',
+                    distinct:'ss',
+                    areaDetail:'as',
+                    addressDetail:'ss'
+                } 
             }
         },
         onShow() {
@@ -198,18 +212,22 @@
                    }
         　　　　},
         　　　　deep: true
-        　　},
-           active(newValue, oldValue){
-                if(newValue== oldValue){
-                    return false;
-                }
-                this.currentOrderType = this.orderType[newValue].type;
-                this.$store.commit('changeTab', { type: this.currentOrderType, index:newValue });
-                this.memberData();
-                this.getList();
-           }
+        　　}
+        //    active(newValue, oldValue){
+        //         if(newValue== oldValue){
+        //             return false;
+        //         }
+        //         this.currentOrderType = this.orderType[newValue].type;
+        //         //this.$store.commit('changeTab', { type: this.currentOrderType, index:newValue });
+        //         this.memberData();
+        //         this.getList();
+        //    }
         },
         methods: {
+            onClickLeft: function onClickLeft() {
+                console.log(this)
+                this.show = false;
+            },
             memberData() {
                 let _this = this;
                 this.$api.apiConfig.member_me_get({}).then(data => {
@@ -280,12 +298,13 @@
             goBack() {
                 this.$router.go(-1);
             },
-            // tabClick(index) {
-            //     this.currentOrderType = this.orderType[index].type;
-            //     this.$store.commit('changeTab', { type: this.currentOrderType, index, index });
-            //     this.clearALL();
-            //     this.getList();
-            // },
+            tabClick(event) {
+                let index= event.mp.detail.index;
+                console.log(index)
+                this.currentOrderType = this.orderType[index].type;
+                this.clearALL();
+                this.getList();
+            },
 
             onSubmit() {
                 //this.deleteType==true  删除
@@ -457,7 +476,7 @@
                     this.discountPrice = this.discountPrice + this.pickAll[i].quantity * Number(this.pickAll[i].price);
                     this.discountPv = this.discountPv + this.pickAll[i].quantity * Number(this.pickAll[i].discountPv);
                 }
-                console.log(this.discountPrice)
+                //console.log(this.discountPrice)
                 this.paymentQuery();
             },
             //提交
@@ -487,8 +506,10 @@
 
                 })
             },
-            onSave(address) {
+            onSave({mp}) {
+                console.log(mp.detail)
                 let new_array = [];
+                let {addressDetail,area,areaDetail,distinct,name,province,tel}=mp.detail
                 //console.log(cartArray.selling)
                 for (let i = 0, len = this.pickAll.length; i < len; i++) {
                     new_array.push(this.pickAll[i].trolleyDetailId);
@@ -496,24 +517,24 @@
                 let queryParam = {
                     "trolleyDetailIds": new_array,
                     "orderType": this.currentOrderType,
-                    "receiverName": address.name,
-                    "receiverMobile": address.tel,
-                    "receiverState": address.province,
-                    "receiverCity": address.city,
-                    "receiverDistrict":address.county,
-                    "receiverAddress":address.addressDetail
+                    "receiverName": name,
+                    "receiverMobile": tel,
+                    "receiverState": province,
+                    "receiverCity": area,
+                    "receiverDistrict":distinct,
+                    "receiverAddress":addressDetail
                 }
                 let _this = this;
                 let locationURL ;
                 if(_this.currentOrderType=='21'){
-                      locationURL='repeatorder'
+                      locationURL='/pages/home/main'
                 }
                 if(_this.currentOrderType=='22'){
-                     locationURL='neworder'
+                     locationURL='/pages/home/main'
                 }
                 _this.$api.apiConfig.addTmpOrder(queryParam).then(data => {
-                   let payArray=data.tmporder_add_response;
-                   var arr = Object.getOwnPropertyNames(payArray);
+                  let payArray=data.tmporder_add_response;
+                  var arr = Object.getOwnPropertyNames(payArray);
                     if(data.success=='false'){
                         Toast.fail(data.msg);
                         return false;
@@ -526,18 +547,20 @@
                         title: '提交成功',
                         message: '请前往支付'
                         }).then(() => {
-                            this.$store.commit('payOrderInfo', payArray)
-                            this.$router.push({ name: locationURL})
+                            _this.$store.commit('payOrderInfo', payArray)
+                            _this.$router.push({ path:locationURL })
                     });
                 }).catch(e => {
-                    Toast.fail('提交失败');
+
+                    Toast.fail('321');
                 })
                 // this.$store.commit('payOrderInfo', data)
                 //this.$router.push({ name: 'neworder' })
             },
-            onQuxiao() {
-                this.show = false;
+            showArea({mp}){
+                console.log('area',mp.detail)
             }
+           
         }
     };
 </script>

@@ -24,7 +24,7 @@
 </template>
 <script>
 
-  import Toast from '@/static/vant/toast/toast';
+  import Toast from 'staticA/vant/toast/toast';
   import bus from '@/components/bus';
   export default {
     props: {

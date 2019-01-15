@@ -26,7 +26,7 @@
 <script>
 import datasList from './datas.js';
 import OrderHome from '@/components/order-home';
-import Dialog from '@/static/vant/dialog/dialog';
+import Dialog from 'staticA/vant/dialog/dialog';
 export default {
   components: {
     OrderHome

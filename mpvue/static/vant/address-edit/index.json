@@ -9,6 +9,7 @@
     "van-switch": "../switch/index",
     "van-dialog": "../dialog/index",
     "van-toast": "../toast/index",
+    "i-toast": "../../iview/toast/index",
     "van-area": "../area/index"
   }
 }

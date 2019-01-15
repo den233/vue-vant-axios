@@ -6,6 +6,8 @@ import Vuex from 'vuex'
 import fly from '@/utils/http'
 Vue.prototype.$fly = fly;
 import api from './api/index.js';
+import MpvueRouterPatch from 'mpvue-router-patch'
+Vue.use(MpvueRouterPatch)
 Vue.use(api);
 // import vuescroll from 'vuescroll';
 // import 'vuescroll/dist/vuescroll.css';

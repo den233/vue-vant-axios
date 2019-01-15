@@ -3,6 +3,9 @@
 </template>
 <style>
   @import  "../static/style/iconfont.css";
+  .navebar_left{
+    color:#1989fa;
+  }
 </style>
 <script>
   export default {

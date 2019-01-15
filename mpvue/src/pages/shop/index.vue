@@ -1,13 +1,13 @@
 <template>
   <div class="security">
-    <van-nav-bar :title="title">
+     <van-nav-bar :title="title">
       <van-icon name="search" slot="right" @click='onSearch' />
       <div class="search" @click='pickType' slot="left">
         <i class="fa fa-filter">筛选</i>
       </div>
     </van-nav-bar>
     <div class="van-tabs van-tabs--line">
-      <van-tabs :active="active" @click='tabClick'>
+      <van-tabs :active="active" @change='tabClick'>
         <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
       </van-tabs>
       <div class="van-tabs__content">
@@ -239,10 +239,10 @@ export default {
           _this.categoryHandle(id);
       },
       //切换订单类型
-      tabClick(index){
+      tabClick(event){
         let _this=this;
-        console.log(index)
-        _this.currentOrderType=_this.orderType[_this.active].type;
+        let index= event.mp.detail.index;
+        _this.currentOrderType=_this.orderType[index].type;
         _this.pagecon={
           total:0,
           page_size:10
