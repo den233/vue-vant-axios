@@ -84,10 +84,11 @@ let baseWebpackConfig = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 20000,
           name: utils.assetsPath('img/[name].[ext]')
         }
       },
+      
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',

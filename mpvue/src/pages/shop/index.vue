@@ -225,8 +225,8 @@ export default {
          _this.categoryHandle(id)
       },
       //分页
-        chagePage({ detail }){
-          const type = detail.type;
+        chagePage({ mp }){
+          const type = mp.detail.type;
      
           if (type === 'next') {
              this.currentPage=this.currentPage + 1;
