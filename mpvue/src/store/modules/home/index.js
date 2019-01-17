@@ -14,6 +14,7 @@ export default {
       state.goodsProducttype = active;
     },
     payOrderInfo (state, data) {
+      //console.log(state)
       state.payOrderInfo = data;
     },
     changeTab (state, data) {

@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="list">
-      <a>
+      <a href='/pages/accountdetails/main'>
         <van-cell title="账户明细" is-link />
       </a>
 
@@ -115,12 +115,6 @@
 
 <script>
   export default {
-    components: {
-      subNavItem: {
-        props: ['info'],
-
-      }
-    },
     created() { },
     methods: {
       goToMyOrder(e,index) {

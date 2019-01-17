@@ -13,7 +13,7 @@
         <scroll-view :style="{ height: second_height + 'px' }" class="scroll-view" scroll-y>
           <div >
             <listItem v-for="(order,index1) in orderList.content" needToolBar :key="index1" :detail='order'
-              :currentStatus='currentStatus' @searchWuliu='searchWuliu' @descList='goToOrderDetail' />
+              :currentStatus='currentStatus' @searchWuliu='searchWuliu' @descList='goToOrderDetail($event,order)' />
           </div>
         </scroll-view>
     <i-page :current="currentPage" :total="pagecon.total" @change="handleChange">
@@ -211,17 +211,17 @@
           }
         });
       },
-      goToOrderDetail(val) {
+      goToOrderDetail(e,val) {
 
-        console.log(val)
+       // console.log(val)
         //重消单
         this.$store.commit('payOrderInfo', val)
         if (val.orderType == 21) {
-          this.$router.push({ name: 'repeatorder' });
+          this.$router.push({ path: '/pages/repeatorder/main' });
         }
         //激活单
         if (val.orderType == 22) {
-          this.$router.push({ name: 'neworder' });
+          this.$router.push({ path: '/pages/activeorder/main' });
         }
         if (val.orderType == 20) {
 

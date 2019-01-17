@@ -29,11 +29,16 @@
       "van-submit-bar": "/static/vant/submit-bar/index",
       "van-address-edit": "/static/vant/address-edit/index",
       "van-tag": "/static/vant/tag/index",
-      
+      "van-switch-cell": "/static/vant/switch-cell/index",
+      "van-switch": "/static/vant/switch/index",
+      "van-steps": "/static/vant/steps/index",
+      "van-action-sheet": "/static/vant/action-sheet/index",
       "i-page": "/static/iview/page/index",
-      "i-load-more": "/static/iview/load-more/index"
+      "i-load-more": "/static/iview/load-more/index",
+      "ff-canvas": "/static/f2-canvas/f2-canvas"
   },
   "pages": [
+    
     "pages/home/main",
     "pages/shop/main" ,
     "pages/cart/main" ,
@@ -49,7 +54,7 @@
     "pages/wxbinding/main",
     "pages/basicinfo/main",
     "pages/bankcardbinding/main",
-    "pages/bankcardaAdd/main",
+    "pages/bankcardadd/main",
     "pages/changepassword/main",
     "pages/accountdetails/main",
     "pages/transferdetails/main",

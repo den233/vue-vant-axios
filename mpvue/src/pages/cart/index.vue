@@ -12,6 +12,7 @@
         <scroll-view
               class="scroll-view"
               scroll-y
+              :style="{ height: second_height + 'px' }"
             > 
             
             <div class='cartList'>
@@ -150,6 +151,7 @@
             return {
                 dataActive: [],
                 active: "0",
+                second_height:0,
                 orderType: this.$PLATFORM_CONFIG,
                 currentOrderType: this.$PLATFORM_CONFIG[0].type,
                 pickAll: [],
@@ -195,6 +197,24 @@
                 this.areaList = getArea.arreaList;
                // console.log(this.areaList)
 
+        },
+        onLoad: function () {
+            console.log('onLoad')
+            var that = this
+            // 获取系统信息
+            wx.getSystemInfo({
+            success: function (res) {
+                console.log(res);
+                // 可使用窗口宽度、高度
+                console.log('height=' + res.windowHeight);
+                console.log('width=' + res.windowWidth);
+                // 计算主体部分高度,单位为px
+                
+                // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将300rpx转换为px）
+                that.second_height= res.windowHeight - 150
+                
+            }
+            })
         },
         watch:{
             dataActive :{

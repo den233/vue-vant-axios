@@ -67,11 +67,12 @@
   .marquee_box {
       display: block;
       position: relative;
-      width: 60%;
-      height: 30px;
-      margin-left:10px;
-      /*关键样式*/
-      overflow: hidden;
+      width:55%;
+      height:40px;
+      margin-left:20rpx;
+      overflow:hidden;
+      border-right:2rpx solid #d8d8d8;
+      margin-right:5px;
   }
   .marquee_list {
       display: block;
@@ -85,9 +86,9 @@
   /*关键样式*/
   .marquee_list {
     .marquee_list_li {
-        height: 30px;
+        height: 40px;
         /*关键样式*/
-        line-height: 30px;
+        line-height: 40px;
         /*关键样式*/
         font-size:13px;
         .span {

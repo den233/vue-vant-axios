@@ -12,14 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/v2': {
-        target: 'http://192.168.120.79:8080',
+        target: 'http://192.168.120.88:8080',
         changeOrigin: true,
         // pathRewrite: {
         //   '^/api': '/'
         // }
       },
       '/upload': {
-        target: 'http://192.168.120.79:8080',
+        target: 'http://192.168.120.88:8080',
         changeOrigin: true,
         // pathRewrite: {
         //   '^/api': '/'

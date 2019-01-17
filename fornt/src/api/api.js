@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import fetch from '@/utils/http';
 
-let configPath = 'http://192.168.120.79:8085';// 真实环境
+let configPath = 'http://192.168.120.88:8085';// 真实环境
 // var isProduction = process.env.NODE_ENV === 'production'
 // if (isProduction) {} else {
 //   configPath = '../../static/myConfig.js' // 开发环境

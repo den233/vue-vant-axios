@@ -1,0 +1,37 @@
+.account{
+    .card{
+        background: #f38739;
+        .inner{
+            color: #fff;
+            font-size: 14px;
+            margin:10px;
+            .imgs{
+              float: left;
+              margin: 10px;
+              i{
+                  font-size:25px;
+              }
+            }
+            .content{
+                float: left;
+                margin: 10px;
+            }
+            .clear{
+                clear: both;
+            }
+            .code{
+                text-align: center;
+                padding-bottom: 10px;
+            }
+        }
+    }
+    .card-blue{
+        background: #1e78d8;
+    }
+    .card-green{
+        background: #1ecfd8;
+    }
+    .card-3{
+        background: #771ed8;
+    }
+}
