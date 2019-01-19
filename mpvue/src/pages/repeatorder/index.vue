@@ -1,6 +1,6 @@
 <template>
     <div id="orderDetail">
-        <van-nav-bar title="我的账户">
+        <van-nav-bar title="待支付重消单">
             <label class="navebar_left" slot="left" @click="onClickLeft">
                 <van-icon name="arrow-left" />返回</label>
             <!-- <div class='view_d' slot='right' @click="onClickRight">新增</div> -->
@@ -18,8 +18,10 @@
                             <van-radio name="2">多期购买 </van-radio>
                         </van-radio-group>
                     </div>
-                    <van-cell title="开始时间" @click='pickMonth' is-link arrow-direction="down" :value="startTime.name" />
-                    <van-cell title="期数" @click='pickQshu' is-link arrow-direction="down" :value="qishuValue.name" />
+                    <div v-if="venture==2">
+                        <van-cell title="开始时间" @click='pickMonth' is-link arrow-direction="down" :value="startTime.name" />
+                        <van-cell title="期数" @click='pickQshu' is-link arrow-direction="down" :value="qishuValue.name" />
+                    </div>
                 </van-cell-group>
                 <div class="btn-group">
                     <van-button @click='paySubmit(1)' type="warning">确认支付</van-button>
@@ -32,7 +34,7 @@
             <div class="step4" v-if='active==1'>
                 <van-icon name="passed" />
                 <p>恭喜支付完成</p>
-                订单编号：xxxxxx
+                订单编号：{{finishOrderNum}}
             </div>
         </div>
         <div class="goods">
@@ -41,7 +43,7 @@
                 <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
                 <div style="display:inline-block" class="price">PV：<span>{{discountPv}}</span>)</div>
             </div>
-            <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
+            <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="$img+item.imgUrl"
                 :num='item.quantity'>
                 <div slot='desc'>
                     <div class="price">单价：<span>¥ {{item.price}}</span></div>
@@ -65,6 +67,9 @@
             <span>用户编号：{{orderParams.userCode}}</span>
             <span>订单类型：{{orderType}}</span>
             <span>运费：¥{{orderParams.total_fee}}</span>
+            <span>现金账户：{{memberAccount.cash}}</span>
+            <span>电子币：{{memberAccount.coin}}</span>
+            <span>奖金：{{memberAccount.bonus}}</span>
             <van-button class="copy" style="width:auto" @click="onCopy">复制单号 </van-button>
         </div>
         <!-- <van-submit-bar
@@ -72,37 +77,24 @@
           button-text="支付"
           @submit="onSubmit"
         /> -->
+        <van-toast id="van-toast" />
     </div>
 </template>
 <script>
-
+    import Toast from 'staticA/vant/toast/toast';
     export default {
-
         data() {
             return {
                 active: 0,
                 tabactive: 0,
                 show: false,
+                $img: this.$img,
                 showQishu: false,
                 qishuValue: { id: 0, name: '请选择' },
                 startTime: { id: 0, name: '请选择' },
                 payOrderInfo: {},
-                imageURL: 'http://placehold.it/85x85',
                 itemDetail: [],
-
                 venture: '1',//创业基金
-                paylist: { userName: '', salesMan: '', serviceMan: '' },
-                formItem: {
-                    saleMan: '',
-                    serviceMan: '',
-                    userName: '',
-                    paperNum: '',
-                    old: {
-                        userName: '',
-                        paperNum: '',
-                        serviceNum: ''
-                    }
-                },
                 actions: [
                 ],
                 qiShu: [],
@@ -127,71 +119,114 @@
                     total_fee: '0.00',
                     orderTypeName: ''
                 },
+                memberAccount: {},
                 steps: [
                     {
                         text: '选择期数',
-                        
+
                     },
                     {
                         text: '支付成功',
-                        
+
                     },
-                     
-                ]
+
+                ],
+                finishOrderNum:''
             };
         },
-        mounted() {
+        onShow() {
+            this.onLoad();
             if (this.payOrderInfo == '') {
                 //this.$router.push({path:'/home/entry'})
             }
             this.initData();
+            this.memberInfo();
             this.initMonth();
             this.renderQi();
         },
         computed: {
             orderType() {
-                 
+
                 if (this.orderParams.orderType == '21') {
                     return '重消单'
                 }
-               else if (this.orderParams.orderType == '22') {
+                else if (this.orderParams.orderType == '22') {
                     return '激活单'
                 }
-                 else{
-                     return '升级单'
-                 }
+                else {
+                    return '升级单'
+                }
             }
         },
         methods: {
             onClickLeft() {
                 this.$router.back(-1);
             },
-            onCopy (e) {
+            onCopy(e) {
                 var self = this;
-                console.log(self.orderParams.orderNumber)
+                // console.log(self.orderParams.orderNumber)
                 wx.setClipboardData({
                     data: self.orderParams.orderNumber,
                     success: function (res) {
                         // self.setData({copyTip:true}),
                         wx.showToast({
-                        title: '复制成功',
-                        icon: 'success',
-                        duration: 2000
+                            title: '复制成功',
+                            icon: 'success',
+                            duration: 2000
                         })
-                        
+
                     }
                 })
             },
-            
-            onChange({mp}){
-                const {detail}=mp;
-                this.venture=detail;
+
+            onChange({ mp }) {
+                const { detail } = mp;
+                this.venture = detail;
                 console.log(mp)
+            },
+            onLoad(){
+                this.active= 0;
+                this.tabactive= 0;
+                this.show= false;
+                this.$img= this.$img;
+                this.showQishu= false;
+                this.qishuValue= { id: 0, name: '请选择' };
+                this.startTime= { id: 0, name: '请选择' };
+                this.payOrderInfo= {};
+                this.itemDetail= [];
+
+                this.venture= '1';//创业基金
+                 
+                this.actions= [
+                ]
+                this.qiShu= [];
+                this.discountPrice= '';
+                this.discountPv= "";
+                this.orderParams= {
+                    id: 350,
+                    orderNumber: "12",
+                    orderType: "",
+                    paid: false,
+                    receiverAddress: "",
+                    receiverCity: "",
+                    receiverDistrict: "",
+                    receiverMobile: "",
+                    receiverName: "",
+                    receiverState: "",
+                    totalPrice: "",
+                    totalPv: "",
+                    userCode: "",
+                    createdTime: '',
+                    createdUserCode: '',
+                    total_fee: '0.00',
+                    orderTypeName: ''
+                };
+                this.memberAccount= {};
             },
             initData() {
                 let _this = this;
-                _this.payOrderInfo=_this.$store.state.home.payOrderInfo;
-                console.log(_this.$store.state.home)
+                _this.payOrderInfo = _this.$store.state.home.payOrderInfo;
+                //console.log(_this.$store.state.home)
                 let params = _this.payOrderInfo;
                 let orderNo = params['orderNumber'];
                 _this.itemDetail = params['details'];
@@ -212,7 +247,7 @@
                     createdTime: params['createdTime'],
                     createdUserCode: params['createdUserCode'],
                 }
-                console.log(_this.orderParams)
+                //console.log(_this.orderParams)
                 let queryData = {
                     price: _this.orderParams['totalPrice'],
                     orderType: _this.orderParams['orderType'],
@@ -237,7 +272,21 @@
 
                     })
             },
+            memberInfo() {
+                let _this = this;
+                let queryData = {};
+                _this.$api.apiConfig.member_me_get(queryData).then(data => {
+                    let memberInfo = data.member_me_get_response;
+                    let { cash, coin, bonus } = memberInfo;
+                    _this.memberAccount = {
+                        cash: cash,
+                        coin: coin,
+                        bonus: bonus
+                    }
+                }).catch(e => {
 
+                })
+            },
             onSubmit() {
 
             },
@@ -248,19 +297,44 @@
                 this.active = id;
                 this.paylist.userName = '555'
             },
+            currentDate() {
+                var date = new Date();
+                var cyear = date.getFullYear(); //获取完整的年份(4位)
+                var cmonth = date.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+
+                if (cmonth < 10) {
+                    var new_month = cyear + '' + 0 + ''
+                        + cmonth
+                } else {
+                    var new_month = cyear + '' + cmonth
+                }
+                return new_month;
+            },
             paySubmit(id) {
                 let _this = this;
-                let params = {
-                    "tmporderId": _this.orderParams["id"],
-                    "period": _this.qishuValue.id,
-                    "repeatStartTime": _this.startTime.id
+                console.log(_this.venture)
+                let params = {};
+                if (_this.venture == 1) {
+                     params = {
+                        "tmporderId": _this.orderParams["id"],
+                        "period": 1,
+                        "repeatStartTime": _this.currentDate()
+                    }
+
+                }
+                if (_this.venture == 2) {
+                     params = {
+                        "tmporderId": _this.orderParams["id"],
+                        "period": _this.qishuValue.id,
+                        "repeatStartTime": _this.startTime.id
+                    }
                 }
                 // console.log(_this.startTime)
                 _this.$api.apiConfig.tmporder_czkre_checkout(params).then(data => {
                     let v1 = data.tmporder_czkre_checkout_response;
                     var arr = Object.getOwnPropertyNames(v1);
                     if (arr.length == 0) {
-                        _this.Toast.fail(data.msg);
+                        Toast.fail(data.msg);
                         return false;
                     }
                 }).catch(e => {
@@ -303,11 +377,11 @@
                     })
                 }
             },
-            onSelectQishu({mp}) {
+            onSelectQishu({ mp }) {
                 this.showQishu = false;
                 this.qishuValue = mp.detail;
             },
-            onSelect({mp}) {
+            onSelect({ mp }) {
                 // 点击选项时默认不会关闭菜单，可以手动关闭
                 this.show = false;
                 this.startTime = mp.detail;

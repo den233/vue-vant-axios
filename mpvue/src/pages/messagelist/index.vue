@@ -10,7 +10,7 @@
       <div class="list">
         <div class="item" v-for="(item,index) in newsList " :key='index'>
           <div class="cont-left">
-            <div class="title">
+            <div @click='goDetail' class="title">
               {{item.title}}
             </div>
             <div class="user">
@@ -95,6 +95,9 @@
           { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
           { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
         ]
+      },
+      goDetail(){
+        this.$router.push({path:'/pages/messagedetails/main'})
       },
       refresh:function refresh(){
 

@@ -18,11 +18,12 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "@megalo/vhtml-plugin": "^0.1.2",
+    "flyio": "^0.6.9",
     "mpvue": "^1.0.11",
-    "vuex": "^3.0.1",
-   "flyio": "^0.6.9",
-   "@megalo/vhtml-plugin": "^0.1.2",
-    "mpvue-router-patch":"^0.2.1"
+    "mpvue-router-patch": "^0.2.1",
+    "mpvue-wxparse": "^0.6.5",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "mpvue-loader": "^1.1.2",

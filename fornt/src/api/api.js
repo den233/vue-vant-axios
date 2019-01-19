@@ -191,7 +191,7 @@ apiConfig.member_get = params => {
     params: params
   });
 };
-//  20.查询销售网节点信息
+//  20.查询推荐网（服务人）节点信息
 //  {baseurl}/v2/member.html?strAction=member_linkno_get&linkNo=CN01363759
 apiConfig.member_linkno_get = params => {
   return fetch({
@@ -200,7 +200,7 @@ apiConfig.member_linkno_get = params => {
     params: params
   });
 };
-//  20.查询推荐网（服务人）节点信息
+//  20.查询销售网节点信息
 //  {baseurl}/v2/member.html?strAction=member_recommendno_get&recommendNo=CN01363759
 apiConfig.member_recommendno_get = params => {
   return fetch({

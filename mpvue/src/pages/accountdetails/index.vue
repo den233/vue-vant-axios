@@ -54,12 +54,12 @@
       </div>
     </div>
     <div class="cell-group">
-      <van-cell title="奖金明细" @click='gotoDetail($event,"profit")' is-link value="更多" />
-      <van-cell title="电子币明细" @click='gotoDetail($event,"coin")' is-link value="更多" />
-      <van-cell title="现金明细" @click='gotoDetail($event,"xianjin")' is-link value="更多" />
-      <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"pv")' is-link value="更多" />
-      <van-cell title="提现记录" @click='gotoDetail($event,"cashreport")' is-link value="更多" />
-      <van-cell title="转账记录" @click='gotoDetail($event,"transport")' is-link value="更多" />
+      <van-cell title="奖金明细" @click='gotoDetail($event,"/pages/bonusdetails/main")' is-link value="更多" />
+      <van-cell title="电子币明细" @click='gotoDetail($event,"/pages/coindetails/main")' is-link value="更多" />
+      <van-cell title="现金明细" @click='gotoDetail($event,"/pages/cashdetails/main")' is-link value="更多" />
+      <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"/pages/pvdetails/main")' is-link value="更多" />
+      <van-cell title="提现记录" @click='gotoDetail($event,"/pages/tixianrecord/main")' is-link value="更多" />
+      <van-cell title="转账记录" @click='gotoDetail($event,"/pages/transfer/main")' is-link value="更多" />
     </div>
   </div>
 </template>
@@ -268,7 +268,7 @@
       },
       gotoDetail(e, id) {
         console.log(id)
-        this.$router.push({ name: id })
+        this.$router.push({ path: id })
       }
     }
   };

@@ -150,14 +150,14 @@ apiConfig.member_get = params => {
   return fetch.request(url, params, {method:"get"})
 };
 
-//  20.查询销售网节点信息
+//  20.查询服务人
 //  {baseurl}/v2/member.html?strAction=member_linkno_get&linkNo=CN01363759
 apiConfig.member_linkno_get = params => {
   let url= configPath + '/v2/member.html?strAction=member_linkno_get'
   return fetch.request(url, params, {method:"get"})
 };
 
-//  20.查询推荐网（服务人）节点信息
+//  20.查询销售网节点信息
 //  {baseurl}/v2/member.html?strAction=member_recommendno_get&recommendNo=CN01363759
 apiConfig.member_recommendno_get = params => {
   let url= configPath + '/v2/member.html?strAction=member_recommendno_get'
@@ -170,7 +170,12 @@ apiConfig.tmporder_czkre_checkout = params => {
   let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_czkre_checkout'
   return fetch.request(url, params, {method:"post"})
 };
-
+//  21.确认支付超值卡激活订单
+// {baseurl}/v2/tmpOrder.html?strAction=tmporder_czk_checkout
+apiConfig.tmporder_czk_checkout = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_czk_checkout'
+  return fetch.request(url, params, {method:"post"})
+};
  
 const apiList = {
   login,

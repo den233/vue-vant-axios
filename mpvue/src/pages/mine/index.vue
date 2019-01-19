@@ -46,7 +46,7 @@
         </div>
         <span class="text">待收货</span>
       </div>
-      <div class="sub-nav-item" @click="goToMyOrder($event,4)">
+      <div class="sub-nav-item" @click="goWuliu($event,4)">
           <div class="icon-wrapper">
             <img src="./img/logist.png" slot="icon">
           </div>
@@ -121,9 +121,10 @@
         this.$store.commit('orderStatus',index)
         this.$router.push({ path: '/pages/myorder/main' });
       },
-      goToWuliu() {
-        this.$router.push({ name: 'wlindex' });
-      }
+      goWuliu(){
+        this.$router.push({ path: '/pages/logistics/main' });
+      },
+     
     }
   };
 </script>

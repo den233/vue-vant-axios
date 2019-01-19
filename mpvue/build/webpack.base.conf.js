@@ -71,7 +71,7 @@ let baseWebpackConfig = {
       },
       {
         test: /\.js$/,
-        include: [resolve('src'), resolve('test')],
+        include: [resolve('src'), resolve('test'),/mpvue-wxparse/],
         use: [
           'babel-loader',
           {
@@ -84,7 +84,7 @@ let baseWebpackConfig = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 20000,
+          limit: 50000,
           name: utils.assetsPath('img/[name].[ext]')
         }
       },

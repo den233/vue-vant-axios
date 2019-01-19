@@ -47,6 +47,7 @@ let PLATFORM_CONFIG = [
   }
 ]
 Vue.prototype.$PLATFORM_CONFIG = PLATFORM_CONFIG;
+Vue.prototype.$img = '';
 const app = new Vue( App )
 
 app.$mount()
