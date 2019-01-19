@@ -38,14 +38,13 @@
       "ff-canvas": "/static/f2-canvas/f2-canvas"
   },
   "pages": [
-    "pages/upgrageorder/main",
     "pages/login/main",
     "pages/home/main",
     "pages/shop/main" ,
     "pages/cart/main" ,
     "pages/mine/main",
     "pages/activeorder/main",
-   
+    "pages/upgrageorder/main",
     "pages/repeatorder/main",
     "pages/myorder/main",
     "pages/transfer/main",

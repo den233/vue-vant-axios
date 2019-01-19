@@ -59,7 +59,7 @@
       <van-cell title="现金明细" @click='gotoDetail($event,"/pages/cashdetails/main")' is-link value="更多" />
       <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"/pages/pvdetails/main")' is-link value="更多" />
       <van-cell title="提现记录" @click='gotoDetail($event,"/pages/tixianrecord/main")' is-link value="更多" />
-      <van-cell title="转账记录" @click='gotoDetail($event,"/pages/transfer/main")' is-link value="更多" />
+      <van-cell title="转账记录" @click='gotoDetail($event,"/pages/transferdetails/main")' is-link value="更多" />
     </div>
   </div>
 </template>
