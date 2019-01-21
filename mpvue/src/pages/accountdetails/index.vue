@@ -16,7 +16,7 @@
             奖金
           </div>
           <div class="icons">
-            <img src="./img/jiang.png" alt="">
+            <img src="../../assets/images/accountdetails/jiang.png" alt="">
           </div>
 
           <div class="num">1223</div>
@@ -26,7 +26,7 @@
             电子币
           </div>
           <div class="icons">
-            <img src="./img/coin.png" alt="">
+            <img src="../../assets/images/accountdetails/coin.png" alt="">
           </div>
 
           <div class="num">1223</div>
@@ -36,7 +36,7 @@
             现金账户
           </div>
           <div class="icons">
-            <img src="./img/xianjin.png" alt="">
+            <img src="../../assets/images/accountdetails/xianjin.png" alt="">
           </div>
 
           <div class="num">1223</div>
@@ -46,7 +46,7 @@
             积分账户
           </div>
           <div class="icons">
-            <img src="./img/pv.png" alt="">
+            <img src="../../assets/images/accountdetails/pv.png" alt="">
           </div>
 
           <div class="num">1223</div>

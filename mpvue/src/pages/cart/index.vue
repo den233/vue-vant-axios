@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <van-stepper :integer=true :disable-input=false @blur='blur(item.ppsId,item.quantity,index)' :async-change=true @overlimit='overlimit' @plus='plus(item.ppsId,item.quantity,index)' @minus='minus(item.ppsId,item.quantity,index)' v-model="item.quantity" integer :min="1"
+                        <van-stepper :integer=true :disable-input=false @blur='blur(item.ppsId,item.quantity,index)' :async-change=true @overlimit='overlimit' @plus='plus(item.ppsId,item.quantity,index)' @minus='minus(item.ppsId,item.quantity,index)' :value="item.quantity" integer :min="1"
                             :max="99" :step="0" />
                     </div>
                 </div>

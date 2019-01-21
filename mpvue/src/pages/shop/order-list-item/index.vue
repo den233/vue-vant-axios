@@ -14,7 +14,8 @@
                 </p>
               </div>
             </div>
-            <van-stepper class="van-stepper" integer :min="1" :step="1" :value='item.number' @change='changeNum()' />
+            <van-stepper :integer=true :disable-input=false @change='changeNum($event,item.ppsId,item.number,index)'   :value="item.number" integer :min="1"
+            :max="99" :step="1" />
             <van-button class="add_cart" size="small" type="warning" @click='addCart(item.id,item.number)'>加入购物车</van-button>
           </li>
         </ul>
@@ -87,8 +88,8 @@
         //   });
 
       },
-      changeNum(val) {
-
+      changeNum({mp},id,number,index) {
+        this.data[index].number=mp.detail;
       }
     }
   };

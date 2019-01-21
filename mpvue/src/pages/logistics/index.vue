@@ -12,7 +12,7 @@
     <van-cell title="订单编号" value="56698855" />
     <div class="card">
       <div class="imgs">
-        <img src="./img/logist.png" alt="">
+        <img src="../../assets/images/logist/logist.png" alt="">
       </div>
       <div class="content">
         <div class="title">物流公司：<span>{{name}}</span></div>

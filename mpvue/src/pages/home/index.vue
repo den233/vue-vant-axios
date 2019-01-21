@@ -12,7 +12,7 @@
      <TheBanner></TheBanner>
     <Subnav></Subnav>
     <NoticeCard></NoticeCard>
-    <TheTodayOrder></TheTodayOrder>
+    <TheTodayOrder ></TheTodayOrder>
   </div>
 </template>
 <script>
@@ -32,18 +32,24 @@
       return {
         address: '财富港大夏D座财富港大夏D座',
         searchValue: '',
-
+        serviceList:[],
+        current_id:"",
+        orderType:this.$PLATFORM_CONFIG,
+        currentOrderType:this.$PLATFORM_CONFIG[0].type,
       };
     },
     created: function () {
+    },
+    mounted(){
     },
     destroyed() {
 
     },
     methods: {
       focus() {
-        this.$router.push({ path: '/service/list-search' });
-      }
+        this.$router.push({ path: '/pages/search/main' });
+      },
+     
     }
   };
 </script>

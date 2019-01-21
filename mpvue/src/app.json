@@ -65,9 +65,10 @@
     "pages/tixianrecord/main",
     "pages/messagelist/main",
     "pages/messagedetails/main",
-    "pages/logistics/main"
+    "pages/logistics/main",
+    "pages/search/main"
   ] ,
- 
+   
   "tabBar": {
     "backgroundColor": "#fafafa",
     "borderStyle": "white",

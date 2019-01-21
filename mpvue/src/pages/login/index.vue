@@ -3,7 +3,7 @@
      
       <div class="form">
           <div class="logo">
-              <img src="./img/logo2.png" alt="">
+              <img src="../../assets/images/login/logo2.png" alt="">
               
            </div>
               <van-cell-group>
