@@ -26,7 +26,7 @@
                   <van-button slot="button" size="small" type="primary">全部转出</van-button>
                 </van-field>
             <van-field
-              :valueaccountName"
+              :value="accountName"
               required
               clearable
               label="转入账户"
@@ -75,7 +75,8 @@
             onClickLeft() {
                 this.$router.go(-1);
             },
-            onChange({mp},index){
+            onChange(e,index){
+							console.log(e)
               const {detail}=mp
               this.radio=detail
             }
