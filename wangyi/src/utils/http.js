@@ -10,7 +10,7 @@ fly.interceptors.request.use((request) => {
     title: "加载中",
     mask:true
   });
-  console.log(request);
+  //console.log(request);
   // request.headers["X-Tag"] = "flyio";
   // request.headers['content-type']= 'application/json';
   request.headers = {

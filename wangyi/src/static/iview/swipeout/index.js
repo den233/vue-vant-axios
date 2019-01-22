@@ -60,7 +60,7 @@ Component({
                 });
                 this.data.limitMove = limitMovePosition;
                 /*
-                    * 动态获取每个传进值的按钮尺寸不能正确获取，在安卓上少了6rpx
+                    * 动态获取每个传进值的按钮尺寸不能正确获取，在安卓上少了6px
                     * 暂时实现需要在actions里面传递宽度
                     * 需要后期调研
                 */

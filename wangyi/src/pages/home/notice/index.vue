@@ -13,6 +13,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="/pages/messagelist/main">更多</a>
         </div>
     </div>
 
@@ -25,7 +26,7 @@
             return {
                 animate: false,
                 setInval: "",
-                marginTop:'0rpx',
+                marginTop:'0px',
                 marqueeList: [{
                     name: '隆力奇护手霜1折',
                 },

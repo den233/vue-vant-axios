@@ -2,7 +2,7 @@
   <div>
       <ul class="lists">
           <li class="lists-item" v-for="(item,index) in data" :key="index">
-            <router-link :to="{path:'/service/details'}" tag="div" style="display:flex">
+            <div style="display:flex">
               <div class="imgs">
                 <img class="img" :src="item.imgUrl" alt="">
               </div>
@@ -13,8 +13,9 @@
                   <span class="total">{{item.price}}</span>
                 </p>
               </div>
-            </router-link>
-            <van-stepper class="van-stepper" integer :min="1" :step="1" :value='item.number' @change='changeNum()' />
+            </div>
+            <van-stepper :integer=true :disable-input=false @change='changeNum($event,item.ppsId,item.number,index)'   :value="item.number" integer :min="1"
+            :max="99" :step="1" />
             <van-button class="add_cart" size="small" type="warning" @click='addCart(item.id,item.number)'>加入购物车</van-button>
           </li>
         </ul>
@@ -24,7 +25,7 @@
 </template>
 <script>
 
-  import Toast from '@/static/vant/toast/toast';
+  import Toast from 'staticA/vant/toast/toast';
   import bus from '@/components/bus';
   export default {
     props: {
@@ -87,8 +88,8 @@
         //   });
 
       },
-      changeNum(val) {
-
+      changeNum({mp},id,number,index) {
+        this.data[index].number=mp.detail;
       }
     }
   };

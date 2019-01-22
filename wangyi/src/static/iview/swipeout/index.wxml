@@ -8,7 +8,7 @@
             catchtouchend="loop" >
             <view class="i-swipeout-button-right-item" 
                 wx:for="{{actions}}" 
-                style="{{parse.setStyle(item)}};width:{{item.width}}rpx;" 
+                style="{{parse.setStyle(item)}};width:{{item.width}}px;" 
                 wx:key="{{index}}" 
                 data-index="{{index}}" 
                 bind:tap="handlerButton">
@@ -21,7 +21,7 @@
                 {{item.name}}
             </view>
         </view>
-        <view class="i-swipeout-button-right-group" catchtouchend="loop" bind:tap="handlerParentButton"  wx:if="{{actions.length === 0}}" style="width:{{operateWidth}}rpx;right:-{{operateWidth}}rpx;">
+        <view class="i-swipeout-button-right-group" catchtouchend="loop" bind:tap="handlerParentButton"  wx:if="{{actions.length === 0}}" style="width:{{operateWidth}}px;right:-{{operateWidth}}px;">
             <slot name="button"></slot>
         </view>
     </view>
@@ -33,7 +33,7 @@
             return 'background:' + ( item.background ? item.background : defaults ) +';' + 'color:'+ item.color;
         },
         setPosition : function( position ){
-            return 'transform:translate(' + position.pageX + 'rpx,0);';
+            return 'transform:translate(' + position.pageX + 'px,0);';
         }
     }
 </wxs>

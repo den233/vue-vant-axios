@@ -7,7 +7,7 @@
     wx:key="index"
     class="van-rate__item"
     custom-class="icon-class"
-    size="{{ size }}rpx"
+    size="{{ size }}px"
     data-index="{{ index }}"
     name="{{ item ? icon : voidIcon }}"
     color="{{ disabled ? disabledColor : item ? color : voidColor }}"

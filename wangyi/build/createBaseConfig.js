@@ -83,7 +83,8 @@ function createBaseConfig() {
       extensions: ['.vue', '.js', '.json'],
       alias: {
         'vue': 'megalo',
-        '@': _.resolve('src')
+        '@': _.resolve('src'),
+				'staticA':_.resolve('src/static')
       },
     },
 
@@ -135,7 +136,7 @@ function createBaseConfig() {
             {
               loader: 'url-loader',
               options: {
-                limit: 8192,
+                limit: 50000,
                 name: '/static/img/[name].[ext]'
               }
             }

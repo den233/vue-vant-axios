@@ -1,0 +1,164 @@
+@import '~@/assets/css/function.scss';
+
+$paddingLeft: half(29px);
+#mineEntry {
+  .avatar-wrapper {
+    display: flex;
+    position: relative;
+    padding-top: half(50px);
+    height: half(400px);
+    background-image:url('../../assets/images/my/mine.jpg');
+ 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+ 
+    img {
+      border: 1px solid #fff;
+      width: half(184px);
+      height: half(184px);
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: half(38px);
+      margin-left: $paddingLeft;
+    }
+    .user-info {
+      line-height: 20px;
+      > span {
+        font-size: half(32px);
+        color: #ffffff;
+        margin-bottom: half(10px);
+      }
+      .email{
+        span{
+          font-size: half(32px);
+          color: #ffffff;
+        }
+      }
+    }
+    .setting {
+      position: absolute;
+      top: half(26px);
+      right: half(35px);
+      color: #fff;
+    }
+    .account{
+      position: absolute;
+      display: flex;
+      bottom:0;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      background:url('../../assets/images/my/top.png') no-repeat;
+      background-size:cover;
+      height: 60px;
+      .a1{
+        color: #fff;
+        font-size: 16px;
+        flex: 1;
+        text-align: center;
+      }
+    }
+  }
+  .sub-nav {
+    display: flex;
+    height: half(200px);
+    background-color: #fff;
+    margin-bottom: half(10px);
+    padding: 0 half(100px);
+    border-bottom: 1Px solid rgb(233, 233, 233);
+    .sub-nav-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      .icon-wrapper {
+        position: relative;
+        .info {
+          width: half(30px);
+          height: half(30px);
+          font-size: half(20px);
+          color: #fff;
+          background-color: #ff0000;
+          border-radius: 50%;
+          text-align: center;
+          font-style: normal;
+          position: absolute;
+          /* prettier-ignore */
+          top: -6PX;
+          /* prettier-ignore */
+          right: -5PX;
+        }
+        img {
+          margin-bottom: 5px;
+          width: half(66px);
+          height: half(66px);
+        }
+      }
+      .text {
+        font-size: half(24px);
+      }
+    }
+  }
+  .list {
+    a{
+      text-decoration: none;
+    }
+    .account-item {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom:70px;
+      flex-wrap: wrap;
+      background: #ffffff;
+        li {
+        width: 25%;
+        position: relative;
+        text-align:center;
+        align-items: center;
+        justify-content: center;  
+        height:65px;
+        padding-top:14px;
+
+        i{
+          display: block;
+          font-size: 30px;
+          color: #22a7e6;
+        }
+        span{
+          display: block;
+          font-size: 14px;
+          color:#333;
+        }
+        &:before{
+          content: " ";
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 1px;
+          bottom: 0;
+          border-right: 1Px solid #D9D9D9;
+          color: #D9D9D9;
+          -webkit-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+          -webkit-transform: scaleX(0.5);
+          transform: scaleX(0.5);
+        }
+        &:after{
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 1px;
+          border-bottom: 1Px solid #D9D9D9;
+          color: #D9D9D9;
+          -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+          -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+        }
+      }
+    }
+  }
+}

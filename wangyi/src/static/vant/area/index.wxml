@@ -10,8 +10,8 @@
   </view>
 
   <picker-view
-    indicator-style="height: {{ itemHeight }}rpx;"
-    style="width: 100%; height: {{ itemHeight * visibleItemCount + 'rpx' }}"
+    indicator-style="height: {{ itemHeight }}px;"
+    style="width: 100%; height: {{ itemHeight * visibleItemCount + 'px' }}"
     bindchange="onChange"
     value="{{ pickerValue }}"
     class="van-picker__columns"
@@ -26,7 +26,7 @@
       <view
         wx:for="{{ row }}"
         wx:key="{{ item.code }}"
-        style="line-height: {{ itemHeight }}rpx;"
+        style="line-height: {{ itemHeight }}px;"
         class="van-picker-column__item {{ index === pickerValue[rowIndex] ? 'van-picker-column__item--selected' : '' }}"
       >{{ item.name }}</view>
     </picker-view-column>

@@ -1,0 +1,60 @@
+<view>
+    <van-cell-group>
+        <van-field
+            value="{{ cData.name }}"
+            placeholder="请输入收货人"
+            border="{{ false }}"
+            bind:change="onChange"
+            label="收货人"
+            error="{{errorInfo.name}}"
+             required
+        />
+         <van-field
+            value="{{ cData.tel }}"
+            placeholder="请输入手机号"
+            border="{{ false }}"
+            bind:change="onChangeTel"
+            label="手机号"
+             required
+             error="{{errorInfo.tel}}"
+        />
+         <van-field
+            value="{{addressDetail}}"
+            label="选择地区"
+            placeholder="选择省/市/区"
+            readonly
+            border="{{ false }}"
+           bind:tap="showAreaPopup"
+            required
+            error="{{errorInfo.areaDetail}}"
+        />
+       
+        <van-field
+            value="{{ cData.addressDetail }}"
+            label="详细地址"
+            type="textarea"
+            placeholder="详细地址"
+            autosize
+            bind:change="onChangeAddress"
+             required
+             error="{{errorInfo.addressDetail}}"
+            border="{{ false }}"
+        />
+        <view style="text-align:center;background:#f44">
+              <van-button style="width:100%" bind:click="onSave"  :loading="isSaving" type="danger">提交订单</van-button>
+        </view>
+     
+         
+    </van-cell-group>
+   
+     <van-popup
+      show="{{showArea}}"
+      position="bottom"
+   
+    >
+      <van-area   bind:confirm="onAreaConfirm"
+     bind:cancel="onAreaCancel" area-list="{{areaList}}" />
+    </van-popup>
+   
+ </view>
+   

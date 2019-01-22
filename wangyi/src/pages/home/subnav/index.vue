@@ -13,12 +13,13 @@
 </template>
 <style lang="scss"   src="./style.scss"></style>
 <script>
+import store from '@/store'
 export default {
   data () {
     return {
-      active:this.$store.getters.active,
+      active:'0',
       orderType:this.$PLATFORM_CONFIG,
-      currentOrderType:this.$store.getters.currentOrderType
+      currentOrderType:this.$PLATFORM_CONFIG[0].type
     }
   },
   mounted(){
@@ -27,7 +28,8 @@ export default {
   methods:{
       goShop(item,index){
         console.log(item)
-         this.$store.commit('changeTab',{type:item.type,index,index});
+         store.commit('changeTab',{type:item.type,index,index});
+				 
         // this.$router.push({path: item.path, query:{type : item.type,index:index}})
       }
   }

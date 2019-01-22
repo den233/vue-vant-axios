@@ -1,0 +1,127 @@
+@import '~@/assets/css/function.scss';
+  @import '~@/assets/css/variable.scss';
+
+  $paddingLeftAndRight: half(27px);
+
+  #listItem {
+    margin-bottom: half(10px);
+
+    .top {
+      display: flex;
+      align-items: center;
+      font-size: half(28px);
+      height: half(82px);
+      padding-left: $paddingLeftAndRight;
+      padding-right: $paddingLeftAndRight;
+      background-color: #fff;
+
+      img {
+        width: half(70px);
+        height: half(70px);
+        border-radius: 50%;
+        margin-right: half(8px);
+      }
+
+      .userName {
+        color: #626b77;
+      }
+
+      .status {
+        color: #fc8a04;
+        margin-left: auto;
+      }
+    }
+
+    .desc {
+      display: flex;
+      padding: half(23px) $paddingLeftAndRight half(23px);
+
+      .titleName {
+        color: #333;
+        font-size: half(36px);
+      }
+
+      img {
+        width: half(170px);
+        height: half(170px);
+        margin-right: half(16px);
+      }
+
+      .right {
+        display: flex;
+        font-size: half(28px);
+        color: #bbc0cb;
+        flex: 1;
+        flex-direction: column;
+        position: relative;
+        .title {
+          max-width: half(474px);
+          font-size: half(28px);
+          color: $font-color-black;
+        }
+        span{
+          color:#aba6a6;
+          b{
+            font-weight:normal;
+            color:#333;
+          }
+        }  
+        .money {
+          align-self: flex-end;
+          font-size: half(28px);
+          color: $font-color-black;
+          position: absolute;
+          top: 0;
+          right: 0px;
+          span{
+            color:#fff;
+          }
+        }
+      }
+    }
+
+    .statistics {
+      display: flex;
+      height: half(75px);
+      background-color: #fff;
+      font-size: half(26px);
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: $paddingLeftAndRight;
+
+      .pv {
+        color: #fc8a04;
+        font-size: half(36px);
+        margin-right: 15px;
+      }
+
+      .total {
+        font-size: half(36px);
+        color: #fc8a04;
+
+        i {
+          font-style: normal;
+          font-size: half(26px);
+        }
+      }
+
+      .end-text {
+        font-size: half(24px);
+      }
+    }
+
+    .tool-bar {
+      display: flex;
+      height: half(80px);
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: $paddingLeftAndRight;
+      background-color: #fff;
+
+      .van-button {
+        height: half(52px);
+        line-height: half(52px);
+        width: auto;
+      }
+    }
+  }

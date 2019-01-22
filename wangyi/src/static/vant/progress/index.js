@@ -29,7 +29,7 @@ VantComponent({
   },
   computed: {
     portionStyle: function portionStyle() {
-      var width = (this.data.progressWidth - this.data.pivotWidth) * this.data.percentage / 100 + 'rpx';
+      var width = (this.data.progressWidth - this.data.pivotWidth) * this.data.percentage / 100 + 'px';
       var background = this.getCurrentColor();
       return "width: " + width + "; background: " + background + "; ";
     },
