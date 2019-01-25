@@ -13,7 +13,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="/pages/messagelist/main">更多</a>
+            <a href="/other/pages/messagelist/index">更多</a>
         </div>
     </div>
 

@@ -92,8 +92,8 @@ export default {
     "pages/login/index",
     "pages/home/index",
     "pages/shop/index" ,
-    "pages/cart/index" ,
-    "pages/mine/index" 
+     "pages/cart/index" ,
+     "pages/mine/index" 
   ] ,
     subPackages: [
 			{
@@ -139,20 +139,7 @@ export default {
 						"pages/messagelist/index",
 						"pages/search/index"
 					]
-			},
-      {
-          root: 'packageA',
-          pages: [
-            'pages/a/index',
-            'pages/todomvc/index',
-          ]
-      },
-      {
-        root: 'packageB',
-        pages: [
-          'pages/home/index',
-        ]
-      }
+			}
        
     ],
    

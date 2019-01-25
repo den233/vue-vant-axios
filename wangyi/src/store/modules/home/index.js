@@ -4,9 +4,9 @@ export default {
     // 每日推荐列表-列表类型
     goodsProducttype: 1,
     payOrderInfo: '',
-    currentOrderType:0,
+    currentOrderType:0,//订单类型
     active: 0,
-    orderStatus:0
+    orderStatus:0//我的订单
   },
   mutations: {
     // 列表类型

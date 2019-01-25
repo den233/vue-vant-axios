@@ -43,8 +43,6 @@
         <view style="text-align:center;background:#f44">
               <van-button style="width:100%" bind:click="onSave"  :loading="isSaving" type="danger">提交订单</van-button>
         </view>
-     
-         
     </van-cell-group>
    
      <van-popup
@@ -55,6 +53,5 @@
       <van-area   bind:confirm="onAreaConfirm"
      bind:cancel="onAreaCancel" area-list="{{areaList}}" />
     </van-popup>
-   
  </view>
    

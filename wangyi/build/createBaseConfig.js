@@ -182,7 +182,7 @@ function createBaseConfig() {
       })
     ]
   }
-
+  
   if (!isDEV) {
     webpackBaseConfig.optimization.minimizer = [
       new UglifyJsPlugin({

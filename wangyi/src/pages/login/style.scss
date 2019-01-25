@@ -8,8 +8,8 @@
     .logo{
         text-align:center;
         image{
-            width:300rpx;
-            height:300rpx;
+            width:500rpx;
+            height:500rpx;
         }
         .title{
             color:#fff;
@@ -17,7 +17,7 @@
     }
     .form{
         position: absolute;
-        top: 15%;
+        top: 100rpx;
         width: 100%;
         .van-cell-group{
             background: transparent;

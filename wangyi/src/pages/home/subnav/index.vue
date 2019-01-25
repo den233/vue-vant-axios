@@ -28,9 +28,11 @@ export default {
   methods:{
       goShop(item,index){
         console.log(item)
-         store.commit('changeTab',{type:item.type,index,index});
-				 
-        // this.$router.push({path: item.path, query:{type : item.type,index:index}})
+         store.commit('changeTab',{type:item.type,index:index});
+				 wx.switchTab({
+          url: '/pages/shop/index',
+        });
+         
       }
   }
 };

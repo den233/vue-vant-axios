@@ -97,7 +97,7 @@
         ]
       },
       goDetail(){
-        this.$router.push({path:'/pages/messagedetails/main'})
+        this.$router.push({path:'/other/pages/messagedetails/index'})
       },
       refresh:function refresh(){
 

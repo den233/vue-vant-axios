@@ -6,7 +6,7 @@
       </van-search>
     </div>
 
-    <van-tabs :active="active" @change='tabClick'>
+    <van-tabs style="margin-top:20px;" :active="active" @change='tabClick'>
       <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
     </van-tabs>
 
@@ -55,7 +55,8 @@
         },
         currentPage: 1,
         dataActive: [],//激活单
-        hasData:false
+        hasData:false,
+        imgUrl:require('@/assets/images/timg.jpg')
       };
     },
     mounted() {
@@ -84,15 +85,16 @@
       goBack() {
         this.$router.go(-1);
       },
-      searchChange({ mp }) {
-        this.searchValue = mp.detail;
+      //搜索
+      searchChange({ detail }) {
+        this.searchValue = detail;
       },
       onSearch() {
         this.pagecon.total=0;
         this.currentPage = 1;
         this.catEvent("")
       },
-      addCart({ mp }, id, number) {
+      addCart({ detail }, id, number) {
         let _this = this;
         let queryParam = {
           //"strAction": "trolley_detail_add",
@@ -179,9 +181,9 @@
         _this.categoryHandle(id);
       },
       //切换订单类型
-      tabClick(event) {
+      tabClick({detail}) {
         let _this = this;
-        let index = event.mp.detail.index;
+        let index = detail.index;
         _this.currentOrderType = _this.orderType[index].type;
         _this.pagecon.total=0;
         let id = _this.current_id;
@@ -189,8 +191,8 @@
         _this.catEvent(id)
         // _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
       },
-      changeNum({ mp }, id, number, index) {
-        this.dataActive[index].number = mp.detail;
+      changeNum({ detail }, id, number, index) {
+        this.dataActive[index].number = detail;
       }
     }
   };

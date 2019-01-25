@@ -101,7 +101,7 @@
 
   import bus from '@/components/bus';
   import {deleteKey} from '@/utils/tools.js'
- 
+  import store from '@/store'
 export default {
     components: {
       OrderListItem,
@@ -133,11 +133,14 @@ export default {
              maxPrice:'',
              minPv:'',
              maxPv:''
-          }
+          },
+          imgUrl:require('@/assets/images/timg.jpg')
       };
     },
-    mounted(){
+    onShow(){
        let _this=this;
+       _this.currentOrderType=store.state.home.currentOrderType;
+       _this.active=store.state.home.active;
       _this.catEvent("")
 
       bus.$on('useBusEvent',function(id){
@@ -223,8 +226,8 @@ export default {
          _this.categoryHandle(id)
       },
       //分页
-        chagePage({ mp }){
-          const type = mp.detail.type;
+        chagePage({ detail }){
+          const type = detail.type;
      
           if (type === 'next') {
              this.currentPage=this.currentPage + 1;
@@ -237,9 +240,9 @@ export default {
           _this.categoryHandle(id);
       },
       //切换订单类型
-      tabClick(event){
+      tabClick({detail}){
         let _this=this;
-        let index= event.mp.detail.index;
+        let index= detail.index;
         _this.currentOrderType=_this.orderType[index].type;
         _this.pagecon={
           total:0,
@@ -248,7 +251,7 @@ export default {
         let id=_this.current_id;
         _this.currentPage=1;
         _this.categoryHandle(id)
-       // _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
+        store.commit('changeTab',{type:_this.currentOrderType,index:index});
       },
       //筛选
       pickType(){

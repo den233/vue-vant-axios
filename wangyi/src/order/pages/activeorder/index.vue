@@ -46,7 +46,7 @@
           <van-field readonly :value="oldMember.userName" center clearable label="姓名" placeholder="姓名">
           </van-field>
         </van-cell-group>
-        <van-cell class="sex-cell" title='使用创业基金' is-link>
+        <van-cell v-if='venturefund' class="sex-cell" title='使用创业基金' is-link>
           <div class="gender-wrapper">
             否 &nbsp;
             <van-switch @change="changeFunder" :checked="usefunder" />&nbsp; 是
@@ -111,7 +111,8 @@
         active: 0,
         tabactive: '0',
         $img: this.$img,
-        usefunder: true,
+        usefunder: false,
+        venturefund:false,
         recommendNo: {
           isCz: '',
           totalSubnodes: '',
@@ -226,7 +227,8 @@
       onLoad() {
         this.active = 0;
         this.tabactive = '0';
-        this.usefunder = true;
+        this.usefunder = false;
+        this.venturefund=false;
         this.recommendNo = {
           isCz: '',
           totalSubnodes: '',
@@ -329,6 +331,7 @@
         let _this = this;
         let queryData = {};
         _this.$api.apiConfig.member_me_get(queryData).then(data => {
+          console.log(data)
           let memberInfo = data.member_me_get_response;
           let { cash, coin, bonus } = memberInfo;
           _this.memberAccount = {
@@ -356,8 +359,8 @@
           }
         })
       },
-      changeFunder({ mp }) {
-        this.usefunder = mp.detail;
+      changeFunder({ detail }) {
+        this.usefunder = detail;
       },
       onSubmit() {
 
@@ -392,7 +395,8 @@
             "memberName": _this.formItem.userName
           }
         };
-        if (_this.tabactive == 2) {
+        console.log(_this.tabactive)
+        if (_this.tabactive == 1) {
           params.register = {
             memberCode: _this.oldMember.serviceNum
           }
@@ -411,8 +415,8 @@
         })
         this.active = id;
       },
-      changeMember({ mp }) {
-        this.tabactive = mp.detail;
+      changeMember({ detail }) {
+        this.tabactive = detail;
       },
       searchXiaoshou() {
         let _this = this;

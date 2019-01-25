@@ -12,21 +12,21 @@
      <TheBanner></TheBanner>
     <Subnav></Subnav>
     <NoticeCard></NoticeCard>
-    <TheTodayOrder ></TheTodayOrder>
+    <OrderList></OrderList>
   </div>
 </template>
 <script>
-
   import TheBanner from './banner';
   import Subnav from './subnav';
-  import TheTodayOrder from './today-order';
   import NoticeCard from './notice';
+  import OrderList from './orderlist'
+  import store from '@/store'
   export default {
     components: {
       TheBanner,
       Subnav,
       NoticeCard,
-      TheTodayOrder
+      OrderList
 
     },
     data() {
@@ -42,6 +42,7 @@
     created: function () {
     },
     mounted(){
+      store.commit('changeTab',{type:this.currentOrderType,index:0});
     },
     destroyed() {
 

@@ -1,5 +1,5 @@
 import fetch from '@/utils/http';
-let configPath = 'http://192.168.120.88:8080';// 真实环境
+let configPath = 'http://192.168.120.211:8081';// 真实环境
 // var isProduction = process.env.NODE_ENV === 'production'
 // if (isProduction) {} else {
 //   configPath = '../../static/myConfig.js' // 开发环境
@@ -9,13 +9,15 @@ console.log(configPath)
  
 // 1登录
 // var wh = 'http://oms.52haigo.cn/api'
-
+// 登录失效判断
+ const handleToken = function(result) {
+      console.log(result)
+      return result.token;
+  
+}
 const login = params => {
-  return fetch({
-    url: configPath + '/api/auth/login',
-    method: 'post',
-    data: params
-  });
+  let url='http://zhixiao.cn/api/auth/login';
+  return fetch.request(url, params, {method:"post"}).then(response => handleToken(response));
 };
 let apiConfig = {};
 // 2 商品分类

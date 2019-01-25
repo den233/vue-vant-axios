@@ -62,7 +62,7 @@ data(){
       showArea:false})
     },
     onSave(e){
-     
+     console.log(e)
       const name =  this.data['cData']['name'];
       const tel = this.data['cData']['tel'];
       const addressDetail = this.data['cData']['addressDetail'];

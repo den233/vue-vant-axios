@@ -191,9 +191,7 @@
           })
         }
       },
-      handleChange(ev) {
-        console.log(ev)
-        const { detail } = ev.mp;
+      handleChange({detail}) {
         const type = detail.type;
 
         if (type === 'next') {
@@ -218,14 +216,14 @@
         //重消单
         this.$store.commit('payOrderInfo', val)
         if (val.orderType == 21) {
-          this.$router.push({ path: '/pages/repeatorder/main' });
+          this.$router.push({ path: '/order/pages/repeatorder/index' });
         }
         //激活单
         if (val.orderType == 22) {
-          this.$router.push({ path: '/pages/activeorder/main' });
+          this.$router.push({ path: '/order/pages/activeorder/index' });
         }
         if (val.orderType == 20) {
-
+          this.$router.push({ path: '/order/pages/upgrageorder/index' });
         }
 
       },

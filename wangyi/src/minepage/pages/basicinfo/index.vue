@@ -36,22 +36,22 @@
 </template>
 
 <script>
-      export default {
-          data() {
-              return {
-                  gender:true
-              }
-          },
-          mounted() {
-  
-          },
-          
-          methods: {
-              onClickLeft() {
-                  this.$router.go(-1);
-              }
-          }
-         
-      };
-  </script>
-<style lang='scss'  src='./style.scss'></style>
+  export default {
+    data() {
+      return {
+        gender: true
+      }
+    },
+    onShow() {
+      
+    },
+
+    methods: {
+      onClickLeft() {
+        this.$router.go(-1);
+      }
+    }
+
+  };
+</script>
+<style lang='scss' src='./style.scss'></style>

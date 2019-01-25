@@ -34,7 +34,7 @@ export class CommonService {
   // 登录
   login(data: any) {
     return this.http
-      .postFormData("/api/auth/login", data)
+      .postFormData("/app/login.html", data)
       .map(response => this.handleToken(response.json()));
   }
 

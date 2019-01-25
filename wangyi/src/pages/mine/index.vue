@@ -8,20 +8,20 @@
       </div>
 
       <div class="account">
-        <div class="a1">
-          <p>12.5</p>
+        <div class="a1" >
+          <p>{{memberAccount.bonus}}</p>
           <p>奖金</p>
         </div>
         <div class="a1">
-          <p>12.5</p>
+          <p>{{memberAccount.coin}}</p>
           <p>电子币</p>
         </div>
         <div class="a1">
-          <p>200000</p>
+          <p>{{memberAccount.cash}}</p>
           <p>现金账户</p>
         </div>
         <div class="a1">
-          <p>200000</p>
+          <p>{{memberAccount.pv}}</p>
           <p>积分</p>
         </div>
       </div>
@@ -29,13 +29,13 @@
     <van-cell @click="goToMyOrder($event,0)" title="我的订单" is-link value="查看全部订单" />
     <div class="sub-nav">
       <div class="sub-nav-item" @click="goToMyOrder($event,1)">
-        <div class="icon-wrapper" >
+        <div class="icon-wrapper">
           <img src="../../assets/images/my/pay.png" slot="icon">
         </div>
         <span class="text">待支付</span>
       </div>
       <div class="sub-nav-item" @click="goToMyOrder($event,2)">
-        <div class="icon-wrapper" >
+        <div class="icon-wrapper">
           <img src="../../assets/images/my/wait.png" slot="icon">
         </div>
         <span class="text">待发货</span>
@@ -47,14 +47,14 @@
         <span class="text">待收货</span>
       </div>
       <div class="sub-nav-item" @click="goWuliu($event,4)">
-          <div class="icon-wrapper">
-            <img src="../../assets/images/my/logist.png" slot="icon">
-          </div>
-          <span class="text">查看物流</span>
+        <div class="icon-wrapper">
+          <img src="../../assets/images/my/logist.png" slot="icon">
         </div>
+        <span class="text">查看物流</span>
+      </div>
     </div>
     <div class="list">
-      <a href='/mingxi/accountdetails/index'>
+      <a href='/mingxi/pages/accountdetails/index'>
         <van-cell title="账户明细" is-link />
       </a>
 
@@ -71,13 +71,13 @@
             <span>奖金提现</span>
           </a>
         </li class="li">
-    
-				<li class="li">
-					<a href="/minepage/pages/wxcharge/index">
-						<i class="iconfont1 icon-weixin" style="color:#339999"></i>
-						<span>微信充值</span>
-					</a>
-				</li>
+
+        <li class="li">
+          <a href="/minepage/pages/wxcharge/index">
+            <i class="iconfont1 icon-weixin" style="color:#339999"></i>
+            <span>微信充值</span>
+          </a>
+        </li>
         <li class="li">
           <a href="/minepage/pages/myteam/index">
             <i class="iconfont1 icon-tuandui" style="color:#339999"></i>
@@ -117,16 +117,43 @@
 <script>
   import store from '@/store'
   export default {
-    created() { },
+     data(){
+       return {
+         memberAccount:{
+          cash: '0.00',
+          coin: '0.00',
+          bonus: '0.00',
+          pv:'0'
+         }
+       }
+    },
+    onShow() { 
+      this.memberInfo();
+    },
     methods: {
-      goToMyOrder(e,index) {
-        store.commit('orderStatus',index)
-        this.$router.push({ path: '/order/myorder/index' });
+      goToMyOrder(e, index) {
+        store.commit('orderStatus', index)
+        this.$router.push({ path: '/order/pages/myorder/index' });
       },
-      goWuliu(){
-        this.$router.push({ path: '/order/logistics/index' });
+      goWuliu() {
+        this.$router.push({ path: '/order/pages/logistics/index' });
       },
-     
+      memberInfo() {
+        let _this = this;
+        let queryData = {};
+        _this.$api.apiConfig.member_me_get(queryData).then(data => {
+          let memberInfo = data.member_me_get_response;
+          let { cash, coin, bonus,pv } = memberInfo;
+          _this.memberAccount = {
+            cash: cash,
+            coin: coin,
+            bonus: bonus,
+            pv:pv
+          }
+        }).catch(e => {
+
+        })
+      }
     }
   };
 </script>

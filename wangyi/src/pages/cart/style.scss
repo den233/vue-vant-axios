@@ -1,11 +1,19 @@
 .cart{
     background:#eee;
+    .deleteBtn{
+       .van-submit-bar__button{
+           .van-button--danger{
+                background:#eee;
+                color:#f44;
+           }
+       } 
+    }
     .van-submit-bar{
         z-index: 100;
         bottom:20px;
-				.van-checkbox__label{
-					font-size: 16px;
-				}
+        .van-checkbox__label{
+            font-size: 16px;
+        }
         .van-submit-bar__bar {
             height: 1.33333rem;
             display: -webkit-box;
@@ -61,7 +69,7 @@
                 height: 80px;
                 margin-left:20px;
                 margin-right:20px;
-                img{
+                image{
                     width: 100%;
                     height: 100%;
                 }
