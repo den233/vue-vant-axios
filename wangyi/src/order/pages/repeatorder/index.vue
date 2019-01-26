@@ -179,10 +179,8 @@
                 })
             },
 
-            onChange({ mp }) {
-                const { detail } = mp;
+            onChange({ detail }) {
                 this.venture = detail;
-                console.log(mp)
             },
             onLoad(){
                 this.active= 0;
@@ -377,14 +375,14 @@
                     })
                 }
             },
-            onSelectQishu({ mp }) {
+            onSelectQishu({ detail }) {
                 this.showQishu = false;
-                this.qishuValue = mp.detail;
+                this.qishuValue =detail;
             },
-            onSelect({ mp }) {
+            onSelect({ detail }) {
                 // 点击选项时默认不会关闭菜单，可以手动关闭
                 this.show = false;
-                this.startTime = mp.detail;
+                this.startTime = detail;
             },
             getMonth(type) {
                 var date = new Date();
