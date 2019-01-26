@@ -50,7 +50,7 @@
       onLogin() {
         let _this = this;
         let params = {
-          name: _this.username,
+          userCode: _this.username,
           password: _this.password
         }
         _this.$api.login(params).then(data => {
@@ -78,9 +78,9 @@
             })
           }
         })
-        // wx.switchTab({
-        //   url: '/pages/home/index',
-        // });
+        wx.switchTab({
+          url: '/pages/home/index',
+        });
 
       }
     }

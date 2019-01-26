@@ -457,9 +457,10 @@
                 }
                 let _this = this;
                 let queryData = {
-                    ppsId: delArray
+                    ppsId: delArray,
+                    orderType:_this.currentOrderType
                 }
-                _this.$api.apiConfig.deleteTrolley(queryData)
+                _this.$api.apiConfig.deleteAll(queryData)
                     .then(data => {
                         this.dataActive = newArr;
                         this.pickAll = [];

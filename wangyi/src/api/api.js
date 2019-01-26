@@ -1,5 +1,5 @@
 import fetch from '@/utils/http';
-let configPath = 'http://192.168.120.211:8081';// 真实环境
+let configPath = 'http://192.168.120.215:8081';// 真实环境
 // var isProduction = process.env.NODE_ENV === 'production'
 // if (isProduction) {} else {
 //   configPath = '../../static/myConfig.js' // 开发环境
@@ -16,8 +16,8 @@ console.log(configPath)
   
 }
 const login = params => {
-  let url='http://zhixiao.cn/api/auth/login';
-  return fetch.request(url, params, {method:"post"}).then(response => handleToken(response));
+  let url=configPath+'/v2/memberLogin.html?strAction=trolley_mimember_login';
+  return fetch.request(url, params, {method:"get"}).then(response => handleToken(response));
 };
 let apiConfig = {};
 // 2 商品分类
@@ -76,7 +76,13 @@ apiConfig.deleteTrolley = params => {
   let url= configPath + '/v2/trolley.html?strAction=trolley_detail_remove'
   return fetch.request(url, params, {method:"post"})
 };
-
+//  7批量移除购物车条目
+//  {baseurl}/v2/trolley.html?strAction=trolley_detail_remove
+//  {"ppsId": 1005393, "orderType": "21"}
+apiConfig.deleteAll = params => {
+  let url= configPath + '/v2/trolley.html?strAction=trolley_detail_removes'
+  return fetch.request(url, params, {method:"post"})
+};
 //  8查询购物车条目
 //  baseurl} /v2/trolley.html?strAction=trolley_detail_get&trolleyDetailId=12
 apiConfig.detailTrolley = params => {
