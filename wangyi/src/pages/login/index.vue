@@ -78,12 +78,12 @@
             })
           }
         })
-        this.$router.push({
-          path:'/order/pages/repeatorder/index'
-        })
-        // wx.switchTab({
-        //   url: '/pages/home/index',
-        // });
+        // this.$router.push({
+        //   path:'/order/pages/repeatorder/index'
+        // })
+        wx.switchTab({
+          url: '/pages/home/index',
+        });
 
       }
     }
