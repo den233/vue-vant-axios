@@ -3,7 +3,7 @@
     <div class="top">
       订单编号：
       <span class="userName">{{detail.orderNumber}}</span>
-      <span class="status">{{currentText}}</span>
+      <span v-if='!detail.paid' class="status">{{detail.state}}</span>
     </div>
     <div class="desc">
       <img :src="detail.imgUrl || imgUrl"  />
@@ -14,9 +14,9 @@
         <div class="address"><span>收货地址：</span>{{detail.receiverState}} {{detail.receiverCity}} {{detail.receiverDistrict}} {{detail.receiverAddress}}</div>
         <div><span>下单时间：</span>{{detail.createdTime}}</div>
         <div class="money">
-          <van-tag v-if='detail.orderType==22' color="#f2826a" plain >激活单</van-tag>
-          <van-tag v-if='detail.orderType==21' color="#7232dd"  >重消单</van-tag>
-          <van-tag v-if='detail.orderType==20' mark type="primary" >升级单</van-tag>
+          <van-tag v-if='detail.orderType==22' color="#1890ff"  >激活单</van-tag>
+          <van-tag v-if='detail.orderType==21' color="#1890ff"  >重消单</van-tag>
+          <van-tag v-if='detail.orderType==23' color="#1890ff" >升级单</van-tag>
         </div>
       </div>
     </div>
@@ -30,13 +30,15 @@
     </div>
     
     <div class="tool-bar">
-      <van-button @click='getMenuID(detail)' type="primary">支付</van-button>
-      <van-button @click='searchWuliu(detail)' type="default">查看物流</van-button>
+      <van-button v-if='!detail.paid' @click='getMenuID(detail)' type="primary">支付</van-button>
+      <van-button plain type="danger" v-if='!detail.paid' @click='deleteOrder(detail)' >取消</van-button>
+      <van-button v-if='detail.paid' @click='searchWuliu(detail)' type="default">查看物流</van-button>
     </div>
-  
+    <van-toast id="van-toast" />
   </div>
 </template>
 <script> 
+   import Toast from 'staticA/vant/toast/toast';
     export default {
       props: {
         currentStatus:'',
@@ -85,11 +87,26 @@
       },
        
       methods: {
-        searchWuliu(id){
-          this.$emit('searchWuliu', id)
+        searchWuliu(data){
+          this.$emit('searchWuliu', data.id)
         },
         getMenuID(id) {
           this.$emit('descList', id)
+        },
+        deleteOrder(data){
+          let _this=this
+          _this.$api.apiConfig.deleteTmpOrder({tmpOrderId:data.id}).then(res=>{
+            if(res.success){
+              Toast.success('删除成功')
+              this.$emit('deleteOrder', data.id) 
+            }
+            else{
+              Toast.fail('删除失败')
+            }
+          
+          }).catch(e=>{
+            Toast.fail('删除失败')
+          })
         }
       },
     }

@@ -68,6 +68,9 @@
         ]
       };
     },
+    onShow(){
+       console.log(this.$route.query.id)  
+    },
     methods: {
       onClickLeft() {
         this.$router.go(-1);

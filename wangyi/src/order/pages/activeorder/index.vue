@@ -61,7 +61,7 @@
       <div class="step4" v-if='active==2'>
         <van-icon name="passed" />
         <p>恭喜支付完成</p>
-        订单编号：xxxxxx
+        订单编号：{{orderParams.orderNumber}}
       </div>
     </div>
     <div class="goods">
@@ -198,8 +198,8 @@
       onClickLeft() {
         this.$router.go(-1);
       },
-      onChangeSale({ mp }) {
-        if (this.formItem.saleMan == mp.detail) {
+      onChangeSale({ detail }) {
+        if (this.formItem.saleMan == detail) {
           return false
         }
         this.recommendNo = {
@@ -209,10 +209,10 @@
           userName: '',
           submitOn: false
         }
-        this.formItem.saleMan = mp.detail;
+        this.formItem.saleMan = detail;
       },
-      onChangeService({ mp }) {
-        if (this.formItem.serviceMan == mp.detail) {
+      onChangeService({ detail }) {
+        if (this.formItem.serviceMan == detail) {
           return false
         }
         this.linkNo = {
@@ -222,7 +222,7 @@
           userName: '',
           submitOn: false
         },
-          this.formItem.serviceMan = mp.detail;
+          this.formItem.serviceMan = detail;
       },
       onLoad() {
         this.active = 0;
@@ -275,8 +275,8 @@
           userCode: '',
         }
       },
-      memderId({mp}){
-        this.oldMember.userCode=mp.detail;
+      memderId({detail}){
+        this.oldMember.userCode= detail;
       },
       initData() {
         let _this = this;

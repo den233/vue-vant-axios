@@ -97,14 +97,8 @@ apiConfig.addTmpOrder = params => {
   return fetch.request(url, params, {method:"post"})
 };
 
-//  10查询所有待支付订单
-//  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list&_currPageNo=1&_pageSize=10&orderNo=CZxxx
-apiConfig.allTmpOrder = params => {
-  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_list'
-  return fetch.request(url, params, {method:"get"})
-};
 
-
+ 
 //  11查询单个待支付订单
 //  {baseurl}/v2/tmpOrder.html?strAction=tmporder_get&orderNo=CZxxx
 apiConfig.oneTmpOrder = params => {
@@ -184,7 +178,30 @@ apiConfig.tmporder_czk_checkout = params => {
   let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_czk_checkout'
   return fetch.request(url, params, {method:"post"})
 };
- 
+//  22.查询所有待支付订单
+//  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list&_currPageNo=1&_pageSize=10&orderNo=CZxxx
+apiConfig.allTmpOrder = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_list'
+  return fetch.request(url, params, {method:"get"})
+};
+//  23.查询所有订单
+//  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list&_currPageNo=1&_pageSize=10&orderNo=CZxxx
+apiConfig.allTmpOrders = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_lists'
+  return fetch.request(url, params, {method:"get"})
+};
+//  24查询订单是否发货
+//  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list&_currPageNo=1&_pageSize=10&orderNo=CZxxx
+apiConfig.tmporder_list_delively = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_list_delively'
+  return fetch.request(url, params, {method:"get"})
+};
+//  25查询订单是否收货
+//  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list_takeDelively&_currPageNo=1&_pageSize=10&orderNo=CZxxx
+apiConfig.tmporder_list_takeDelively = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_list_takeDelively'
+  return fetch.request(url, params, {method:"get"})
+}; 
 const apiList = {
   login,
   apiConfig

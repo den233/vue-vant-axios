@@ -8,12 +8,12 @@
       <van-tab v-for="(item,index) in statusList" :title="item.name" :key="index">
       </van-tab>
     </van-tabs>
-    <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
-        <i-load-more tip="暂无数据" v-if='hasData' />
+   
         <scroll-view :style="{ height: second_height + 'px' }" class="scroll-view" scroll-y>
+          <div style="text-align: center"><img class="nodata" :src="imgUrl" alt="" v-if='hasData'></div>
           <div >
             <listItem v-for="(order,index1) in orderList.content" needToolBar :key="index1" :detail='order'
-              :currentStatus='currentStatus' @searchWuliu='searchWuliu' @descList='goToOrderDetail($event,order)' />
+              :currentStatus='currentStatus' @deleteOrder="deleteOrder" @searchWuliu='searchWuliu' @descList='goToOrderDetail($event,order)' />
           </div>
         </scroll-view>
     <i-page :current="currentPage" :total="pagecon.total" @change="handleChange">
@@ -26,9 +26,6 @@
         <i-icon type="enter"></i-icon>
       </div>
     </i-page>
-
-
-
   </div>
 </template>
 
@@ -66,12 +63,16 @@
           {
             name: '待收货',
             value: 3
+          },
+          {
+            name: '已完成',
+            value: 4
           }
 
         ],
         currentStatus:0,
-        orderList: [
-        ]
+        orderList: [],
+        imgUrl:require('@/assets/images/timg.jpg')
       }
     },
     onLoad: function () {
@@ -93,9 +94,13 @@
       })
     },
     mounted() {
+      let _this=this;
      this.currentStatus=store.state.home.orderStatus;
-     //console.log(this.currentStatus)
-      this.initData()
+     let params = {
+          _currPageNo: _this.currentPage,
+          _pageSize: 10
+        }
+      this.initData(params)
     },
     async onPullDownRefresh() {
       // to doing..
@@ -116,25 +121,102 @@
       handleChange() {
 
       },
-      tabClick(event){
+      tabClick({detail}){
         let _this=this;
-        let index= event.mp.detail.index;
-        _this.currentOrderType=_this.statusList[index].value;
+        let index= detail.index;
+        _this.currentStatus=_this.statusList[index].value;
         _this.pagecon={
           total:0,
           page_size:10
         }
         _this.orderList=[];
-        _this.initData()
-      },
-      initData() {
-        let _this = this;
-        _this.currentPage=1;
-        let queryData = {
-          orderNo: '',
-          _currPageNo: _this.currentPage,
-          pageSize: 10
+        switch (_this.currentStatus){
+          case 0:
+            let params = {
+            _currPageNo: 1,
+            _pageSize: 10
+            }
+            this.initData(params)
+          break;
+          case 1:
+         this.initData2({
+            _currPageNo: 1,
+            _pageSize: 10,
+            orderNo:'',
+          })
+          break;
+          case 2:
+            this.tmporder_list_delively( {
+            _currPageNo: 1,
+            _pageSize: 10,
+            delively:0
+            })
+          break;
+          case 3:
+            this.tmporder_list_takeDelively({
+            _currPageNo: 1,
+            _pageSize: 10,
+            takeDelively:0
+            })
+          break;
+          case 4:
+            this.tmporder_list_takeDelively({
+            _currPageNo: 1,
+            _pageSize: 10,
+            takeDelively:1
+            })
+           break;
         }
+      },
+      initData(params) {
+        let _this = this;
+        let queryData=params
+        _this.hasData = false;
+        _this.$api.apiConfig.allTmpOrders(queryData)
+          .then(data => {
+            let v1 = data.tmporder_list_response;
+            var arr = Object.getOwnPropertyNames(v1);
+            if (arr.length == 0) {
+              _this.hasData = true
+              return false;
+            }
+            if (v1.content.length == 0) {
+              _this.hasData = true;
+              return false;
+            }
+            _this.pagecon = {
+              total: v1.total,
+              page_size: 10
+            }
+            _this.orderList = v1;
+           
+            for (let i=0,len=_this.orderList.content.length;i<len;i++){
+              const{paid,isDelively,isTakeDelively}=_this.orderList.content[i]
+               if(!paid){
+                _this.orderList.content[i].state='待支付'
+               }
+               else if(isDelively==0) {
+                 _this.orderList.content[i].state='待发货'
+               }
+               else if(isTakeDelively==0){
+                _this.orderList.content[i].state='待收货'
+               }
+               else if(isTakeDelively==1){
+                _this.orderList.content[i].state='已完成'
+               }
+            }
+            console.log(_this.orderList)
+            // _this.orderList.forEach(element => {
+            //    console.log(element)
+            // });
+          }).catch(e => {
+            _this.hasData = true;
+          })
+      },
+      //待支付
+      initData2(params) {
+        let _this = this;
+        let queryData=params
         _this.hasData = false;
         _this.$api.apiConfig.allTmpOrder(queryData)
           .then(data => {
@@ -159,17 +241,13 @@
             _this.hasData = true;
           })
       },
-      getMoreData() {
+      //代发货
+      tmporder_list_delively(params){
         let _this = this;
-        console.log(_this.orderList)
-        if (_this.orderList['content'].length > 0) {
-          let queryData = {
-            orderNo: '',
-            _currPageNo: this.currentPage + 1,
-            pageSize: 10
-          }
-
-          _this.$api.apiConfig.allTmpOrder(queryData).then(data => {
+        let queryData=params
+        _this.hasData = false;
+        _this.$api.apiConfig.tmporder_list_delively(queryData)
+          .then(data => {
             let v1 = data.tmporder_list_response;
             var arr = Object.getOwnPropertyNames(v1);
             if (arr.length == 0) {
@@ -185,30 +263,134 @@
               page_size: 10
             }
             _this.orderList = v1;
-
           }).catch(e => {
             _this.hasData = true;
           })
-        }
       },
+       //待收货
+       tmporder_list_takeDelively(params){
+        let _this = this;
+        let queryData=params
+        _this.hasData = false;
+        _this.$api.apiConfig.tmporder_list_takeDelively(queryData)
+          .then(data => {
+            let v1 = data.tmporder_list_response;
+            var arr = Object.getOwnPropertyNames(v1);
+            if (arr.length == 0) {
+              _this.hasData = true
+              return false;
+            }
+            if (v1.content.length == 0) {
+              _this.hasData = true;
+              return false;
+            }
+            _this.pagecon = {
+              total: v1.total,
+              page_size: 10
+            }
+            _this.orderList = v1;
+          }).catch(e => {
+            _this.hasData = true;
+          })
+      },
+      
       handleChange({detail}) {
         const type = detail.type;
-
         if (type === 'next') {
           this.currentPage = this.currentPage + 1;
         } else if (type === 'prev') {
           this.currentPage = this.currentPage - 1;
         }
         let _this = this;
-        _this.getMoreData();
+        console.log(_this.currentStatus)
+        if (_this.orderList['content'].length == 0) {
+           return false
+        }
+        switch (_this.currentStatus){
+          case 0:
+            let params = {
+            _currPageNo:_this.currentPage,
+            _pageSize: 10
+            }
+            _this.initData(params)
+          break;
+          case 1:
+         this.initData2({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            orderNo:'',
+          })
+          break;
+          case 2:
+          _this.tmporder_list_delively( {
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            delively:0
+            })
+          break;
+          case 3:
+          _this.tmporder_list_takeDelively({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            takeDelively:0
+            })
+          break;
+          case 4:
+          _this.tmporder_list_takeDelively({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            takeDelively:1
+            })
+           break;
+        }
+      
       },
       searchWuliu(val) {
-
         this.$router.push({
-          name: 'wlindex', query: {
+          path: '/order/pages/logistics/index', query: {
             id: val
           }
         });
+      },
+      deleteOrder(){
+        let _this = this;
+        switch (_this.currentStatus){
+          case 0:
+            let params = {
+            _currPageNo:_this.currentPage,
+            _pageSize: 10
+            }
+            _this.initData(params)
+          break;
+          case 1:
+         this.initData2({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            orderNo:'',
+          })
+          break;
+          case 2:
+          _this.tmporder_list_delively( {
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            delively:0
+            })
+          break;
+          case 3:
+          _this.tmporder_list_takeDelively({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            takeDelively:0
+            })
+          break;
+          case 4:
+          _this.tmporder_list_takeDelively({
+            _currPageNo: _this.currentPage,
+            _pageSize: 10,
+            takeDelively:1
+            })
+           break;
+          } 
       },
       goToOrderDetail(e,val) {
 

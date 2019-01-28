@@ -88,8 +88,8 @@
         //   });
 
       },
-      changeNum({mp},id,number,index) {
-        this.data[index].number=mp.detail;
+      changeNum({detail},id,number,index) {
+        this.data[index].number=detail;
       }
     }
   };

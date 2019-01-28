@@ -522,9 +522,7 @@
             //计算
             calc() {
                 let len = this.pickAll.length;
-
                 this.clearALL()
-
                 for (let i = 0; i < len; i++) {
                     this.orderDetail.number = Number(this.orderDetail.number) + this.pickAll[i].quantity;
                     this.discountPrice = this.discountPrice + this.pickAll[i].quantity * Number(this.pickAll[i].price);
@@ -581,10 +579,13 @@
                 let _this = this;
                 let locationURL;
                 if (_this.currentOrderType == '21') {
-                    locationURL = '/pages/home/main'
+                    locationURL = '/order/pages/repeatorder/index'
                 }
                 if (_this.currentOrderType == '22') {
-                    locationURL = '/pages/home/main'
+                    locationURL = '/order/pages/activeorder/index'
+                }
+                if (_this.currentOrderType == '23') {
+                    locationURL = '/order/pages/upgrageorder/index'
                 }
                 _this.$api.apiConfig.addTmpOrder(queryParam).then(data => {
                     let payArray = data.tmporder_add_response;
@@ -606,7 +607,7 @@
                     });
                 }).catch(e => {
 
-                    Toast.fail('321');
+                    Toast.fail(e);
                 })
                 // this.$store.commit('payOrderInfo', data)
                 //this.$router.push({ name: 'neworder' })

@@ -1,35 +1,23 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 import api from './api/api'
 import 'antd/dist/antd.css';
-import {message, Select, Form, Icon, Card, Row, Input, Col, InputNumber, Tabs, Radio, Button,Spin } from 'antd'
+import {message, Select, Form, Card,  Input, Col, InputNumber, Tabs, Radio, Button,Spin } from 'antd'
 import styles from './App.scss'
 const TabPane = Tabs.TabPane;
 const { Meta } = Card;
 const { Option } = Select;
 const InputGroup = Input.Group;
  
-
-const formItemLayout = {
-	labelCol: {
-		xs: { span: 24 },
-		sm: { span: 5 },
-	},
-	wrapperCol: {
-		xs: { span: 24 },
-		sm: { span: 12 },
-	},
-};
-function hasErrors(fieldsError) {
-	return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
+// function hasErrors(fieldsError) {
+// 	return Object.keys(fieldsError).some(field => fieldsError[field]);
+// }
 
 class HorizontalLoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			productName: '',
-			orderType: '21',
+			orderType: '',
 			minPrice: '',
 			maxPrice: '',
 			minPv: '',
@@ -38,20 +26,20 @@ class HorizontalLoginForm extends Component {
 	}
 	componentDidMount() {
 		// To disabled submit button at the beginning.
-		this.props.form.validateFields();
+		//this.props.form.validateFields();
 	}
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		const {productName,orderType,minPrice,maxPrice,minPv,maxPv} =this.state;
+		// const {productName,orderType,minPrice,maxPrice,minPv,maxPv} =this.state;
 		let params= Object.assign({},this.state);
 	  delete params['minPrice'];
 		delete params['maxPrice'];
 		delete params['minPv'];
 		delete params['maxPv'];
-		// console.log(params);
+		 console.log(params);
 		// console.log(this.state)
-		this.props.callback('hellomsg')
+		this.props.callback(params)
 		// this.props.form.validateFields((err, values) => {
 		// 	if (!err) {
 		// 		console.log('Received values of form: ', values);
@@ -59,36 +47,59 @@ class HorizontalLoginForm extends Component {
 		// });
 	}
 	handleChange(e) {
+		this.setState({productName: e.target.value},()=>{
+			console.log(this.state.productName);//该是啥就是是啥
+		});
+		// console.log(this.state)
+	}
+	handleProduct(type,e){
+	   const value=e.target.value
+	   switch (type){
+		   case 'productName':
+		   this.props.callbackProduct('productName',value)
+		   break;
+		   case 'minPrice':
+		   this.props.callbackProduct('minPrice',value)
+		   break;
+		   case 'maxPrice':
+		   
+		   break;
+		   case 'minPv':
+		   
+		   break;
+		   case 'maxPv':
+		   
+		   break;
+	   }
+	}
+	ChangeOrdertype(e,type){
+		console.log(type)
 		this.setState({
-			productName: e.target.value
+			orderType:e
 		})
 	}
+	 
 	render() {
-		const {
-			getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
-		} = this.props.form;
-		const { data } = this.props;
 		// Only show error after a field is touched.
-		const userNameError = isFieldTouched('productName') && getFieldError('productName');
-		const cb = (msg) => {
-			const { productName, orderType, minPrice, maxPrice, minPv, maxPv } = this.state
-			// console.log(this.state)
-			return () => {
-				this.props.callback(msg)
-			}
-		}
+		// const cb = (msg) => {
+		// 	const { productName, orderType, minPrice, maxPrice, minPv, maxPv } = this.state
+		// 	// console.log(this.state)
+		// 	return () => {
+		// 		this.props.callback(msg)
+		// 	}
+		// }
 		return (
 			<div>
 				<Form layout="inline" onSubmit={this.handleSubmit}>
 					<Form.Item >
-							<Input onChange={this.handleChange.bind(this)} placeholder="输入产品名" />
+							<Input  onChange={this.handleProduct.bind(this,'productName')} placeholder="输入产品名" />
 					</Form.Item>
 					<Form.Item>
 						<InputGroup compact>
 							<Select defaultValue="1">
 								<Option value="1">价格区间</Option>
 							</Select>
-							<Input style={{ width: 100, textAlign: 'center' }} placeholder="最小价格" />
+							<Input onChange={this.handleProduct.bind(this,'minPrice')}  style={{ width: 100, textAlign: 'center' }} placeholder="最小价格" />
 							<Input
 								style={{
 									width: 30, borderLeft: 0, pointerEvents: 'none', backgroundColor: '#fff',
@@ -96,7 +107,7 @@ class HorizontalLoginForm extends Component {
 								placeholder="~"
 								disabled
 							/>
-							<Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="最大价格" />
+							<Input onChange={this.handleProduct.bind(this,'maxPrice')}  style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="最大价格" />
 						</InputGroup>
 					</Form.Item>
 					<Form.Item>
@@ -104,7 +115,7 @@ class HorizontalLoginForm extends Component {
 							<Select defaultValue="1">
 								<Option value="1">pv区间</Option>
 							</Select>
-							<Input style={{ width: 100, textAlign: 'center' }} placeholder="最小pv" />
+							<Input onChange={this.handleProduct.bind(this,'minPv')} style={{ width: 100, textAlign: 'center' }} placeholder="最小pv" />
 							<Input
 								style={{
 									width: 30, borderLeft: 0, pointerEvents: 'none', backgroundColor: '#fff',
@@ -112,15 +123,15 @@ class HorizontalLoginForm extends Component {
 								placeholder="~"
 								disabled
 							/>
-							<Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="最大pv" />
+							<Input onChange={this.handleProduct.bind(this,'maxPv')} style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="最大pv" />
 						</InputGroup>
 					</Form.Item>
 					<Form.Item
 					>
-						<Select defaultValue="1">
-							<Option value="1">Option 1</Option>
-							<Option value="2">Option 2</Option>
-							<Option value="3">Option 3</Option>
+						<Select defaultValue="21" onChange={this.ChangeOrdertype.bind(this)}>
+							<Option value="21">重消单</Option>
+							<Option value="22">激活单</Option>
+							<Option value="23">升级单</Option>
 						</Select>
 					</Form.Item>
 
@@ -170,7 +181,7 @@ class Lists extends Component {
 	}
 	addCart(){
 		const {number}=this.state;
-		const {index,list}=this.props;
+		const {list}=this.props;
 		console.log(list)
 		let queryParam = {
 			//"strAction": "trolley_detail_add",
@@ -183,7 +194,7 @@ class Lists extends Component {
 				message.success('加入成功')
 			let v1 = data.trolley_detail_add_response;
 			var arr = Object.getOwnPropertyNames(v1);
-			if (arr.length == 0) {
+			if (arr.length === 0) {
 				message.error('加入失败');
 				return false;
 			}
@@ -243,7 +254,8 @@ class App extends Component {
 			cartNum: '',
 			serviceList:[],
 			page_size:'20',
-			currentPage:'1'
+			currentPage:'1',
+			categoryId:''
 		};
 		this.handleChildChange = this.handleChildChange.bind(this);
 	}
@@ -259,38 +271,39 @@ class App extends Component {
 		this.setState(comment)
 	}
 	componentDidMount() {
-		this.getCategory();
-		this.getGoodsList("");
-
-	}
- 
-  getGoodsList(id){
-		let _this=this;
-		let {minPrice,maxPrice,minPv,maxPv,productName,page_size,orderType,currentPage}= _this.state;
-		_this.setState({
-			showLoading:true
-		})
-		let serviceList=[];
-		let querydata={};
-			querydata=  {
+		const {productName,page_size,orderType,currentPage,categoryId}= this.state;
+		let querydata=  {
 			productName:productName,
-			category:id,
+			category:categoryId,
 			_currPageNo:currentPage,
 			_pageSize:page_size,
 			orderType:orderType
 			}; 
-			
-			// querydata=deleteKey(_this.searchList, JSON.stringify(querydata));
-	 
+		this.getCategory();
+		this.getGoodsList(querydata);
+
+	}
+ 
+  getGoodsList(params){
+		let _this=this;
+		
+		_this.setState({
+			showLoading:true
+		})
+		let serviceList=[];
+		let querydata=params;
 			 api.apiConfig.productSale(
 					 querydata
 				).then(res=>{
+					_this.setState({
+						showLoading:false
+					 })
 					let	v1=res.productsale_list_response;
 					var arr = Object.getOwnPropertyNames(v1);
-					if(arr.length==0){
+					if(arr.length===0){
 						return false;
 					}
-					if(v1.content.length==0){
+					if(v1.content.length===0){
 						return false;
 					}
 				  serviceList=v1.content.map(v=>{
@@ -305,8 +318,7 @@ class App extends Component {
 					 }
 				 });
 				 _this.setState({
-					serviceList:serviceList,
-					showLoading:false
+					serviceList:serviceList
 				 })
 				})
 	}
@@ -337,14 +349,33 @@ class App extends Component {
 			let id=catArr[e].categoryId;
 			this.getGoodsList(id);
 	}
+	callbackProduct(name,val){
+      console.log(name)
+	}
+	//搜索
 	callback(msg) {
-		//console.log(msg);
+		//const {productName,orderType}=msg;
+		const {currentPage,page_size,categoryId}= this.state;
+		let querydata={};
+		querydata={...msg}
+		querydata.currentPage=currentPage;
+		querydata.page_size=page_size;
+		querydata.category=categoryId;
+		console.log(querydata)
+		this.getGoodsList(querydata);	
+		// this.setState({
+		// 	productName:productName,
+		// 	orderType:orderType},()=>{
+		// 		this.getGoodsList("");
+		// 	}
+		// )
+		
 	}
 	render() {
 		const { mode,catArr,serviceList } = this.state;
 		return (
 			<div>
-				<HorizontalLoginForm1 data={this.state} callback={this.callback.bind(this)} />
+				<HorizontalLoginForm1 data={this.state} callbackProduct={this.callbackProduct.bind(this)} callback={this.callback.bind(this)} />
 				<div className={styles.listcontent}>
 					<Radio.Group onChange={this.handleModeChange.bind(this)} value={mode} style={{ marginBottom: 8 }}>
 						<Radio.Button value="top">Horizontal</Radio.Button>

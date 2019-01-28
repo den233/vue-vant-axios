@@ -132,6 +132,7 @@
     },
     methods: {
       goToMyOrder(e, index) {
+        //console.log(index)
         store.commit('orderStatus', index)
         this.$router.push({ path: '/order/pages/myorder/index' });
       },
