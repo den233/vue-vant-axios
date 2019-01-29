@@ -11,8 +11,8 @@ console.log(configPath)
 // var wh = 'http://oms.52haigo.cn/api'
 // 登录失效判断
  const handleToken = function(result) {
-      console.log(result)
-      return result.token;
+     // console.log(result)
+      return result;
   
 }
 const login = params => {

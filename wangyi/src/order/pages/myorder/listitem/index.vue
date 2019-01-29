@@ -14,9 +14,9 @@
         <div class="address"><span>收货地址：</span>{{detail.receiverState}} {{detail.receiverCity}} {{detail.receiverDistrict}} {{detail.receiverAddress}}</div>
         <div><span>下单时间：</span>{{detail.createdTime}}</div>
         <div class="money">
-          <van-tag v-if='detail.orderType==22' color="#1890ff"  >激活单</van-tag>
+          <van-tag v-if='detail.orderType==22' color="#87e8de"  >激活单</van-tag>
           <van-tag v-if='detail.orderType==21' color="#1890ff"  >重消单</van-tag>
-          <van-tag v-if='detail.orderType==23' color="#1890ff" >升级单</van-tag>
+          <van-tag v-if='detail.orderType==23' color="#73d13d" >升级单</van-tag>
         </div>
       </div>
     </div>

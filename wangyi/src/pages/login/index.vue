@@ -35,7 +35,9 @@
         imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
       }
     },
-
+    onShow(){
+      Megalo.removeStorageSync('token');
+    },
     methods: {
       codeChange() {
         console.log(1)
@@ -54,36 +56,41 @@
           password: _this.password
         }
         _this.$api.login(params).then(data => {
-          console.log(data)
+         
+          const { message, token, userCode } = data;
+          console.log(token)
+          Megalo.setStorage({ key: 'token', data: token })
+            .then(res => console.log(res))
+            wx.switchTab({
+           url: '/pages/home/index',
+        });
+        Megalo.showToast({
+            title: '登录成功',
+            icon: 'success',
+            duration: 2000
+          })
         }).catch(e => {
           console.log(e)
         })
-        wx.login({
-          success: (res) => {
-            console.log(res)
-            wx.getUserInfo({
-              success: function (info) {
+        // wx.login({
+        //   success: (res) => {
+        //     console.log(res)
+        //     wx.getUserInfo({
+        //       success: function (info) {
 
-                console.log('info', info)
-                // that.setData({
-                //   nickName: res.userInfo.nickName,
-                //   avatarUrl: res.userInfo.avatarUrl,
-                // })
-              },
-              fail: function (res) {
-                console.log(8);
-                console.log(res);
-                
-              }
-            })
-          }
-        })
+        //       },
+        //       fail: function (res) {
+        //         console.log(8);
+        //         console.log(res);
+
+        //       }
+        //     })
+        //   }
+        // })
         // this.$router.push({
         //   path:'/order/pages/repeatorder/index'
         // })
-        wx.switchTab({
-          url: '/pages/home/index',
-        });
+        
 
       }
     }

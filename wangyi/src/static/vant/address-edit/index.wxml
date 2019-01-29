@@ -24,9 +24,8 @@
             placeholder="选择省/市/区"
             readonly
             border="{{ false }}"
-           bind:tap="showAreaPopup"
+            bind:tap="showAreaPopup"
             required
-            error="{{errorInfo.areaDetail}}"
         />
        
         <van-field

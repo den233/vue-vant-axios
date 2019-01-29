@@ -32,7 +32,12 @@ data(){
     addressDetail:''
   }
 },
-
+onShow(){
+  this.setData({
+    showArea:false,
+    addressDetail:''
+  })
+},
   methods: {
     onChange:function onChange({detail}){
       this.data.cData.name=detail

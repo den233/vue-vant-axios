@@ -10,7 +10,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { pagesEntry } = require('@megalo/entry')
 const _ = require( './util' )
 const appMainFile = _.resolve('src/index.js')
-
+const path = require('path');
+//console.log('pagesEntry',pagesEntry)
 const CSS_EXT = {
   wechat: 'wxss',
   alipay: 'acss',
@@ -127,9 +128,24 @@ function createBaseConfig() {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            'sass-loader',
+            {
+              loader: 'px2rpx-loader',
+              options: {
+                rpxUnit: 1.5,
+                rpxPrecision: 6
+              }
+            },
+            'sass-loader'
           ]
         },
+        // {
+        //   test: /\.scss$/,
+        //   use: [
+        //     MiniCssExtractPlugin.loader,
+        //     'css-loader',
+        //     'sass-loader',
+        //   ]
+        // },
         {
           test: /\.(png|jpe?g|gif)$/i,
           use: [
@@ -179,6 +195,9 @@ function createBaseConfig() {
         clearConsole: true,
         additionalFormatters: [],
         additionalTransformers: []
+      }),
+      new webpack.ProvidePlugin({
+        'Megalo': [path.resolve(`./node_modules/@megalo/api/platforms/${platform}`), 'default']
       })
     ]
   }

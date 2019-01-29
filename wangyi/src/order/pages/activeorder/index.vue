@@ -31,10 +31,10 @@
           <van-radio name="1">老会员</van-radio>
         </van-radio-group>
         <van-cell-group v-if='tabactive==0'>
-          <van-field :value="formItem.userName" center clearable label="会员姓名" placeholder="会员姓名">
+          <van-field @change='memderHandle($event,"userName")'  :value="formItem.userName" center clearable label="会员姓名" placeholder="会员姓名">
 
           </van-field>
-          <van-field :value="formItem.paperNum" center clearable label="身份证" placeholder="身份证">
+          <van-field @change='memderHandle($event,"paperNum")' :value="formItem.paperNum" center clearable label="身份证" placeholder="身份证">
           </van-field>
         </van-cell-group>
         <van-cell-group v-if='tabactive==1'>
@@ -61,14 +61,14 @@
       <div class="step4" v-if='active==2'>
         <van-icon name="passed" />
         <p>恭喜支付完成</p>
-        订单编号：{{orderParams.orderNumber}}
+        订单编号：{{finishOrderNum}}
       </div>
     </div>
     <div class="goods">
       <div class="header">
         商品信息
-        <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
-        <div style="display:inline-block" class="price">PV：<span>{{discountPv}}</span>)</div>
+        <div style="display:inline-block" class="price">(合计<span>¥{{discountPrice}}</span></div>
+        <div style="display:inline-block;padding-right:10px" class="price">PV<span>{{discountPv}}</span>)</div>
       </div>
       <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="$img+item.imgUrl"
         :num='item.quantity'>
@@ -113,6 +113,7 @@
         $img: this.$img,
         usefunder: false,
         venturefund:false,
+        finishOrderNum:'',
         recommendNo: {
           isCz: '',
           totalSubnodes: '',
@@ -229,6 +230,7 @@
         this.tabactive = '0';
         this.usefunder = false;
         this.venturefund=false;
+        this.finishOrderNum='';
         this.recommendNo = {
           isCz: '',
           totalSubnodes: '',
@@ -274,6 +276,17 @@
           serviceNum: '',
           userCode: '',
         }
+      },
+      memderHandle({detail},type){
+        console.log(type)
+         switch (type){
+           case 'userName':
+           this.formItem.userName=detail;
+           break;
+           case 'paperNum':
+           this.formItem.paperNum=detail;
+           break;
+         }  
       },
       memderId({detail}){
         this.oldMember.userCode= detail;
@@ -369,14 +382,14 @@
         this.active = id;
       },
       nexHandle(id) {
-        // if(!this.recommendNo.submitOn){
-        //   Toast('请先查询销售人编号是否存在')
-        //   return false;
-        // }
-        // if(!this.linkNo.submitOn){
-        //   Toast('请先查询服务人编号是否存在')
-        //   return false;
-        // }
+        if(!this.recommendNo.submitOn){
+          Toast('请先查询销售人编号是否存在')
+          return false;
+        }
+        if(!this.linkNo.submitOn){
+          Toast('请先查询服务人编号是否存在')
+          return false;
+        }
         console.log(this.recommendNo)
 
         // this.oldMember.serviceNum=this.recommendNo.userCode;
@@ -408,12 +421,13 @@
             Toast.fail(data.msg);
             return false;
           }
+          this.active = id;
           Toast.success("支付成功");
           this.finishOrderNum = res['orderNumber']
         }).catch(e => {
           Toast.fail(e);
         })
-        this.active = id;
+        
       },
       changeMember({ detail }) {
         this.tabactive = detail;

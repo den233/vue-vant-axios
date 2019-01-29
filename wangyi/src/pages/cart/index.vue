@@ -10,7 +10,6 @@
             </van-tab>
         </van-tabs>
         <scroll-view class="scroll-view" scroll-y :style="{ height: second_height + 'px' }">
-
             <div class='cartList'>
                 <div class="cart-item" v-for='(item,index) in dataActive' :key="index">
                     <div>
@@ -40,6 +39,36 @@
                             :step="0" />
                     </div>
                 </div>
+                <div id="cartdown" v-if='dataNotsale.length>0'>
+                     <div class="title">
+                         <span>已下架商品</span><van-button size="mini" style="float:right" @click="deleteAllDown" plain type="danger">清空</van-button>
+                         <div class="clear"></div>
+                     </div>
+                    <div class="cart-item" v-for='(item,index) in dataNotsale' :key="index">
+                        <div>
+                            <van-tag round>已下架</van-tag>
+                        </div>
+                        <div class="imgs">
+                            <img :src="item.imgUrl" alt="">
+                        </div>
+                        <div class="content">
+                            <div class="title">
+                                <h2>{{item.productName}}</h2>
+                                <b class="p_t">
+                                    价格： {{item.price}}
+                                </b>
+                            </div>
+
+                            <div class="price">
+                                原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
+                                <br>
+                                pv: {{item.discountPv}}
+                                <div>数量：{{item.quantity}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="orderInfo">
                     <h2>订单信息：<text>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</text></h2>
                     <div class="item">
@@ -132,7 +161,7 @@
 </template>
 <style lang="scss" src="./style.scss"></style>
 <script>
-     import areas from '@/utils/area.js'
+    import areas from '@/utils/area.js'
     import Toast from 'staticA/vant/toast/toast';
     import Dialog from 'staticA/vant/dialog/dialog';
     import store from '@/store'
@@ -148,6 +177,7 @@
         data() {
             return {
                 dataActive: [],
+                dataNotsale: [],
                 active: "0",
                 second_height: 0,
                 orderType: this.$PLATFORM_CONFIG,
@@ -233,7 +263,7 @@
                 },
                 deep: true
             }
-           
+
         },
         methods: {
             onClickLeft: function onClickLeft() {
@@ -253,37 +283,38 @@
 
                 })
             },
-            onload(){
-                this.dataActive= [];
-                this.active= "0";
+            onload() {
+                this.dataActive = [];
+                this.dataNotsale = [];
+                this.active = "0";
                 this.currentOrderType = store.state.home.currentOrderType;
                 this.active = store.state.home.active;
-                this.pickAll= [];
-                this.checked= false;
-                this.show= false;
-                this.areaList= {};
-                this.searchResult= [];
-                this.buttonText= '下一步';
-                this.manage= '管理';
-                this.deleteMsg= '删除';
-                this.disabled= true;
-                this.deleteType= false;
-                this.totalPrice= 0;
-                this.totalPv= 0;
-                this.discountPv= 0;
-                this.discountPrice= 0;
-                this.orderDetail= {
+                this.pickAll = [];
+                this.checked = false;
+                this.show = false;
+                this.areaList = {};
+                this.searchResult = [];
+                this.buttonText = '下一步';
+                this.manage = '管理';
+                this.deleteMsg = '删除';
+                this.disabled = true;
+                this.deleteType = false;
+                this.totalPrice = 0;
+                this.totalPv = 0;
+                this.discountPv = 0;
+                this.discountPrice = 0;
+                this.orderDetail = {
                     fee: '0.00',
                     number: '0',
                     cash: '0.00',
                     bonus: '0.00',
                     coin: '0.00'
                 };
-                this.memberInfo= {
+                this.memberInfo = {
                     userCode: '',
                     userName: ''
                 };
-                this.cData= {
+                this.cData = {
                     name: '',
                     tel: '',
                     province: '',
@@ -304,6 +335,7 @@
             getList() {
                 let _this = this;
                 _this.dataActive = [];
+                _this.dataNotsale = [];
                 _this.clearALL();
                 _this.checked = false;
                 _this.pickAll = [];
@@ -320,27 +352,49 @@
                     if (v1.details.length == 0) {
                         return false;
                     }
-
-                    _this.dataActive = v1.details.map(v => {
-                        return {
-                            createdTime: v.createdTime,
-                            discountPrice: v.discountPrice,
-                            discountPv: v.discountPv,
-                            imgUrl: v.imgUrl,
-                            lastModifiedTime: v.lastModifiedTime,
-                            orderType: v.orderType,
-                            ppsId: v.ppsId,
-                            price: v.price,
-                            productName: v.productName,
-                            productNo: v.productNo,
-                            pv: v.pv,
-                            quantity: v.quantity,
-                            selling: v.selling,
-                            trolleyDetailId: v.trolleyDetailId,
-                            trolleyId: v.trolleyId,
-                            checked: false
+                    for (let i = 0, len = v1.details.length; i < len; i++) {
+                        const { createdTime, discountPrice, discountPv, imgUrl,
+                            lastModifiedTime, orderType, ppsId, price, productName, productNo, pv, quantity, selling, trolleyDetailId, trolleyId } = v1.details[i];
+                        if (selling) {
+                            _this.dataActive.push({
+                                createdTime: createdTime,
+                                discountPrice: discountPrice,
+                                discountPv: discountPv,
+                                imgUrl: imgUrl,
+                                lastModifiedTime: lastModifiedTime,
+                                orderType: orderType,
+                                ppsId: ppsId,
+                                price: price,
+                                productName: productName,
+                                productNo: productNo,
+                                pv: pv,
+                                quantity: quantity,
+                                selling: selling,
+                                trolleyDetailId: trolleyDetailId,
+                                trolleyId: trolleyId,
+                                checked: false
+                            })
+                        } else {
+                            _this.dataNotsale.push({
+                                createdTime: createdTime,
+                                discountPrice: discountPrice,
+                                discountPv: discountPv,
+                                imgUrl: imgUrl,
+                                lastModifiedTime: lastModifiedTime,
+                                orderType: orderType,
+                                ppsId: ppsId,
+                                price: price,
+                                productName: productName,
+                                productNo: productNo,
+                                pv: pv,
+                                quantity: quantity,
+                                selling: selling,
+                                trolleyDetailId: trolleyDetailId,
+                                trolleyId: trolleyId,
+                                checked: false
+                            })
                         }
-                    })
+                    }
                     _this.calc();
                 }).catch(e => {
 
@@ -356,7 +410,7 @@
                 this.currentOrderType = this.orderType[index].type;
                 this.clearALL();
                 this.getList();
-                store.commit('changeTab',{type:this.currentOrderType,index:index});
+                store.commit('changeTab', { type: this.currentOrderType, index: index });
             },
 
             onSubmit() {
@@ -458,13 +512,33 @@
                 let _this = this;
                 let queryData = {
                     ppsId: delArray,
-                    orderType:_this.currentOrderType
+                    orderType: _this.currentOrderType
                 }
                 _this.$api.apiConfig.deleteAll(queryData)
                     .then(data => {
                         this.dataActive = newArr;
                         this.pickAll = [];
                         this.calc()
+                    })
+                    .catch(e => {
+
+                    })
+            },
+            deleteAllDown(){
+                let len = this.dataNotsale.length;
+                let newArr = [];
+                let delArray = [];
+                for (let i = 0; i < len; i++) {
+                  delArray.push(this.dataNotsale[i].ppsId);
+                }
+                let _this = this;
+                let queryData = {
+                    ppsId: delArray,
+                    orderType: _this.currentOrderType
+                }
+                _this.$api.apiConfig.deleteAll(queryData)
+                    .then(data => {
+                        this.dataNotsale = [];
                     })
                     .catch(e => {
 

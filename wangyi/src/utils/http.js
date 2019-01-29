@@ -10,12 +10,19 @@ fly.interceptors.request.use((request) => {
     title: "加载中",
     mask:true
   });
-  //console.log(request);
-  // request.headers["X-Tag"] = "flyio";
-  // request.headers['content-type']= 'application/json';
-  request.headers = {
-    'content-type': 'application/json;charset=utf-8'
-  };
+  const token=Megalo.getStorageSync('token')
+  console.log('token',token)
+  if(token!=undefined||token!=""){
+    request.headers = {
+      'content-type': 'application/json;charset=utf-8',
+      'x-token':token
+    };
+  }else{
+    request.headers = {
+      'content-type': 'application/json;charset=utf-8'
+    };
+  }
+ 
 
   let authParams = {
     //公共参数
