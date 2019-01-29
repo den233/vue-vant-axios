@@ -131,7 +131,7 @@ function createBaseConfig() {
             {
               loader: 'px2rpx-loader',
               options: {
-                rpxUnit: 1.5,
+                rpxUnit: 0.5,
                 rpxPrecision: 6
               }
             },
