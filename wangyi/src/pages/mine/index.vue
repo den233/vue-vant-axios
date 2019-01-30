@@ -20,35 +20,39 @@
           <p>{{memberAccount.cash}}</p>
           <p>现金账户</p>
         </div>
-        <div class="a1">
+        <!-- <div class="a1">
           <p>{{memberAccount.pv}}</p>
           <p>积分</p>
-        </div>
+        </div> -->
       </div>
     </div>
     <van-cell @click="goToMyOrder($event,0)" title="我的订单" is-link value="查看全部订单" />
     <div class="sub-nav">
       <div class="sub-nav-item" @click="goToMyOrder($event,1)">
         <div class="icon-wrapper">
-          <img src="../../assets/images/my/pay.png" slot="icon">
+          <i class="iconfont1 icon-dengdaizhifu"></i>
+          <!-- <img src="../../assets/images/my/pay.png" slot="icon"> -->
         </div>
         <span class="text">待支付</span>
       </div>
       <div class="sub-nav-item" @click="goToMyOrder($event,2)">
         <div class="icon-wrapper">
-          <img src="../../assets/images/my/wait.png" slot="icon">
+            <i class="iconfont1 icon-my-pay"></i>
+          <!-- <img src="../../assets/images/my/wait.png" slot="icon"> -->
         </div>
         <span class="text">待发货</span>
       </div>
       <div class="sub-nav-item" @click="goToMyOrder($event,3)">
         <div class="icon-wrapper">
-          <img src="../../assets/images/my/shouhuo.png" slot="icon">
+            <i class="iconfont1 icon-daishouhuo"></i>
+          <!-- <img src="../../assets/images/my/shouhuo.png" slot="icon"> -->
         </div>
         <span class="text">待收货</span>
       </div>
       <div class="sub-nav-item" @click="goWuliu($event,4)">
         <div class="icon-wrapper">
-          <img src="../../assets/images/my/logist.png" slot="icon">
+          <i class="iconfont1 icon-business-management"></i>
+          <!-- <img src="../../assets/images/my/logist.png" slot="icon"> -->
         </div>
         <span class="text">查看物流</span>
       </div>
@@ -122,8 +126,7 @@
          memberAccount:{
           cash: '0.00',
           coin: '0.00',
-          bonus: '0.00',
-          pv:'0'
+          bonus: '0.00'
          }
        }
     },
@@ -148,8 +151,7 @@
           _this.memberAccount = {
             cash: cash,
             coin: coin,
-            bonus: bonus,
-            pv:pv
+            bonus: bonus
           }
         }).catch(e => {
 

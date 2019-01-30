@@ -41,23 +41,13 @@
 
           <div class="num">1223</div>
         </div>
-        <div class="a1">
-          <div class="title">
-            积分账户
-          </div>
-          <div class="icons">
-            <img src="../../../assets/images/accountdetails/pv.png" alt="">
-          </div>
-
-          <div class="num">1223</div>
-        </div>
       </div>
     </div>
     <div class="cell-group">
       <van-cell title="奖金明细" @click='gotoDetail($event,"/mingxi/pages/bonusdetails/index")' is-link value="更多" />
       <van-cell title="电子币明细" @click='gotoDetail($event,"/mingxi/pages/coindetails/index")' is-link value="更多" />
       <van-cell title="现金明细" @click='gotoDetail($event,"/mingxi/pages/cashdetails/index")' is-link value="更多" />
-      <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"/mingxi/pages/pvdetails/index")' is-link value="更多" />
+      <!-- <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"/mingxi/pages/pvdetails/index")' is-link value="更多" /> -->
       <van-cell title="提现记录" @click='gotoDetail($event,"/mingxi/pages/tixianrecord/index")' is-link value="更多" />
       <van-cell title="转账记录" @click='gotoDetail($event,"/mingxi/pages/transferdetails/index")' is-link value="更多" />
     </div>

@@ -335,6 +335,8 @@
                         Toast.fail(data.msg);
                         return false;
                     }
+                    _this.finishOrderNum=v1.orderNumber;
+                    _this.active = id;
                 }).catch(e => {
 
                 })

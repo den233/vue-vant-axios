@@ -93,14 +93,46 @@
         }
       })
     },
-    mounted() {
+    onShow() {
       let _this=this;
      this.currentStatus=store.state.home.orderStatus;
-     let params = {
-          _currPageNo: _this.currentPage,
-          _pageSize: 10
-        }
-      this.initData(params)
+     switch (_this.currentStatus){
+          case 0:
+            let params = {
+            _currPageNo: 1,
+            _pageSize: 10
+            }
+            this.initData(params)
+          break;
+          case 1:
+         this.initData2({
+            _currPageNo: 1,
+            _pageSize: 10,
+            orderNo:'',
+          })
+          break;
+          case 2:
+            this.tmporder_list_delively( {
+            _currPageNo: 1,
+            _pageSize: 10,
+            delively:0
+            })
+          break;
+          case 3:
+            this.tmporder_list_takeDelively({
+            _currPageNo: 1,
+            _pageSize: 10,
+            takeDelively:0
+            })
+          break;
+          case 4:
+            this.tmporder_list_takeDelively({
+            _currPageNo: 1,
+            _pageSize: 10,
+            takeDelively:1
+            })
+           break;
+          } 
     },
     async onPullDownRefresh() {
       // to doing..
@@ -115,6 +147,16 @@
       // this.getMoreData();
     },
     methods: {
+      onLoad(){
+        this.pagecon= {
+          total: 0,
+          page_size: 10
+        }
+        this.loading= false;
+        this.currentPage= 1;
+        this.hasData= false;
+        this.orderList= [];
+      },
       onClickLeft() {
         this.$router.go(-1);
       },
@@ -404,7 +446,7 @@
         if (val.orderType == 22) {
           this.$router.push({ path: '/order/pages/activeorder/index' });
         }
-        if (val.orderType == 20) {
+        if (val.orderType == 23) {
           this.$router.push({ path: '/order/pages/upgrageorder/index' });
         }
 

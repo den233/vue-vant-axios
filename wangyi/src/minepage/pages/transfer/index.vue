@@ -75,9 +75,7 @@
             onClickLeft() {
                 this.$router.go(-1);
             },
-            onChange(e,index){
-							console.log(e)
-              const {detail}=mp
+            onChange({detail}){
               this.radio=detail
             }
         }

@@ -178,6 +178,12 @@ apiConfig.tmporder_czk_checkout = params => {
   let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_czk_checkout'
   return fetch.request(url, params, {method:"post"})
 };
+//  21.确认支付超值卡升级订单
+// {baseurl}/v2/tmpOrder.html?strAction=tmporder_czk_checkout
+apiConfig.tmporder_czdp_checkout = params => {
+  let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_czdp_checkout'
+  return fetch.request(url, params, {method:"post"})
+};
 //  22.查询所有待支付订单
 //  {baseurl}/v2/tmpOrder.html?strAction=tmporder_list&_currPageNo=1&_pageSize=10&orderNo=CZxxx
 apiConfig.allTmpOrder = params => {

@@ -12,7 +12,7 @@ $paddingLeft: half(29px);
     background-repeat: no-repeat;
     background-position: center;
     background-size:cover;
- 
+  
     image {
       border: 1px solid #fff;
       width: half(184px);
@@ -65,7 +65,7 @@ $paddingLeft: half(29px);
     height: half(200px);
     background-color: #fff;
     margin-bottom: half(10px);
-    padding: 0 half(100px);
+    padding: 0 half(50px);
     border-bottom: 1Px solid rgb(233, 233, 233);
     .sub-nav-item {
       display: flex;
@@ -75,6 +75,11 @@ $paddingLeft: half(29px);
       flex: 1;
       .icon-wrapper {
         position: relative;
+        color:#999;
+        .iconfont1{
+          font-size:35px;
+          color:#999;
+        }
         .info {
           width: half(30px);
           height: half(30px);

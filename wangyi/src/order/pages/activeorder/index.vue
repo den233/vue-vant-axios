@@ -423,7 +423,8 @@
           }
           this.active = id;
           Toast.success("支付成功");
-          this.finishOrderNum = res['orderNumber']
+          _this.finishOrderNum = res['orderNumber'];
+          _this.orderParams.orderNumber=res['orderNumber'];
         }).catch(e => {
           Toast.fail(e);
         })

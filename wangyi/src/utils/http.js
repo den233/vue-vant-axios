@@ -11,38 +11,31 @@ fly.interceptors.request.use((request) => {
     mask:true
   });
   const token=Megalo.getStorageSync('token')
-  console.log('token',token)
-  if(token!=undefined||token!=""){
+ 
+  let authParams = {}
+  if(token==undefined||token==""){
     request.headers = {
-      'content-type': 'application/json;charset=utf-8',
-      'x-token':token
+      'content-type': 'application/json;charset=utf-8'
     };
+   
   }else{
     request.headers = {
       'content-type': 'application/json;charset=utf-8'
     };
+    authParams = {
+      'token':token
+    };
   }
  
-
-  let authParams = {
-    //公共参数
-    // "categoryType": "SaleGoodsType@sim",
-    // "streamNo": "wxapp153570682909641893",
-    // "reqSource": "MALL_H5",
-    // "appid": "string",
-    // "timestamp": new Date().getTime(),
-    // "sign": "string"
-  };
-
-//   request.body && Object.keys(request.body).forEach((val) => {
-//     if(request.body[val] === ""){
-//       delete request.body[val]
-//     };
-//   });
-//   request.body = {
-//     ...request.body,
-//     ...authParams
-//   }
+  request.body && Object.keys(request.body).forEach((val) => {
+    if(request.body[val] === ""){
+      delete request.body[val]
+    };
+  });
+  request.body = {
+    ...request.body,
+    ...authParams
+  }
   return request;
 });
 

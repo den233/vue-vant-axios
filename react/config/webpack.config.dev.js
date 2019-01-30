@@ -294,11 +294,15 @@ const webpackConfig = {
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
     new InterpolateHtmlPlugin(env.raw),
-    // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: '[name].js'
     }),
+    // Generates an `index.html` file with the <script> injected.
+    // new HtmlWebpackPlugin({
+    //   inject: true,
+    //   template: paths.appHtml,
+    // }),
     // new HtmlWebpackPlugin({
     //   inject: true,
     //   chunks: ['home'],
@@ -374,7 +378,19 @@ Object.keys(entries).forEach(function(name) {
     filename: name + '.html',
     template: './public/index.html',
     inject: true,
-    chunks: [name]
+    // minify: {
+    //   removeComments: true,
+    //   collapseWhitespace: true,
+    //   removeRedundantAttributes: true,
+    //   useShortDoctype: true,
+    //   removeEmptyAttributes: true,
+    //   removeStyleLinkTypeAttributes: true,
+    //   keepClosingSlash: true,
+    //   minifyJS: true,
+    //   minifyCSS: true,
+    //   minifyURLs: true,
+    // },
+    chunks: [name,'vendor']
    });
    webpackConfig.plugins.push(plugin);
 })

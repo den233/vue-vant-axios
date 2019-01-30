@@ -144,6 +144,7 @@ export default {
       _this.catEvent("")
 
       bus.$on('useBusEvent',function(id){
+          _this.current_id=id;
            _this.catEvent(id)
          })
          
@@ -230,6 +231,9 @@ export default {
           const type = detail.type;
      
           if (type === 'next') {
+            if(this.serviceList.length==0){
+              return false
+            }
              this.currentPage=this.currentPage + 1;
           } else if (type === 'prev') {
             this.currentPage=this.currentPage - 1;

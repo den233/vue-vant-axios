@@ -57,20 +57,32 @@
         }
         _this.$api.login(params).then(data => {
          
-          const { message, token, userCode } = data;
-          console.log(token)
-          Megalo.setStorage({ key: 'token', data: token })
-            .then(res => console.log(res))
-            wx.switchTab({
-           url: '/pages/home/index',
-        });
-        Megalo.showToast({
-            title: '登录成功',
-            icon: 'success',
-            duration: 2000
-          })
+          const { message, token, userCode,status } = data;
+          if(status==="1011"){
+                Megalo.setStorage({ key: 'token', data: token })
+                .then(res => console.log(res))
+                wx.switchTab({
+              url: '/pages/home/index',
+            });
+              Megalo.showToast({
+              title: '登录成功',
+              icon: 'success',
+              duration: 2000
+            })
+          }else{
+            Megalo.showToast({
+              title: '登录失败',
+              icon: 'fail',
+              duration: 2000
+            })
+          }
+        
         }).catch(e => {
-          console.log(e)
+          Megalo.showToast({
+              title: e,
+              icon: 'fail',
+              duration: 2000
+            })
         })
         // wx.login({
         //   success: (res) => {

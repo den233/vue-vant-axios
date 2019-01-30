@@ -20,7 +20,14 @@ const CSS_EXT = {
 
 const cssLoaders = [
   MiniCssExtractPlugin.loader,
-  'css-loader'
+  'css-loader',
+  {loader: 'px2rpx-loader',
+        // options here
+        options: {
+          rpxUnit: 0.5,
+          rpxPrecision: 8
+        }
+      }
 ]
 
 function createBaseConfig() {
@@ -124,17 +131,17 @@ function createBaseConfig() {
           ]
         },
         {
-          test: /\.scss$/,
+          test: /\.(scss|wxss)$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader',
-            {
-              loader: 'px2rpx-loader',
-              options: {
-                rpxUnit: 0.5,
-                rpxPrecision: 6
-              }
-            },
+            ...cssLoaders,
+            // {
+            //   loader: 'px2rpx-loader',
+            //   options: {
+            //     rpxUnit: 0.5,
+            //     rpxPrecision: 6
+            //   }
+            // },
             'sass-loader'
           ]
         },
@@ -157,6 +164,14 @@ function createBaseConfig() {
               }
             }
           ]
+        },
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: '/static/fonts/[name].[ext]'
+          }
         }
       ]
     },
