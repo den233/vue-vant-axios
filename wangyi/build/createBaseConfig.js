@@ -133,7 +133,6 @@ function createBaseConfig() {
         {
           test: /\.(scss|wxss)$/,
           use: [
-            MiniCssExtractPlugin.loader,
             ...cssLoaders,
             // {
             //   loader: 'px2rpx-loader',

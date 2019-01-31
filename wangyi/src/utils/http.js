@@ -28,9 +28,9 @@ fly.interceptors.request.use((request) => {
   }
  
   request.body && Object.keys(request.body).forEach((val) => {
-    if(request.body[val] === ""){
-      delete request.body[val]
-    };
+    // if(request.body[val] === ""){
+    //   delete request.body[val]
+    // };
   });
   request.body = {
     ...request.body,

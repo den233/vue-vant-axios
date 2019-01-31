@@ -2,7 +2,7 @@
     <div class="vueBox">
         <div class="marquee">
             <div class="marquee_title">
-                <span> <i class="iconfont1 icon-gonggao"></i>最新动态</span>
+                <span> <i class="iconfont1 icon-gonggao">最新动态</i></span>
             </div>
             <div class="marquee_box" >
              

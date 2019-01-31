@@ -378,18 +378,18 @@ Object.keys(entries).forEach(function(name) {
     filename: name + '.html',
     template: './public/index.html',
     inject: true,
-    // minify: {
-    //   removeComments: true,
-    //   collapseWhitespace: true,
-    //   removeRedundantAttributes: true,
-    //   useShortDoctype: true,
-    //   removeEmptyAttributes: true,
-    //   removeStyleLinkTypeAttributes: true,
-    //   keepClosingSlash: true,
-    //   minifyJS: true,
-    //   minifyCSS: true,
-    //   minifyURLs: true,
-    // },
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeRedundantAttributes: true,
+      useShortDoctype: true,
+      removeEmptyAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
+      minifyJS: true,
+      minifyCSS: true,
+      minifyURLs: true,
+    },
     chunks: [name,'vendor']
    });
    webpackConfig.plugins.push(plugin);

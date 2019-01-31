@@ -12,6 +12,7 @@ const InputGroup = Input.Group;
 // function hasErrors(fieldsError) {
 // 	return Object.keys(fieldsError).some(field => fieldsError[field]);
 // }
+console.log(process.env)
 const customPanelStyle = {
 	background: '#f7f7f7',
 	borderRadius: 4,
@@ -40,6 +41,7 @@ class HorizontalLoginForm extends Component {
 		const { minPrice, maxPrice, minPv, maxPv } = this.state;
 		//console.log(this.state)
 		let params={}
+		//查看全部
         if(e==="1"){
 			this.setState({
 				productName:'',
@@ -53,6 +55,7 @@ class HorizontalLoginForm extends Component {
 			}
 		} 
 	    else{
+			
 			params = Object.assign({}, this.state);
 			if (minPrice === "") {
 				delete params['minPrice'];
@@ -82,7 +85,22 @@ class HorizontalLoginForm extends Component {
 			this.setState({
 				orderType: e
 			})
-			this.props.callbackProduct(type, e)
+			const { minPrice, maxPrice, minPv, maxPv } = this.state;
+			let params = Object.assign({}, this.state);
+			if (minPrice === "") {
+				delete params['minPrice'];
+			}
+			if (maxPrice === "") {
+				delete params['maxPrice'];
+			}
+			if (minPv === "") {
+				delete params['minPv'];
+			}
+			if (maxPv === "") {
+				delete params['maxPv'];
+			}
+			params.orderType=e
+			this.props.callbackProduct(type, params)
 		}else{
 		  const value = e.target.value
 		  this.setState({
@@ -270,6 +288,7 @@ class App extends Component {
 		this.state = {
 			mode: true,
 			catArr: [],
+			hasdata:true,
 			productName: '',
 			orderType: '21',
 			minPrice: '',
@@ -321,12 +340,6 @@ class App extends Component {
 			})
 			let v1 = res.productsale_list_response;
 			var arr = Object.getOwnPropertyNames(v1);
-			if (arr.length === 0) {
-				return false;
-			}
-			if (v1.content.length === 0) {
-				return false;
-			}
 			serviceList = v1.content.map(v => {
 				return {
 					id: v.id,
@@ -342,6 +355,24 @@ class App extends Component {
 				serviceList: serviceList,
 				totalPage:v1.total
 			})
+			if (arr.length === 0) {
+				_this.setState({
+					hasdata: true
+				})
+				return false;
+			}
+			if (v1.content.length === 0) {
+				_this.setState({
+					hasdata: true
+				})
+				return false;
+			}
+			_this.setState({
+				hasdata: false
+			})
+			
+			console.log(v1.total)
+			
 		})
 	}
 	getCategory() {
@@ -400,9 +431,27 @@ class App extends Component {
 		this.getGoodsList(querydata);
 	}
 	callbackProduct(name, val) {
-		this.setState({
-			[name]:val
-		})
+		if(name==="orderType"){
+            this.setState({
+				[name]:val.orderType
+			})
+			this.setState({
+				serviceList: [],
+				currentPage:1
+			})
+			const {page_size, currentPage, categoryId } = this.state;
+			let querydata = {
+				...val,
+				category: categoryId,
+				_currPageNo: 1,
+				_pageSize: page_size
+			};
+			this.getGoodsList(querydata)
+		}else{
+			this.setState({
+				[name]:val
+			})
+		}
 	}
 	//搜索
 	callback(msg) {
@@ -521,15 +570,26 @@ class App extends Component {
 						</TabPane>
 						)}
 					</Tabs>
-					<Spin spinning={this.state.showLoading} tip="Loading...">
+					<div style={{margin:' 0 auto'}} >
+						
+						<Spin spinning={this.state.showLoading} tip="Loading...">
+						 {
+							 serviceList.length>0?
 						<div className="productList">
-							{serviceList.map((list, k) => <Lists onChange={this.handleChildChange.bind(this)} key={k} index={k} list={list} />)}
-						</div>
+							 {serviceList.map((list, k) => <Lists onChange={this.handleChildChange.bind(this)} key={k} index={k} list={list} />)}
+						 </div>:null
+						 }
+							
+						</Spin>
 						<div className="clear"></div>
-					</Spin>
+					</div>
 				</div>
+					{
+					  this.state.hasdata?<div style={{textAlign:'center'}}><img src={require('@/assets/images/nodata.png')} /><p style={{marginTop:'20px'}}>暂无数据</p></div>:null
+					}
+
 				<div className="pagination">
-					<Pagination current={this.state.currentPage} showSizeChanger onChange={this.pageChange.bind(this)} onShowSizeChange={this.onShowSizeChange.bind(this)} defaultCurrent={1} total={this.state.totalPage} />
+				    <Pagination hideOnSinglePage={true} current={this.state.currentPage} showSizeChanger onChange={this.pageChange.bind(this)} onShowSizeChange={this.onShowSizeChange.bind(this)} defaultCurrent={1} total={this.state.totalPage} />
 				</div>
 			</div>
 

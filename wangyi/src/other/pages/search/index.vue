@@ -138,6 +138,9 @@
         let v1 = await _this.getGoodsList(id);
         v1 = v1.productsale_list_response;
         var arr = Object.getOwnPropertyNames(v1);
+       
+        _this.current_id = id;
+        _this.pagecon.total = v1.totalPages;
         if (arr.length == 0) {
           this.hasData = true
           return false;
@@ -157,8 +160,6 @@
             number: 1
           }
         });
-        _this.current_id = id;
-        _this.pagecon.total = v1.total;
       },
       catEvent(id) {
         let _this = this;
@@ -167,10 +168,13 @@
         _this.categoryHandle(id)
       },
       //分页
-      chagePage({ mp }) {
-        const type = mp.detail.type;
+      chagePage({ detail }) {
+        const type = detail.type;
 
         if (type === 'next') {
+          if(this.dataActive.length==0){
+              return false
+            }
           this.currentPage = this.currentPage + 1;
         } else if (type === 'prev') {
           this.currentPage = this.currentPage - 1;
@@ -191,7 +195,7 @@
         _this.catEvent(id)
         // _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
       },
-      changeNum({ detail }, id, number, index) {
+      changeNum({detail}, id, number, index) {
         this.dataActive[index].number = detail;
       }
     }

@@ -30,17 +30,21 @@
       };
     },
     created() {
-      let _this=this;
-       _this.getCategory()
+     
     },
       onReady() {
     console.log('onReady')
   },
 
   onShow() {
-    console.log('onShow')
+    this.onLoad()
+    let _this=this;
+    _this.getCategory()
   },
     methods:{
+      onLoad(){
+        this.catArr=[]
+      },
        getCategory(){
    
          let _this=this;

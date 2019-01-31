@@ -96,16 +96,15 @@
 </template>
 <style lang="scss" src="./style.scss"></style>
 <script>
-    import OrderListItem from './order-list-item';
-   import CategoryItem from './category';
-
+  import OrderListItem from './order-list-item';
+  import CategoryItem from './category';
   import bus from '@/components/bus';
   import {deleteKey} from '@/utils/tools.js'
   import store from '@/store'
 export default {
     components: {
-      OrderListItem,
-      CategoryItem
+    OrderListItem,
+    CategoryItem
     },
     data () {
       return {
@@ -138,6 +137,7 @@ export default {
       };
     },
     onShow(){
+      this.onLoad()
        let _this=this;
        _this.currentOrderType=store.state.home.currentOrderType;
        _this.active=store.state.home.active;
@@ -168,6 +168,28 @@ export default {
         })
       },
     methods:{
+      onLoad(){
+        this.catArr=[]//分类
+        //分页
+        this.pagecon={
+          total:0,
+          page_size:10
+        }
+        this.currentPage=1
+        this.show=false
+        this.showboard=false
+        this.hasData=false
+        this.active='0'
+        this.serviceList= [],
+        this.priceType=''
+        this.pName=''
+         this.searchList={
+             minPrice:'',
+             maxPrice:'',
+             minPv:'',
+             maxPv:''
+          }
+      },
       async getGoodsList(id){
         let _this=this;
         let {minPrice,maxPrice,minPv,maxPv}= _this.searchList;
@@ -175,20 +197,20 @@ export default {
         _this.serviceList=[];
         _this.hasData=false;
         let querydata={};
-          querydata=  {
-          productName:_this.pName,
-          category:id,
+          querydata={
+          category:id===""?"":id,
           _currPageNo:_this.currentPage,
           _pageSize:_this.pagecon.page_size,
           orderType:_this.currentOrderType,
           minPrice:minPrice,
           maxPrice:maxPrice,
           minPv:minPv,
-          maxPv:maxPv
+          maxPv:maxPv,
+          productName:_this.pName===""?"":_this.pName
           }; 
-          
+         
           querydata=deleteKey(_this.searchList, JSON.stringify(querydata));
-       
+          console.log(querydata)
           return await _this.$api.apiConfig.productSale(
                querydata
             ) 
@@ -198,6 +220,9 @@ export default {
          let v1= await  _this.getGoodsList(id);
            v1=v1.productsale_list_response;
          var arr = Object.getOwnPropertyNames(v1);
+   
+        _this.current_id=id;
+         _this.pagecon.total=v1.totalPages;
          if(arr.length==0){
            this.hasData=true
            return false;
@@ -206,7 +231,7 @@ export default {
            this.hasData=true
            return false;
          }
-        _this.serviceList=v1.content.map(v=>{
+         _this.serviceList=v1.content.map(v=>{
           return {
             id: v.id,
             imgUrl: v.imgUrl,
@@ -217,8 +242,6 @@ export default {
             number:1
           }
         });
-        _this.current_id=id;
-         _this.pagecon.total=v1.total;
       },
        catEvent(id){
         let _this=this;
