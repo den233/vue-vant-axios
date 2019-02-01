@@ -14,7 +14,6 @@ $api = app('Dingo\Api\Routing\Router');
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/category', 'Home\CategoryController@index');
 Route::get('/api/category', 'Home\CategoryController@get');
 Route::get('/goods', 'Home\GoodsController@index');
@@ -23,19 +22,13 @@ Route::post('/api/addcart', 'Home\CartController@add');
 Route::get('/api/cartlist', 'Home\CartController@index');
 Route::post('/api/cartdelete', 'Home\CartController@delete');
 Route::post('/api/cartupdate', 'Home\CartController@update');
-// Route::get('user/{id}', 'UserController@show');
+Route::get('user/{id}', 'UserController@show');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api) {
-  
-   // Route::get('api/captcha/{tmp}', 'KitController@captcha');
-    $api->get('test', ['as' => 'auth.test', 'uses' => 'TestController@index']);
-    // $api->get('captcha/{tmp}', [
-    //     'as' => 'auth.captcha',
-    //     'uses' => 'KitController@captcha',
-    // ]);
-    $api->post('auth/token', [
-        'as' => 'auth.Users',
-        'uses' => 'UsersController@token',
+    //Route::get('api/captcha/{tmp}', 'KitController@captcha');
+    $api->get('captcha/{tmp}', [
+        'as' => 'auth.captcha',
+        'uses' => 'KitController@captcha',
     ]);
     # Auth
     // signin
@@ -53,5 +46,4 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api'], function ($api)
         'as' => 'auth.token.refresh',
         'uses' => 'AuthController@refreshToken',
     ]);
-    
 });
