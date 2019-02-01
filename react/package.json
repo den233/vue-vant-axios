@@ -5,10 +5,12 @@
   "dependencies": {
     "antd": "^3.10.7",
     "axios": "^0.18.0",
+    "ciqu-react-calendar": "^1.0.2",
     "flyio": "^0.6.9",
     "react": "^16.2.0",
     "react-dev-utils": "^5.0.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "moment": "^2.18.1"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -25,8 +27,8 @@
       "changeOrigin": true
     },
     "/api": {
-     "target": "http://zhixiao.cn",
-     "changeOrigin": true
+      "target": "http://zhixiao.cn",
+      "changeOrigin": true
     }
   },
   "jest": {

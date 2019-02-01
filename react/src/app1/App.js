@@ -507,9 +507,7 @@ class App extends Component {
 	}
 	pageChange(page, pageSize){
         this.setState({
-			currentPage:page
-		})
-		this.setState({
+			currentPage:page,
 			page_size:pageSize
 		})
 		const {categoryId, productName,  page_size, orderType, minPrice, maxPrice, minPv, maxPv } = this.state;
@@ -570,7 +568,7 @@ class App extends Component {
 						</TabPane>
 						)}
 					</Tabs>
-					<div style={{margin:' 0 auto'}} >
+					<div style={{margin:' 0 auto',width:'100%',textAlign:'center'}} >
 						
 						<Spin spinning={this.state.showLoading} tip="Loading...">
 						 {

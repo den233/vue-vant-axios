@@ -24,7 +24,9 @@
 		padding-top: 109px;
 		.productList{
 			padding-bottom: 80px;
-			float: left;	
+			float: left;
+			width:100%;	
+			text-align: left;
 			.card{
 				max-width:240px;height: 336px;overflow: hidden;
 				:global {
