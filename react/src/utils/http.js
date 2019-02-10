@@ -15,7 +15,7 @@ fly.interceptors.request.use((request) => {
     'content-type': 'application/json;charset=utf-8'
   };
 
-  let authParams = {
+  // let authParams = {
     //公共参数
     // "categoryType": "SaleGoodsType@sim",
     // "streamNo": "wxapp153570682909641893",
@@ -23,7 +23,7 @@ fly.interceptors.request.use((request) => {
     // "appid": "string",
     // "timestamp": new Date().getTime(),
     // "sign": "string"
-  };
+  //};
 
 //   request.body && Object.keys(request.body).forEach((val) => {
 //     if(request.body[val] === ""){

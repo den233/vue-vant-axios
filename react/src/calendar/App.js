@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Pagination, Tag } from 'antd';
-import api from '@/Api/api'
+// import { Table, Pagination, Tag } from 'antd';
+// import api from '@/Api/api'
 import 'antd/dist/antd.css';
 import './App.scss';
-import moment from 'moment'
-import Calendar from 'ciqu-react-calendar'
+// import moment from 'moment'
+// import Calendar from 'ciqu-react-calendar'
 
 import CalendarHeader from './CalendarHeader'
 import CalendarMain from './CalendarMain'
@@ -78,12 +78,12 @@ class Calendar1 extends Component {
   nextMonth() {
     if (this.state.month === 11) {
       this.setState({
-        year: ++this.state.year,
+        year: this.state.year+1,
         month: 0
       })
     } else {
       this.setState({
-        month: ++this.state.month
+        month: this.state.month+1
       })
     }
   }
@@ -91,12 +91,12 @@ class Calendar1 extends Component {
   prevMonth() {
     if (this.state.month === 0) {
       this.setState({
-        year: --this.state.year,
+        year: this.state.year-1,
         month: 11
       })
     } else {
       this.setState({
-        month: --this.state.month
+        month: this.state.month-1
       })
     }
   }

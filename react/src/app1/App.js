@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import api from './api/api'
 import 'antd/dist/antd.css';
-import { message, Icon, Collapse, Pagination, Select, Form, Card, Input, Col, InputNumber, Tabs, Radio, Button, Spin } from 'antd'
+import { message, Icon, Collapse, Pagination, Select, Form, Card, Input, Col, InputNumber, Tabs,  Button, Spin } from 'antd'
 import styles from './App.scss'
 const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
@@ -404,7 +404,7 @@ class App extends Component {
 		this.setState({
 			categoryId: id
 		})
-		const { productName, currentPage, page_size, orderType, minPrice, maxPrice, minPv, maxPv } = this.state;
+		const { productName, page_size, orderType, minPrice, maxPrice, minPv, maxPv } = this.state;
 		let querydata = {
 			productName: productName,
 			category: id,
