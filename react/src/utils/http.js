@@ -30,10 +30,10 @@ fly.interceptors.request.use((request) => {
 //       delete request.body[val]
 //     };
 //   });
-//   request.body = {
-//     ...request.body,
-//     ...authParams
-//   }
+  request.body = {
+    ...request.body,
+   // ...authParams
+  }
   return request;
 });
 
@@ -41,7 +41,7 @@ fly.interceptors.request.use((request) => {
 fly.interceptors.response.use(
   (response) => {
     // wx.hideLoading();
-    return response.data;//请求成功之后将返回值返回
+    return JSON.parse(response.data);//请求成功之后将返回值返回
   },
   (err) => {
     //请求出错，根据返回状态码判断出错原因

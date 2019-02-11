@@ -16,18 +16,23 @@ class CartController extends Controller
         return json_encode($students);
     }
     function add(Request $request){
-        $id=$request->get('id');
-        $number=$request->get('number');
-        $attributes=Goods::find($id);
-       // $attributes['attributes']['number'] = '13';
-         $arrar= $attributes['attributes'];
-        $cart = new Cart;
-         $cart->name =  $arrar["name"];
-         $cart->category_id =  $arrar['category_id'];
-         $cart->price =$arrar['price'];
-         $cart->pv = $arrar['pv'];
-         $cart->number = $number;
-         $cart->save();
+        // $data = $request->only('ppsId','quantity','orderType');
+        // var_dump($data);
+        $students = DB::table('carts')->take(100)->get();
+        return json_encode($students);
+       
+    //     $ppsId=$request->get('ppsId');
+    //     $number=$request->get('quantity');
+    //     $attributes=Goods::find($ppsId);
+    //    // $attributes['attributes']['number'] = '13';
+    //      $arrar= $attributes['attributes'];
+    //     $cart = new Cart;
+    //      $cart->name =  $arrar["name"];
+    //      $cart->category_id =  $arrar['category_id'];
+    //      $cart->price =$arrar['price'];
+    //      $cart->pv = $arrar['pv'];
+    //      $cart->number = $number;
+    //      $cart->save();
     }
     function delete(Request $request){
         $id=$request->get('ids');

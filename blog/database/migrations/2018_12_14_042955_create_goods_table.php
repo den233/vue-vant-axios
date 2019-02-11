@@ -16,6 +16,7 @@ class CreateGoodsTable extends Migration
         Schema::create('goods', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id');
+            $table->integer('ppsId');
             $table->string('name');
             $table->decimal('price', 5, 2);
             $table->decimal('pv', 5, 2);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import api from './api/api'
+import api from '@/Api/api.1'
 import 'antd/dist/antd.css';
 import { message, Icon, Collapse, Pagination, Select, Form, Card, Input, Col, InputNumber, Tabs,  Button, Spin } from 'antd'
 import styles from './App.scss'
@@ -338,7 +338,7 @@ class App extends Component {
 			_this.setState({
 				showLoading: false
 			})
-			let v1 = res.productsale_list_response;
+			 let v1 = res.productsale_list_response;
 			var arr = Object.getOwnPropertyNames(v1);
 			serviceList = v1.content.map(v => {
 				return {

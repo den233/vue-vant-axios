@@ -40,6 +40,14 @@ class CategoryController extends Controller
         //$students = DB::select('select * from ls_categories limit 10');
         $users = Category::all();
         $students = DB::table('categories')->take(20)->get();
-        return json_encode($users);
+        $array=array();
+        $list=array();
+     
+        foreach ($users as $key => $value) {
+            $list[$key]['categoryId']=$value['category_id'];
+            $list[$key]['categoryName']=$value['name'];
+        }
+        $array["productsale_category_query_response"]=$list;
+        return json_encode($array);
     }
 }
