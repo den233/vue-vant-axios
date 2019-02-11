@@ -18,7 +18,7 @@ Route::get('/category', 'Home\CategoryController@index');
 Route::get('/api/category', 'Home\CategoryController@get');
 Route::get('/goods', 'Home\GoodsController@index');
 Route::get('/api/goods', 'Home\GoodsController@post');
-Route::post('/api/addcart', 'Home\CartController@add');
+
 Route::get('/api/cartlist', 'Home\CartController@index');
 Route::post('/api/cartdelete', 'Home\CartController@delete');
 Route::post('/api/cartupdate', 'Home\CartController@update');

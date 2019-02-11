@@ -68,6 +68,7 @@ class GoodsController extends Controller
                 $array[$key]['price']=$value['price'];
                 $array[$key]['pv']=$value['pv'];
                 $array[$key]['quantity']=$value['number'];
+                $array[$key]['ppsId']=$value['ppsId'];
             }
             $god=array('productsale_list_response'=>array('content'=> $array));
             return json_encode($god);
@@ -81,6 +82,7 @@ class GoodsController extends Controller
                 $array[$key]['price']=$value['price'];
                 $array[$key]['pv']=$value['pv'];
                 $array[$key]['quantity']=$value['number'];
+                $array[$key]['ppsId']=$value['ppsId'];
             }
             $god=array('productsale_list_response'=>array('content'=> $array));
             return json_encode($god);

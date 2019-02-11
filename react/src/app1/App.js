@@ -229,7 +229,7 @@ class Lists extends Component {
 		console.log(list)
 		let queryParam = {
 			//"strAction": "trolley_detail_add",
-			"ppsId": list['id'],
+			"ppsId": list['ppsId'],
 			"orderType": '21',
 			"quantity": Number(number)
 		}
@@ -348,6 +348,7 @@ class App extends Component {
 					productName: v.productName,
 					productNo: v.productNo,
 					pv: v.pv,
+					ppsId: v.ppsId,
 					number: 1
 				}
 			});
