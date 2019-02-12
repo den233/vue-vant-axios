@@ -65,7 +65,7 @@
     },
     mounted() {
       //console.log(data.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "**** **** **** $2"))
-      this.initdata()
+      this.get_list()
     },
     async onPullDownRefresh() {
       // to doing..
@@ -81,21 +81,18 @@
       // _this.getMore();
     },
     methods: {
-      initdata() {
-        this.newsList = [
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-          { title: 'iiiiiissssssssssq试试', user: '隆力奇' },
-        ]
-      },
+      get_list(){
+                let _this=this;
+                this.$api.apiConfig.getAmAnnounces({}).then(data=>{
+                    let v1=data.amAnnounces;
+                    _this.newsList=v1.map(v=>{
+                        return {
+                            name:v.subject,
+                            id:v.aano
+                        }
+                    })
+                })
+            },
       goDetail(){
         this.$router.push({path:'/other/pages/messagedetails/index'})
       },

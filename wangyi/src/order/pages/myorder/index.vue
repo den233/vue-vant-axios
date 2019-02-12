@@ -172,6 +172,7 @@
           page_size:10
         }
         _this.orderList=[];
+        _this.currentPage=1;
         switch (_this.currentStatus){
           case 0:
             let params = {
@@ -210,6 +211,7 @@
            break;
         }
       },
+      //全部
       initData(params) {
         let _this = this;
         let queryData=params
@@ -227,7 +229,7 @@
               return false;
             }
             _this.pagecon = {
-              total: v1.total,
+              total: v1.totalPages,
               page_size: 10
             }
             _this.orderList = v1;
@@ -275,7 +277,7 @@
               return false;
             }
             _this.pagecon = {
-              total: v1.total,
+              total: v1.totalPages,
               page_size: 10
             }
             _this.orderList = v1;
@@ -301,7 +303,7 @@
               return false;
             }
             _this.pagecon = {
-              total: v1.total,
+              total: v1.totalPages,
               page_size: 10
             }
             _this.orderList = v1;
@@ -327,7 +329,7 @@
               return false;
             }
             _this.pagecon = {
-              total: v1.total,
+              total: v1.totalPages,
               page_size: 10
             }
             _this.orderList = v1;

@@ -27,36 +27,32 @@
                 animate: false,
                 setInval: "",
                 marginTop:'0px',
-                marqueeList: [{
-                    name: '隆力奇护手霜1折',
-                },
-                {
-                    name: '2军',
-                    city: '上海',
-                    amount: '20'
-                },
-                {
-                    name: '3军',
-                    city: '广州',
-                    amount: '30'
-                },
-                {
-                    name: '4军',
-                    city: '重庆',
-                    amount: '40'
-                }
+                marqueeList: [ 
                 ],
                 results: [],
                 value: '1'
             };
         },
         created() {
+            this.get_list();
               this.setInval=setInterval(this.scroll, 3000)
         },
         destroyed() {
            clearInterval(this.setInval)
         },
         methods: {
+            get_list(){
+                let _this=this;
+                this.$api.apiConfig.getAmAnnounces({}).then(data=>{
+                    let v1=data.amAnnounces;
+                    _this.marqueeList=v1.map(v=>{
+                        return {
+                            name:v.subject,
+                            id:v.aano
+                        }
+                    })
+                })
+            },
             scroll() {
                 //console.log(1)
                 this.animate=true;    // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true

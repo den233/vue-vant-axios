@@ -208,6 +208,21 @@ apiConfig.tmporder_list_takeDelively = params => {
   let url= configPath + '/v2/tmpOrder.html?strAction=tmporder_list_takeDelively'
   return fetch.request(url, params, {method:"get"})
 }; 
+//26最新动态
+apiConfig.getAmAnnounces=params=>{
+  let url= configPath + '/v2/getAmAnnounces.html?strAction=amAnnounce_get'
+  return fetch.request(url, params, {method:"get"})
+}
+//27
+apiConfig.getAmDetails=params=>{
+  let url= configPath + '/v2/getAmAnnounces.html?strAction=amAnnounce_get_detail'
+  return fetch.request(url, params, {method:"get"})
+}
+//28轮播图
+apiConfig.getBanner=params=>{
+  let url= configPath + '/v2/productSale.html?strAction=rotation_chart_get'
+  return fetch.request(url, params, {method:"get"})
+}
 const apiList = {
   login,
   apiConfig

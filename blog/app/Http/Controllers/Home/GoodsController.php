@@ -54,7 +54,7 @@ class GoodsController extends Controller
     }
     public function post(Request $request)
     { 
-        $id = $request->get('category_id');
+        $id = $request->get('category');
         $pagenum = $request->get('currentpage_num');
         $perpage = $request->get('perpage');
         $name = $request->get('name');

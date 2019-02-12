@@ -16,18 +16,35 @@ class CartController extends Controller
         return json_encode($students);
     }
     function add(Request $request){
-        $data = $request->only('ppsId','quantity','orderType');
+      //  $data = $request->only('ppsId','quantity','orderType');
        
         // $students = DB::table('carts')->take(100)->get();
         // return json_encode($students);
        
        $ppsId=$request->get('ppsId');
-    //     $number=$request->get('quantity');
-   
+        $number=$request->get('quantity');
+      
       $attributes = DB::table('goods')
-        ->where('ppsId',$ppsId)->get();
+        ->where('ppsId',$ppsId)->first();
     // $item = Cart::create($data);
-    var_dump($attributes);
+    //    $name=$attributes['name'];
+      $name=$attributes->name;
+      $price=$attributes->price;
+      $pv=$attributes->pv;
+      $array=array(
+          'name'=>$name,
+          'price'=>$price,
+          'pv'=>$pv,
+           'pps_id'=>$ppsId,
+          'number'=>$number,
+          'category_id'=>'123'
+      );
+      var_dump($array);
+      $item = Cart::create($array);
+    //   return json_encode(array(
+    //       'msg'=>$array
+    //   ));
+      // dd($attributes);
     // $quantity=$data['quantity'];
     // $orderType=$data['orderType'];
     // $price=$attributes['price'];
