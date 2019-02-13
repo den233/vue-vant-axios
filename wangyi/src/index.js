@@ -51,10 +51,10 @@ app.$mount()
 export default {
   config: {
     window: {
-      backgroundTextStyle: '#fff',
+      backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#42aaf5',
       navigationBarTitleText: '隆力奇商城',
-      navigationBarTextStyle: '#fff'
+      navigationBarTextStyle: 'white'
     },
     "usingComponents": {
     "van-toast": "/static/vant/toast/index",
@@ -86,6 +86,8 @@ export default {
     "van-action-sheet": "/static/vant/action-sheet/index",
     "i-page": "/static/iview/page/index",
     "i-load-more": "/static/iview/load-more/index",
+    "i-tabs": "/static/iview/tabs/index",
+    "i-tab": "/static/iview/tab/index",
     "ff-canvas": "/static/f2-canvas/f2-canvas"
   }, 
   "pages": [

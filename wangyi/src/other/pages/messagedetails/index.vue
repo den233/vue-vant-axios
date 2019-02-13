@@ -1,33 +1,55 @@
 <template>
   <div id="mineEntry">
-    <h1>
-        隆力奇营养师培训之矿物质
-    </h1>
-    <div class="title">
-        小奇  隆力奇微讯  5天前
-    </div>
+    <!-- <h1>
+     {{subject}}
+    </h1> -->
+    <!-- <div class="title">
+     {{createTime}}
+    </div> -->
     <div v-html="html"></div>
   </div>
 </template>
 
 <script>
- 
+import {formatTime1,parseTime} from 'ut'
   export default {
- 
+
     data() {
       return {
-        html: `<div> 随着我国社会经济的快速发展，人们生活水平逐步提高，但怎样吃？如何吃才能吃出健康，吃出美丽？不见得很多人真的知道。七大类营养素中膳食纤维到底是一类什么样的营养素呢？为什么称之为人体的物理扫帚您知道吗？它真有神奇的减肥作用吗？
-          <img src="https://img.alicdn.com/imgextra/i1/897941969/O1CN01MX1WDa1QPqLPVmOQ5_!!897941969.jpg"></img>
-          </div>`
+        html: '',
+        subject :'',
+        createTime:''
       }
     },
+    onShow(){
+   
+      this.getInfo();
+    },
     methods: {
-      
+      getInfo() {
+        console.log(this.$route.query.id)
+        let _this= this;
+        let params = {
+          aaNo:this.$route.query.id
+        }
+        this.$api.apiConfig.getAmDetails(params).then(data => {
+           let v1=data.amAnnounce;
+           let {subject,content,createTime}=v1;
+          
+           var reg = new RegExp("<o:p>","g");//g,表示全部替换。
+           var reg2 = new RegExp("</o:p>","g");//g,表示全部替换。
+           let result=content.replace(reg, " ");
+           result=result.replace(reg2, " ");
+           _this.html=`${result}`;
+           _this.subject=subject;
+           _this.createTime=parseTime(createTime);
+        })
+      }
     }
   }
 </script>
 <style>
-   @import url("~mpvue-wxparse/src/wxParse.css");
+  @import url("~mpvue-wxparse/src/wxParse.css");
 </style>
 <style lang="scss" src="./style.scss">
 

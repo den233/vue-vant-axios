@@ -221,7 +221,22 @@ apiConfig.getAmDetails=params=>{
 //28轮播图
 apiConfig.getBanner=params=>{
   let url= configPath + '/v2/productSale.html?strAction=rotation_chart_get'
-  return fetch.request(url, params, {method:"get"})
+  return fetch.request(url, params, {method:"post"})
+}
+//29现金转超值卡
+apiConfig.fiBankbookCash=params=>{
+  let url= configPath + '/v2/fiBankbookCashcz.html?strAction=fiBankbookCash_to_cz'
+  return fetch.request(url, params, {method:"post"})
+}
+//30超值卡账户转账
+apiConfig.fiBankbookP2P=params=>{
+  let url= configPath + '/v2/fiBankbookCashcz.html?strAction=fiBankbookP2P_to_cz'
+  return fetch.request(url, params, {method:"post"})
+}
+//30提现
+apiConfig.tixian=params=>{
+  let url= configPath + '/v2/editFiMoneyEtoc.html?strAction=bonus_withdrawals'
+  return fetch.request(url, params, {method:"post"})
 }
 const apiList = {
   login,

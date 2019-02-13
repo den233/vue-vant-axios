@@ -29,8 +29,8 @@
   export default {
     data() {
       return {
-        username: '',
-        password: '',
+        username: '999999',
+        password: '111111',
         sms: '',
         imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
       }

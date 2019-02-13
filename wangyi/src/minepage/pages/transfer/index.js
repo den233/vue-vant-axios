@@ -1,10 +1,12 @@
 import App from './index'
 import Vue from 'vue'
 
-const app = new Vue( App )
+const app = new Vue(App)
 
 app.$mount()
 export default {
-     
-  };
+  "usingComponents": {
   
+  }
+};
+

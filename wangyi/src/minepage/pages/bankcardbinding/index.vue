@@ -90,7 +90,7 @@
               this.$router.go(-1);
           },
           onClickRight(){
-             this.$router.push({path:'/pages/bankcardadd/main'})
+             this.$router.push({path:'/minepage/pages/bankcardadd/index'})
           }
       }
 

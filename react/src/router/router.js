@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import home from "@/pages/home/home";
-const record = asyncComponent(() => import("@/pages/record/record"));
-const helpcenter = asyncComponent(() => import("@/pages/helpcenter/helpcenter"));
-const production = asyncComponent(() => import("@/pages/production/production"));
-const balance = asyncComponent(() => import("@/pages/balance/balance"));
+import asyncComponent from '@/utils/asyncComponent';
+import home from "@/pageF/home/home";
+const record = asyncComponent(() => import("@/pageF/record/record"));
+const helpcenter = asyncComponent(() => import("@/pageF/helpcenter/helpcenter"));
+const production = asyncComponent(() => import("@/pageF/production/production"));
+const balance = asyncComponent(() => import("@/pageF/balance/balance"));
 export default class RouteConfig extends Component{
     render(){
       return(

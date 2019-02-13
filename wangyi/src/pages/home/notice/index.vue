@@ -30,7 +30,9 @@
                 marqueeList: [ 
                 ],
                 results: [],
-                value: '1'
+                value: '1',
+                pageSize:10,
+                currPageNo:1
             };
         },
         created() {
@@ -43,7 +45,11 @@
         methods: {
             get_list(){
                 let _this=this;
-                this.$api.apiConfig.getAmAnnounces({}).then(data=>{
+                let params={
+                    _pageSize:this.pageSize,
+                    _currPageNo:this.currPageNo
+                }
+                this.$api.apiConfig.getAmAnnounces(params).then(data=>{
                     let v1=data.amAnnounces;
                     _this.marqueeList=v1.map(v=>{
                         return {

@@ -92,7 +92,8 @@ function createBaseConfig() {
       alias: {
         'vue': 'megalo',
         '@': _.resolve('src'),
-				'staticA':_.resolve('src/static')
+        'staticA':_.resolve('src/static'),
+        'ut':_.resolve('src/utils')
       },
     },
 
