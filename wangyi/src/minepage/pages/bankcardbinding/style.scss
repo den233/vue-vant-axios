@@ -1,6 +1,8 @@
 .account{
     .card{
         background: #f38739;
+        height:100px;
+        width: 100%;
         .inner{
             color: #fff;
             font-size: 14px;
@@ -8,13 +10,15 @@
             .imgs{
               float: left;
               margin: 10px;
-              i{
+              .iconfont1{
                   font-size:25px;
+                  margin-top:20px;
               }
             }
             .content{
                 float: left;
                 margin: 10px;
+                margin-top:27px;
             }
             .clear{
                 clear: both;
@@ -22,6 +26,14 @@
             .code{
                 text-align: center;
                 padding-bottom: 10px;
+                float: left;
+                padding-top:55rpx;
+                padding-left: 10px;
+            }
+            .edit{
+                float:right;
+                margin-right:10px;
+                padding-top:55rpx;
             }
         }
     }

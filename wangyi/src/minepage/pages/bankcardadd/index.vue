@@ -44,21 +44,24 @@
         this.$router.go(-1);
       },
       initdata() {
-        this.cardList = [
-          { name: '中国银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 0, fontClass: 'icon-zhongguoyinhang' },
-          { name: '中国工商银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 0, fontClass: 'icon-zhongguogongshangyinxing' },
-          { name: '江苏银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-jiangsuyinhang' },
-          { name: '中信银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-zhongxinyinhang' },
-          { name: '光大银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-icon-guangdayinhang' },
-          { name: '农业银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-nongyeyinhang' },
-          { name: '招商银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-zhaoshangyinhang' },
-          { name: '广发银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-guangfayinhang' },
-          { name: '浦发银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-pufayinhang' },
-          { name: '邮政储蓄银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-youzhengchuxuyinxing' },
-          { name: '建设银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-jiansheyinxing' },
-          { name: '华夏银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-huaxiayinxing' },
-          { name: '交通银行', typeName: '储蓄卡', cardNum: '3265986532146598', type: 1, fontClass: 'icon-jiaotongyinxing' }
-        ]
+        this.cardList=[
+                 {name:'中国银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:0,fontClass:'icon-zhongguoyinhang'},
+                  {name:'中国工商银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:0,fontClass:'icon-zhongguogongshangyinxing'},
+                //   {name:'江苏银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-jiangsuyinhang'},
+                  {name:'中国民生银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-minsheng'},
+                  {name:'中信银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-zhongxinyinhang'},
+                  {name:'中国光大银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-icon-guangdayinhang'},
+                  {name:'中国农业银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-nongyeyinhang'},
+                  {name:'招商银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-zhaoshangyinhang'},
+                  {name:'广东发展银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-guangfayinhang'},
+                  {name:'上海浦东发展银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-pufayinhang'},
+                //   {name:'邮政储蓄银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-youzhengchuxuyinxing'},
+                  {name:'中国建设银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-jiansheyinxing'},
+                  {name:'华夏银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-huaxiayinxing'},
+                  {name:'交通银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-jiaotongyinxing'},
+                  {name:'平安银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-pinganyinhang'},
+                  {name:'兴业银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-xingyeyinxing'}
+                  ]
         for (var i = 0, len = this.cardList.length; i < len; i++) {
           this.columns.push(this.cardList[i].name);
         }
@@ -69,9 +72,9 @@
       onCancel() {
         this.show = false;
       },
-      onConfirm({ mp }) {
-        this.cardName = mp.detail.value;
-        var index = mp.detail.index;
+      onConfirm({ detail }) {
+        this.cardName = detail.value;
+        var index = detail.index;
         this.iconClass = this.cardList[index].fontClass;
         this.show = false;
 
