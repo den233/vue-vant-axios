@@ -34,6 +34,7 @@ ReactDOM.render(
         <Switch>
         <Route exact path="/" component={Increase}/>
           <Route exact path="/increase" component={Increase}/>
+          <Route exact path="/decrease" component={Decrease}/>
         </Switch>
         {/* <span className="routerLink"><Link to='/'>加法页面</Link></span>
           <span className="routerLink"><Link to='/decrease'>减法页面</Link></span> */}
