@@ -41,7 +41,8 @@
              }
           }
       },
-      mounted() {
+      onShow() {
+        this.getCard();
           var data = "3265986532146598";
 //console.log(data.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "**** **** **** $2"))
        //this. initdata()
@@ -94,7 +95,14 @@
                   {name:'兴业银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-xingyeyinxing'}
                   ]
           },
-         
+          getCard(){
+              this.$api.apiConfig.bankcardbinding({}).then(data=>{
+                 console.log(data)
+              }).catch(e=>{
+
+              })
+          },
+
           onClickLeft() {
               this.$router.go(-1);
           },

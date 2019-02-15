@@ -35,7 +35,7 @@
         imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
       }
     },
-    onShow(){
+    onShow() {
       Megalo.removeStorageSync('token');
     },
     methods: {
@@ -56,33 +56,34 @@
           password: _this.password
         }
         _this.$api.login(params).then(data => {
-         
-          const { message, token, userCode,status } = data;
-          if(status==="1011"){
-                Megalo.setStorage({ key: 'token', data: token })
-                .then(res => console.log(res))
-                wx.switchTab({
-              url: '/pages/home/index',
-            });
-              Megalo.showToast({
+
+          const { message, token, userCode, status } = data;
+          if (status === "1011") {
+            Megalo.setStorage({ key: 'token', data: token })
+              .then(res => console.log(res))
+                  Megalo.switchTab({
+                   url: '/pages/home/index',
+               });
+           // _this.$router.push({ path: '/minepage/pages/bankcardbinding/index', query: { type: 'add' } })
+            Megalo.showToast({
               title: '登录成功',
               icon: 'success',
               duration: 2000
             })
-          }else{
+          } else {
             Megalo.showToast({
               title: '登录失败',
               icon: 'fail',
               duration: 2000
             })
           }
-        
+
         }).catch(e => {
           Megalo.showToast({
-              title: e,
-              icon: 'fail',
-              duration: 2000
-            })
+            title: e,
+            icon: 'fail',
+            duration: 2000
+          })
         })
         // wx.login({
         //   success: (res) => {
@@ -102,7 +103,7 @@
         // this.$router.push({
         //   path:'/order/pages/repeatorder/index'
         // })
-        
+
 
       }
     }

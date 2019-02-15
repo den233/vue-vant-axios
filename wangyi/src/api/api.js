@@ -238,6 +238,16 @@ apiConfig.tixian=params=>{
   let url= configPath + '/v2/editFiMoneyEtoc.html?strAction=bonus_withdrawals'
   return fetch.request(url, params, {method:"post"})
 }
+//31新增修改银行卡信息
+apiConfig.bankcardAdd=params=>{
+  let url= configPath + '/v2/miBanks.html?strAction=miBank_edit'
+  return fetch.request(url, params, {method:"post"})
+}
+//32获取绑定银行卡信息
+apiConfig.bankcardbinding=params=>{
+  let url= configPath + '/v2/userContact.html?strAction=miBank_get'
+  return fetch.request(url, params, {method:"get"})
+}
 const apiList = {
   login,
   apiConfig

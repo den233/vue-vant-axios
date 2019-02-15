@@ -6,42 +6,88 @@
     </van-nav-bar>
     <van-cell-group>
 
-      <van-field v-model="cardNum" required label="银行卡号" placeholder="请输入银行卡号" />
-      <van-cell :value="cardName" is-link @click='pickHandle'>
+     
+      <van-cell :value="bankName" is-link @click='pickHandle'>
         <template slot="title">
           <span class="custom-text">选择银行</span>
         </template>
         <i slot='icon' :class='iconClass' class='van-icon van-cell__left-icon iconfont1'></i>
       </van-cell>
+      <van-field :error='errorInfo.cardNum' @focus="onFocus('cardNum')" :value="cardNum" clearable required label="银行卡号" @change='changecardNum' placeholder="请输入银行卡号" />
+      <van-field :error='errorInfo.cardName' @focus="onFocus('cardName')" :value="cardName" clearable required label="银行户名" @change='changecardName' placeholder="请输入银行户名" />
+      <van-field :error='errorInfo.addressDetail' @focus="onFocus('addressDetail')" :value="addressDetail" label="选择地区" placeholder="选择省/市/区" readonly @click="showAreaPopup" required />
     </van-cell-group>
     <div style="text-align: center;width: 100%;margin-top:20px;">
-      <van-button size="large" type="primary">确定</van-button>
+      <van-button size="large" type="primary" @click='submitHandle'>确定</van-button>
     </div>
     <van-popup :show="show" position="bottom" :overlay="false">
       <van-picker show-toolbar title="银行卡列表" :columns="columns" @cancel="onCancel" @confirm="onConfirm($event,index)" />
     </van-popup>
+    <van-popup :show="showArea" position="bottom">
+      <van-area @confirm="onAreaConfirm" @cancel="onAreaCancel" :area-list="areaList" />
+    </van-popup>
+    <van-toast id="van-toast" />
   </div>
 </template>
 <style lang="scss" src="./style.scss"></style>
 <script>
+  import areas from '@/utils/area.js'
+  import Toast from 'staticA/vant/toast/toast';
   export default {
     data() {
       return {
         cardNum: '',
-        iconClass: 'icon-zhongguoyinhang',
+        bankName:'',
+        iconClass: '',
         cardList: [],
         columns: [],
         show: false,
-        cardName: '中国银行'
+        cardName: '中国银行',
+        areaList: [],
+        addressDetail:'',
+        cData: {
+              province: '',
+              area: '',
+              distinct: ''
+        },
+        showArea: false,
+        errorInfo:{
+          cardName:false,
+          cardNum:false,
+          addressDetail:false
+        }
       }
     },
-    mounted() {
+    onShow() {
+      this.onLoad();
       this.initdata();
     },
 
     methods: {
       onClickLeft() {
         this.$router.go(-1);
+      },
+      onLoad(){
+        this.cardNum= '';
+        this.iconClass= '';
+        this.cardList= [];
+        this.columns= [];
+        this.show= false;
+        this.cardName= '';
+        this.bankName='';
+        this.areaList= [];
+        this.addressDetail='';
+        this.cData= {
+              province: '',
+              area: '',
+              distinct: ''
+        };
+        this.showArea= false;
+        this.errorInfo={
+          cardName:false,
+          cardNum:false,
+          addressDetail:false
+        }
       },
       initdata() {
         this.cardList=[
@@ -65,6 +111,11 @@
         for (var i = 0, len = this.cardList.length; i < len; i++) {
           this.columns.push(this.cardList[i].name);
         }
+        var getArea = areas();
+        this.areaList = getArea.arreaList;
+      },
+      onFocus(key){
+        this.errorInfo[key]=false;
       },
       pickHandle() {
         this.show = true;
@@ -73,11 +124,73 @@
         this.show = false;
       },
       onConfirm({ detail }) {
-        this.cardName = detail.value;
+        this.bankName = detail.value;
         var index = detail.index;
         this.iconClass = this.cardList[index].fontClass;
         this.show = false;
 
+      },
+      showAreaPopup() {
+         this.showArea=true;
+      },
+      onAreaConfirm({detail}){
+        console.log(detail)
+        let v1=detail.detail;
+        let {province,city,county}=v1;
+        this.cData.province=province;
+        this.cData.area=city;
+        this.cData.distinct=county;
+        let newarray=[province,city,county]
+        this.addressDetail=newarray.filter(text => text).join('/');
+        this.showArea=false
+      },
+      onAreaCancel(){
+        this.showArea=false
+      },
+      changecardNum({detail}){
+          this.cardNum=detail;  
+      },
+      changecardName({detail}){
+         this.cardName=detail
+      },
+      submitHandle(){
+           if(this.bankName==''){
+             Toast.fail('请选择银行');
+             return false;
+           }
+           if(this.cardNum==''){
+             Toast.fail('银行卡号不能为空');
+             this.errorInfo.cardNum=true;
+             return false;
+           }
+           if(this.cardName==''){
+             Toast.fail('银行户名不能为空');
+             this.errorInfo.cardName=true;
+             return false;
+           }
+           if(this.addressDetail==''){
+             Toast.fail('请选择省市区');
+             this.errorInfo.addressDetail=true;
+             return false;
+           }
+           let _this=this;
+          const {province,area,distinct}=this.cData
+           let params={
+            "bankProvince":province,
+            "bankCity":area,
+            "bankDistrict":distinct,
+            "bankaddress":"渭塘支行",
+            "bankcard":this.cardNum,
+            "bankbook":this.cardName,
+            "bank":this.bankname,
+           }
+           _this.$api.apiConfig.bankcardAdd(params).then(data=>{
+              if(data.status=='1011'){
+                Toast.success('添加成功')
+              }
+           }).catch(e=>{
+            Toast.fail('添加失败')
+           })
       }
     }
 
