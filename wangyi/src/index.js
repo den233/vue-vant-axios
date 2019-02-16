@@ -84,6 +84,7 @@ export default {
     "van-switch": "/static/vant/switch/index",
     "van-steps": "/static/vant/steps/index",
     "van-action-sheet": "/static/vant/action-sheet/index",
+    "van-datetime-picker": "/static/vant/datetime-picker/index",
     "i-page": "/static/iview/page/index",
     "i-load-more": "/static/iview/load-more/index",
     "i-tabs": "/static/iview/tabs/index",

@@ -19,7 +19,7 @@
             <img src="../../../assets/images/accountdetails/jiang.png" alt="">
           </div>
 
-          <div class="num">1223</div>
+          <div class="num">{{memberAccount.bonus}}</div>
         </div>
         <div class="a1">
           <div class="title">
@@ -29,7 +29,7 @@
             <img src="../../../assets/images/accountdetails/coin.png" alt="">
           </div>
 
-          <div class="num">1223</div>
+          <div class="num">{{memberAccount.coin}}</div>
         </div>
         <div class="a1">
           <div class="title">
@@ -39,7 +39,7 @@
             <img src="../../../assets/images/accountdetails/xianjin.png" alt="">
           </div>
 
-          <div class="num">1223</div>
+          <div class="num">{{memberAccount.cash}}</div>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
       y
     };
   };
-  var fontSize =24; // 字体适配不同屏幕
+  var fontSize = 24; // 字体适配不同屏幕
 
   // 根据角度和圆心求坐标
   function _getEndPoint(center, angle, r) {
@@ -173,7 +173,7 @@
     // 使用 F2 绘制图表
     var map = {};
     data.map(function (obj) {
-      map[obj.name] = obj.percent + '%';
+      map[obj.name] = (Number(obj.percent)*100).toFixed(5) + '%';
     });
     chart = new F2.Chart({
       el: canvas,
@@ -185,7 +185,7 @@
     chart.source(data, {
       percent: {
         formatter: function formatter(val) {
-          return val + '%';
+          return (Number(val)*100).toFixed(5) + '%';
         }
       }
     });
@@ -221,24 +221,25 @@
 
 
   export default {
-    mounted() {
-      data = [{
-      name: '奖金',
-      percent: 30,
-      a: '1',
-      iconfont: 'e60c'
-    }, {
-      name: '电子币',
-      percent: 25,
-      a: '1',
-      iconfont: 'e619;'
-    }, {
-      name: '现金账户',
-      percent: 15,
-      a: '1',
-      iconfont: 'e60a;'
-    }];
-      this.$mp.page.selectComponent('#column').init(initChart)
+    async onShow() {
+      data =[{
+          name: '奖金',
+          percent: 30,
+          a: '1',
+          iconfont: 'e60c'
+        }, {
+          name: '电子币',
+          percent: 25,
+          a: '1',
+          iconfont: 'e619;'
+        }, {
+          name: '现金账户',
+          percent: 15,
+          a: '1',
+          iconfont: 'e60a;'
+        }];
+     await this.memberInfo();
+     //this.$mp.page.selectComponent('#column').init(initChart);
     },
     data() {
       return {
@@ -246,6 +247,12 @@
         opts: {
           // 使用延时初始化 -- 重要
           lazyLoad: true
+        },
+        
+        memberAccount: {
+          cash: '0.00',
+          coin: '0.00',
+          bonus: '0.00'
         }
       };
     },
@@ -259,19 +266,38 @@
       gotoDetail(e, id) {
         console.log(id)
         this.$router.push({ path: id })
+      },
+      memberInfo() {
+        let _this = this;
+        let queryData = {};
+        _this.$api.apiConfig.member_me_get(queryData).then(res => {
+          let memberInfo = res.member_me_get_response;
+          let { cash, coin, bonus, pv } = memberInfo;
+          let total = Number(cash) + Number(coin) + Number(bonus);
+          data[0].percent =  (Number(bonus) / total) ;
+           data[1].percent = (Number(coin) / total);
+           data[2].percent = (Number(cash) / total);
+          _this.memberAccount = {
+            cash: cash,
+            coin: coin,
+            bonus: bonus
+          }
+          _this.$mp.page.selectComponent('#column').init(initChart);
+        }).catch(e => {
+
+        })
       }
     }
   };
 </script>
 <style>
   @font-face {
-  font-family: 'charts-icon';
-  src: url('//at.alicdn.com/t/font_926396_b5dfoondztm.eot');
-  src: url('//at.alicdn.com/t/font_926396_b5dfoondztm.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_926396_b5dfoondztm.woff') format('woff'),
-  url('//at.alicdn.com/t/font_926396_b5dfoondztm.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_926396_b5dfoondztm.svg#iconfont1') format('svg');
-}
-
+    font-family: 'charts-icon';
+    src: url('//at.alicdn.com/t/font_926396_b5dfoondztm.eot');
+    src: url('//at.alicdn.com/t/font_926396_b5dfoondztm.eot?#iefix') format('embedded-opentype'),
+      url('//at.alicdn.com/t/font_926396_b5dfoondztm.woff') format('woff'),
+      url('//at.alicdn.com/t/font_926396_b5dfoondztm.ttf') format('truetype'),
+      url('//at.alicdn.com/t/font_926396_b5dfoondztm.svg#iconfont1') format('svg');
+  }
 </style>
 <style lang="scss" src='./style.scss'></style>

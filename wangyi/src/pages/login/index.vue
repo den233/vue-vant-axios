@@ -54,17 +54,19 @@
         let params = {
           userCode: _this.username,
           password: _this.password
-        }
+        }   
+        this.$router.push({ path: '/mingxi/pages/bonusdetails/index'})
         _this.$api.login(params).then(data => {
 
           const { message, token, userCode, status } = data;
           if (status === "1011") {
             Megalo.setStorage({ key: 'token', data: token })
               .then(res => console.log(res))
-                  Megalo.switchTab({
-                   url: '/pages/home/index',
-               });
-           // _this.$router.push({ path: '/minepage/pages/bankcardbinding/index', query: { type: 'add' } })
+              //     Megalo.switchTab({
+              //      url: '/pages/home/index',
+              //  });
+           
+            //_this.$router.push({ path: '/minepage/pages/bankcardbinding/index', query: { type: 'add' } })
             Megalo.showToast({
               title: '登录成功',
               icon: 'success',

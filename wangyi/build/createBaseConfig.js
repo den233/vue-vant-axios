@@ -93,7 +93,8 @@ function createBaseConfig() {
         'vue': 'megalo',
         '@': _.resolve('src'),
         'staticA':_.resolve('src/static'),
-        'ut':_.resolve('src/utils')
+        'ut':_.resolve('src/utils'),
+        'com':_.resolve('src/components')
       },
     },
 

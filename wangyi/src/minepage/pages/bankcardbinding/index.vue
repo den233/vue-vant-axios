@@ -10,17 +10,17 @@
        <div   class='card card-blue'  >
            <div class="inner">
                <div class="imgs">
-                   <i :class="cardComputed.fontClass" ></i>
+                   <i :class="[cardList.fontClass,'iconfont1']" ></i>
                </div>
                <div class="content">
-                   <div class="title">{{cardComputed.name}}</div>
-                   <div class="subtitle">
-                       {{cardComputed.typeName}}
+                   <div class="title">{{cardList.name}}</div>
+                    <div class="subtitle">
+                       {{cardList.bankbook}}
                    </div>
                </div>
                
                <div class="code">
-                   {{cardComputed.cardNum}}
+                   {{cardList.cardNum}}
                </div>
                <div class="edit" @click='handleEdit'>
                    编辑
@@ -36,14 +36,13 @@
   export default {
       data() {
           return {
-             cardList:{
-                name:'中国银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:0,fontClass:'iconfont1 icon-zhongguoyinhang'
-             }
+             cardList:{},
+             cardArray:[]
           }
       },
       onShow() {
+        this.initData()
         this.getCard();
-          var data = "3265986532146598";
 //console.log(data.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "**** **** **** $2"))
        //this. initdata()
       },
@@ -75,8 +74,8 @@
               }
           },     
       methods: {
-          initdata(){
-              this.cardList=[
+        initData(){
+              this.cardArray=[
                  {name:'中国银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:0,fontClass:'icon-zhongguoyinhang'},
                   {name:'中国工商银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:0,fontClass:'icon-zhongguogongshangyinxing'},
                 //   {name:'江苏银行',typeName:'储蓄卡',cardNum:'3265986532146598',type:1,fontClass:'icon-jiangsuyinhang'},
@@ -97,7 +96,20 @@
           },
           getCard(){
               this.$api.apiConfig.bankcardbinding({}).then(data=>{
-                 console.log(data)
+                 let v1=data.miBank;
+                let arrayIndex= this.cardArray.filter(key=>{
+                     return key.name==v1.bank
+                 })
+                 const {bank,bankCity,bankDistrict,bankProvince,bankbook,bankcard}=v1
+                this.$set(this.cardList,'name',bank)
+                this.$set(this.cardList,'cardNum',bankcard)
+                this.$set(this.cardList,'bankbook',bankbook)
+                this.$set(this.cardList,'bankCity',bankCity)
+                this.$set(this.cardList,'bankProvince',bankProvince)
+                this.$set(this.cardList,'fontClass',arrayIndex[0].fontClass)
+                console.log(this.cardList)
+                 this.cardList.cardNum=this.cardList.cardNum.replace(/\s/g,'').replace(/(\d{4})\d+(\d{4})$/, "$1 **** **** $2")
+                
               }).catch(e=>{
 
               })

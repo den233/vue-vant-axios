@@ -4,6 +4,7 @@
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
     </van-nav-bar>
+    <pickDate @pickdateHandle='pickdateHandle'></pickDate>
         <ul id="mineBill">
               <li class="van-hairline--bottom" v-for="item in list" :key="item.id">
                 <div class="left">
@@ -22,7 +23,9 @@
   </div>
     </template>
     <script>
+      import pickDate from 'com/pickdate'
     export default {
+      components:{pickDate},
       data () {
         return {
           list: [
@@ -46,6 +49,9 @@
       methods:{
           onClickLeft(){
               this.$router.go(-1);
+          },
+          pickdateHandle(val){
+            console.log(val)
           }
       }
     };

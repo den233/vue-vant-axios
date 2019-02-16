@@ -245,7 +245,7 @@ apiConfig.bankcardAdd=params=>{
 }
 //32获取绑定银行卡信息
 apiConfig.bankcardbinding=params=>{
-  let url= configPath + '/v2/userContact.html?strAction=miBank_get'
+  let url= configPath + '/v2/miBanks.html?strAction=miBank_get'
   return fetch.request(url, params, {method:"get"})
 }
 const apiList = {
