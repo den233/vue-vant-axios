@@ -31,14 +31,17 @@
           <van-radio name="1">老会员</van-radio>
         </van-radio-group>
         <van-cell-group v-if='tabactive==0'>
-          <van-field @change='memderHandle($event,"userName")'  :value="formItem.userName" center clearable label="会员姓名" placeholder="会员姓名">
+          <van-field @change='memderHandle($event,"userName")' :value="formItem.userName" center clearable label="会员姓名"
+            placeholder="会员姓名">
 
           </van-field>
-          <van-field @change='memderHandle($event,"paperNum")' :value="formItem.paperNum" center clearable label="身份证" placeholder="身份证">
+          <van-field @change='memderHandle($event,"paperNum")' :value="formItem.paperNum" center clearable label="身份证"
+            placeholder="身份证">
           </van-field>
         </van-cell-group>
         <van-cell-group v-if='tabactive==1'>
-          <van-field @change='memderId' :value="oldMember.userCode" center clearable label="会员ID" placeholder="会员ID" use-button-slot>
+          <van-field @change='memderId' :value="oldMember.userCode" center clearable label="会员ID" placeholder="会员ID"
+            use-button-slot>
             <van-button @click='oldQuery' slot="button" size="small" type="primary">查询</van-button>
           </van-field>
           <van-field readonly :value="oldMember.serviceNum" center clearable label="服务机构编号" placeholder="服务机构编号">
@@ -112,8 +115,8 @@
         tabactive: '0',
         $img: this.$img,
         usefunder: false,
-        venturefund:false,
-        finishOrderNum:'',
+        venturefund: false,
+        finishOrderNum: '',
         recommendNo: {
           isCz: '',
           totalSubnodes: '',
@@ -229,8 +232,8 @@
         this.active = 0;
         this.tabactive = '0';
         this.usefunder = false;
-        this.venturefund=false;
-        this.finishOrderNum='';
+        this.venturefund = false;
+        this.finishOrderNum = '';
         this.recommendNo = {
           isCz: '',
           totalSubnodes: '',
@@ -277,19 +280,19 @@
           userCode: '',
         }
       },
-      memderHandle({detail},type){
+      memderHandle({ detail }, type) {
         console.log(type)
-         switch (type){
-           case 'userName':
-           this.formItem.userName=detail;
-           break;
-           case 'paperNum':
-           this.formItem.paperNum=detail;
-           break;
-         }  
+        switch (type) {
+          case 'userName':
+            this.formItem.userName = detail;
+            break;
+          case 'paperNum':
+            this.formItem.paperNum = detail;
+            break;
+        }
       },
-      memderId({detail}){
-        this.oldMember.userCode= detail;
+      memderId({ detail }) {
+        this.oldMember.userCode = detail;
       },
       initData() {
         let _this = this;
@@ -297,7 +300,24 @@
 
         let params = _this.payOrderInfo;
         let orderNo = params['orderNumber'];
-        _this.itemDetail = params['details'];
+        _this.itemDetail = params['details'].map(v => {
+          if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
+            var itemImage = v.imgUrl;
+          } else {
+            var itemImage = "http://www.longliqicn.cn" + v.imgUrl;
+            itemImage = itemImage.replace(/\s+/g, "");
+          }
+          return {
+            discountPv: v.discountPv,
+            imgUrl: itemImage,
+            price: v.price,
+            productName: v.productName,
+            productNo: v.productNo,
+            pv: v.pv,
+            quantity: v.quantity
+          }
+        })
+
         _this.orderParams = {
           id: params['id'],
           orderNumber: params['orderNumber'],
@@ -382,11 +402,11 @@
         this.active = id;
       },
       nexHandle(id) {
-        if(!this.recommendNo.submitOn){
+        if (!this.recommendNo.submitOn) {
           Toast('请先查询销售人编号是否存在')
           return false;
         }
-        if(!this.linkNo.submitOn){
+        if (!this.linkNo.submitOn) {
           Toast('请先查询服务人编号是否存在')
           return false;
         }
@@ -424,11 +444,11 @@
           this.active = id;
           Toast.success("支付成功");
           _this.finishOrderNum = res['orderNumber'];
-          _this.orderParams.orderNumber=res['orderNumber'];
+          _this.orderParams.orderNumber = res['orderNumber'];
         }).catch(e => {
           Toast.fail(e);
         })
-        
+
       },
       changeMember({ detail }) {
         this.tabactive = detail;
@@ -529,14 +549,14 @@
           var res = data.member_get_response;
           var arr = Object.getOwnPropertyNames(res);
           if (arr.length == 0) {
-             Toast.fail(data.msg);
+            Toast.fail(data.msg);
             return false
-           }
-           _this.$set(this.oldMember, 'userName', res.userName);
-            Toast.success('查询成功');
-          }).catch(e => {
-            Toast.fail(e)
-          })
+          }
+          _this.$set(this.oldMember, 'userName', res.userName);
+          Toast.success('查询成功');
+        }).catch(e => {
+          Toast.fail(e)
+        })
       }
 
     }

@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    
     data() {
       return {
         username: '999999',
@@ -49,23 +50,68 @@
       changePw({ detail }) {
         this.password = detail
       },
+      onLaunch(){
+        var app = getApp();
+        
+        var that = this
+      var user = wx.getStorageSync('user') || {};
+      var userInfo = wx.getStorageSync('userInfo') || {};
+      // if ((!user.openid || (user.expires_in || Date.now()) < (Date.now() + 600)) && (!userInfo.nickName)) {
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              wx.getUserInfo({
+                success: function (res) {
+                 
+                  var objz = {};
+                  objz.avatarUrl = res.userInfo.avatarUrl;
+                  objz.nickName = res.userInfo.nickName;
+                  //console.log(objz);
+                  wx.setStorageSync('userInfo', objz);//存储userInfo
+                }
+              });
+              console.log('res',res)
+              var d = app.globalData;//这里存储了appid、secret、token串  
+              console.log('dddd',d)
+              var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
+              wx.request({
+                url: l,
+                data: {},
+                method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT  
+                // header: {}, // 设置请求的 header  
+                success: function (res) {
+                  var obj = {};
+                  obj.openid = res.data.openid;
+                  obj.expires_in = Date.now() + res.data.expires_in;
+                  //console.log(obj);
+                  wx.setStorageSync('user', obj);//存储openid  
+                }
+              });
+            } else {
+              console.log('获取用户登录态失败！' + res.errMsg)
+            }
+          }
+        });
+      },
       onLogin() {
         let _this = this;
         let params = {
           userCode: _this.username,
           password: _this.password
         }   
-        this.$router.push({ path: '/mingxi/pages/bonusdetails/index'})
+        _this.onLaunch();
+      //  this.$router.push({ path: '/minepage/pages/changepassword/index'})
         _this.$api.login(params).then(data => {
 
           const { message, token, userCode, status } = data;
           if (status === "1011") {
             Megalo.setStorage({ key: 'token', data: token })
-              .then(res => console.log(res))
-              //     Megalo.switchTab({
-              //      url: '/pages/home/index',
-              //  });
-           
+              .then(res =>{
+                Megalo.switchTab({
+                   url: '/pages/home/index',
+                });
+              })
+             
             //_this.$router.push({ path: '/minepage/pages/bankcardbinding/index', query: { type: 'add' } })
             Megalo.showToast({
               title: '登录成功',

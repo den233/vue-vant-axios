@@ -248,6 +248,42 @@ apiConfig.bankcardbinding=params=>{
   let url= configPath + '/v2/miBanks.html?strAction=miBank_get'
   return fetch.request(url, params, {method:"get"})
 }
+//33修改密码
+apiConfig.personPassword=params=>{
+  let url= configPath + '/v2/sys_modify_pwd.html?strAction=personPassword_change'
+  return fetch.request(url, params, {method:"post"})
+}
+//34账户明细
+//"type":"1",  //现金 1  奖金2  超值卡3
+apiConfig.accountMingxi=params=>{
+  let url= configPath + '/v2/transActionRecord.html?strAction=accountRecords_get'
+  return fetch.request(url, params, {method:"post"})
+}
+//35提现明细
+apiConfig.tixianMingxi=params=>{
+  let url= configPath + '/v2/transActionRecord.html?strAction=withdrawalsRecord_get'
+  return fetch.request(url, params, {method:"post"})
+}
+//36在售热门商品
+apiConfig.hotProductsale=params=>{
+  let url= configPath + '/v2/productSale.html?strAction=productsale_list_hot'
+  return fetch.request(url, params, {method:"get"})
+}
+//37退出登录
+apiConfig.logOut=params=>{
+  let url= configPath + '/v2/memberLogin.html?strAction=trolley_mimember_quit'
+  return fetch.request(url, params, {method:"get"})
+}
+//38热词搜索
+apiConfig.searchProduct=params=>{
+  let url= configPath + '/v2/productSale.html?strAction=productsale_list_hotKey'
+  return fetch.request(url, params, {method:"get"})
+}
+//39我的团队
+apiConfig.myTeam=params=>{
+  let url= configPath + '/v2/memberTeam.html?strAction=myTeam_get'
+  return fetch.request(url, params, {method:"post"})
+}
 const apiList = {
   login,
   apiConfig

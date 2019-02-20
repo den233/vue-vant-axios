@@ -40,10 +40,11 @@
                     </div>
                 </div>
                 <div id="cartdown" v-if='dataNotsale.length>0'>
-                     <div class="title">
-                         <span>已下架商品</span><van-button size="mini" style="float:right" @click="deleteAllDown" plain type="danger">清空</van-button>
-                         <div class="clear"></div>
-                     </div>
+                    <div class="title">
+                        <span>已下架商品</span>
+                        <van-button size="mini" style="float:right" @click="deleteAllDown" plain type="danger">清空</van-button>
+                        <div class="clear"></div>
+                    </div>
                     <div class="cart-item" v-for='(item,index) in dataNotsale' :key="index">
                         <div>
                             <van-tag round>已下架</van-tag>
@@ -355,12 +356,19 @@
                     for (let i = 0, len = v1.details.length; i < len; i++) {
                         const { createdTime, discountPrice, discountPv, imgUrl,
                             lastModifiedTime, orderType, ppsId, price, productName, productNo, pv, quantity, selling, trolleyDetailId, trolleyId } = v1.details[i];
+                        if (imgUrl.substr(0, 7).toLowerCase() == "http://" || imgUrl.substr(0, 8).toLowerCase() == "https://") {
+                            var imgurl = imgUrl;
+                        } else {
+                            var imgurl = "http://www.longliqicn.cn" + imgUrl;
+                            imgurl = imgurl.replace(/\s+/g, "");
+                        }
+
                         if (selling) {
                             _this.dataActive.push({
                                 createdTime: createdTime,
                                 discountPrice: discountPrice,
                                 discountPv: discountPv,
-                                imgUrl: imgUrl,
+                                imgUrl: imgurl,
                                 lastModifiedTime: lastModifiedTime,
                                 orderType: orderType,
                                 ppsId: ppsId,
@@ -379,7 +387,7 @@
                                 createdTime: createdTime,
                                 discountPrice: discountPrice,
                                 discountPv: discountPv,
-                                imgUrl: imgUrl,
+                                imgUrl: imgurl,
                                 lastModifiedTime: lastModifiedTime,
                                 orderType: orderType,
                                 ppsId: ppsId,
@@ -524,12 +532,12 @@
 
                     })
             },
-            deleteAllDown(){
+            deleteAllDown() {
                 let len = this.dataNotsale.length;
                 let newArr = [];
                 let delArray = [];
                 for (let i = 0; i < len; i++) {
-                  delArray.push(this.dataNotsale[i].ppsId);
+                    delArray.push(this.dataNotsale[i].ppsId);
                 }
                 let _this = this;
                 let queryData = {

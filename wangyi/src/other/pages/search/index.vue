@@ -12,9 +12,9 @@
 
     <scroll-view :style="{ height: second_height + 'px' }" class="scroll-view" scroll-y>
       <div style="text-align: center" v-if='hasData'>
-          <img class="nodata" :src="imgUrl" alt="" >
+        <img class="nodata" :src="imgUrl" alt="">
       </div>
-     
+
       <div class="tabs">
         <div v-for="(item,index) in dataActive" :key="index" class="list">
           <div class="imgs">
@@ -22,8 +22,8 @@
           </div>
           <div class="content">
             <div class="title">{{item.productName}}</div>
-            <div class="price">¥{{item.price}}</div>
-            <div class="pv">{{item.pv}}</div>
+            <div class="price">价格:¥{{item.price}}</div>
+            <div class="pv">pv:{{item.pv}}</div>
           </div>
           <van-stepper :integer=true :disable-input=false @change='changeNum($event,item.ppsId,item.number,index)'
             :value="item.number" integer :min="1" :max="99" :step="1" />
@@ -55,8 +55,8 @@
         },
         currentPage: 1,
         dataActive: [],//激活单
-        hasData:false,
-        imgUrl:require('@/assets/images/timg.jpg')
+        hasData: false,
+        imgUrl: require('@/assets/images/timg.jpg')
       };
     },
     mounted() {
@@ -90,7 +90,7 @@
         this.searchValue = detail;
       },
       onSearch() {
-        this.pagecon.total=0;
+        this.pagecon.total = 0;
         this.currentPage = 1;
         this.catEvent("")
       },
@@ -122,23 +122,22 @@
         _this.hasData = false;
         let querydata = {};
         querydata = {
-          productName: _this.searchValue,
-          category: id,
+          Key: _this.searchValue,
           _currPageNo: _this.currentPage,
           _pageSize: _this.pagecon.page_size,
           orderType: _this.currentOrderType,
         };
 
-        return await _this.$api.apiConfig.productSale(
+        return await _this.$api.apiConfig.searchProduct(
           querydata
         )
       },
       async categoryHandle(id) {
         let _this = this;
         let v1 = await _this.getGoodsList(id);
-        v1 = v1.productsale_list_response;
+        v1 = v1.productsale_list_hot_response;
         var arr = Object.getOwnPropertyNames(v1);
-       
+
         _this.current_id = id;
         _this.pagecon.total = v1.totalPages;
         if (arr.length == 0) {
@@ -149,21 +148,28 @@
           this.hasData = true
           return false;
         }
-        _this.dataActive = v1.content.map(v => {
-          return {
+        v1.content.map(v => {
+          if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
+            var itemImage = v.imgUrl;
+          } else {
+            var itemImage = "http://www.longliqicn.cn" + v.imgUrl;
+            itemImage = itemImage.replace(/\s+/g, "");
+          }
+          _this.dataActive.push({
             id: v.id,
-            imgUrl: v.imgUrl,
+            imgUrl: itemImage,
             price: v.price,
             productName: v.productName,
             productNo: v.productNo,
             pv: v.pv,
             number: 1
-          }
+          })
         });
+        console.log(_this.dataActive)
       },
       catEvent(id) {
         let _this = this;
-        _this.pagecon.total=0;
+        _this.pagecon.total = 0;
         _this.currentPage = 1;
         _this.categoryHandle(id)
       },
@@ -172,9 +178,9 @@
         const type = detail.type;
 
         if (type === 'next') {
-          if(this.dataActive.length==0){
-              return false
-            }
+          if (this.dataActive.length == 0) {
+            return false
+          }
           this.currentPage = this.currentPage + 1;
         } else if (type === 'prev') {
           this.currentPage = this.currentPage - 1;
@@ -185,17 +191,17 @@
         _this.categoryHandle(id);
       },
       //切换订单类型
-      tabClick({detail}) {
+      tabClick({ detail }) {
         let _this = this;
         let index = detail.index;
         _this.currentOrderType = _this.orderType[index].type;
-        _this.pagecon.total=0;
+        _this.pagecon.total = 0;
         let id = _this.current_id;
         _this.currentPage = 1;
         _this.catEvent(id)
         // _this.$store.commit('changeTab',{type:_this.currentOrderType,index,index});
       },
-      changeNum({detail}, id, number, index) {
+      changeNum({ detail }, id, number, index) {
         this.dataActive[index].number = detail;
       }
     }

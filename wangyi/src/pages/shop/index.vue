@@ -30,7 +30,7 @@
               scroll-y
             > 
               <OrderListItem :currentOrderType="currentOrderType" :data="serviceList"></OrderListItem>
-              <img class="nodata" :src="imgUrl" alt="" v-if='hasData'>
+              <img class="nodata" :src="imgUrl||imgLazyload" alt="" v-if='hasData'>
             </scroll-view>
           </div>
         </div>
@@ -133,7 +133,8 @@ export default {
              minPv:'',
              maxPv:''
           },
-          imgUrl:require('@/assets/images/timg.jpg')
+          imgUrl:require('@/assets/images/timg.jpg'),
+          imgLazyload:require('@/assets/images/404.jpg')
       };
     },
     onShow(){
@@ -210,7 +211,6 @@ export default {
           }; 
          
           querydata=deleteKey(_this.searchList, JSON.stringify(querydata));
-          console.log(querydata)
           return await _this.$api.apiConfig.productSale(
                querydata
             ) 
@@ -232,9 +232,21 @@ export default {
            return false;
          }
          _this.serviceList=v1.content.map(v=>{
+          if(v.imgUrl.substr(0, 7).toLowerCase() == "http://"||v.imgUrl.substr(0, 8).toLowerCase() == "https://"){
+            var imgurl = v.imgUrl;
+          }else{
+            if(v.imgUrl==""){
+              var imgurl=this.imgLazyload
+            }else{
+              var imgurl = "http://www.longliqicn.cn" +v.imgUrl;
+              imgurl=imgurl.replace(/\s+/g,"");
+            }
+          
+          }
+         
           return {
             id: v.id,
-            imgUrl: v.imgUrl,
+            imgUrl: imgurl,
             price: v.price,
             productName: v.productName,
             productNo: v.productNo,

@@ -11,7 +11,7 @@
                    
             </van-field>    
             <label class="info"   size="small" type="primary">(提现金额需500起提，按100的倍数)</label>
-            <van-field v:value="password" required label="二级密码" placeholder="请输入二级密码" @change='changePassword' />
+            <van-field type="password" v:value="password" required label="二级密码" placeholder="请输入二级密码" @change='changePassword' />
             <!-- <van-cell @click='bankChoose' title="银行卡" is-link value="555555" size="large" label=" " />
             <van-field v-model="message" label="留言" type="textarea" placeholder="请输入留言" rows="2" autosize /> -->
 
@@ -52,6 +52,7 @@
                 this.balance= '';
                 this.money= '';
                 this.message= '';
+                this.password="";
             },
             bankChoose() {
                 this.show = true;

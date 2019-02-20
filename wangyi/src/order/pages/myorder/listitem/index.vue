@@ -32,7 +32,7 @@
     <div class="tool-bar">
       <van-button v-if='!detail.paid' @click='getMenuID(detail)' type="primary">支付</van-button>
       <van-button plain type="danger" v-if='!detail.paid' @click='deleteOrder(detail)' >取消</van-button>
-      <van-button v-if='detail.paid' @click='searchWuliu(detail)' type="default">查看物流</van-button>
+      <!-- <van-button v-if='detail.paid' @click='searchWuliu(detail)' type="default">查看物流</van-button> -->
     </div>
     <van-toast id="van-toast" />
   </div>
@@ -80,7 +80,7 @@
       },
       data() {
          return {
-          imgUrl:require('@/assets/images/err.png')
+          imgUrl:require('@/assets/images/404.jpg')
           //currentText:'',
           
          }

@@ -43,6 +43,7 @@ let PLATFORM_CONFIG = [
     icon: 'iconfont1 icon-huiyuan1'
   }
 ]
+ 
 Vue.prototype.$PLATFORM_CONFIG = PLATFORM_CONFIG;
 const app = new Vue( App )
 

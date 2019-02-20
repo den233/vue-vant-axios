@@ -54,10 +54,11 @@
                 orderName: this.$PLATFORM_CONFIG[0].name,
                 orderType: this.$PLATFORM_CONFIG,
                 currentOrderType: this.$PLATFORM_CONFIG[0].type,
-                radioIndex: 0
+                radioIndex: 0,
+                imgLazyLoad:require('@/assets/images/404.jpg')
             };
         },
-        mounted() {
+        onShow() {
             //console.log(this.orderType)
             this.catEvent("");
         },
@@ -66,27 +67,27 @@
 
                 this.show = true
             },
-            async getGoodsList(id) {
+            async getGoodsList() {
                 let _this = this;
                 _this.serviceList = [];
                 _this.hasData = false;
                 let querydata = {};
                 querydata = {
-                    productName: '',
-                    category: id,
                     _currPageNo: 1,
                     _pageSize: 20,
                     orderType: _this.currentOrderType,
                 };
 
-                return await _this.$api.apiConfig.productSale(
+                return await _this.$api.apiConfig.hotProductsale(
                     querydata
                 )
             },
             async categoryHandle(id) {
                 let _this = this;
-                let v1 = await _this.getGoodsList(id);
-                v1 = v1.productsale_list_response;
+                let v1 = await _this.getGoodsList();
+              
+                v1 = v1.productsale_list_hot_response;
+               // console.log(v1)
                 var arr = Object.getOwnPropertyNames(v1);
                 if (arr.length == 0) {
                     this.hasData = true
@@ -97,9 +98,15 @@
                     return false;
                 }
                 _this.serviceList = v1.content.map(v => {
+                    if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
+                            var imgurl = v.imgUrl;
+                        } else {
+                            var imgurl = "http://www.longliqicn.cn" + v.imgUrl;
+                            imgurl = imgurl.replace(/\s+/g, "");
+                        }
                     return {
                         id: v.id,
-                        imgUrl: v.imgUrl,
+                        imgUrl:imgurl,
                         price: v.price,
                         productName: v.productName,
                         productNo: v.productNo,
@@ -108,7 +115,7 @@
                     }
                 });
                 _this.current_id = id;
-                console.log(_this.serviceList)
+                
             },
             catEvent(id) {
                 let _this = this;
@@ -119,7 +126,7 @@
                 console.log(e)
                 this.radio = index;
             },
-            confirm({ mp }) {
+            confirm({ detail }) {
                 this.orderName = this.orderType[this.radio].name;
                 this.currentOrderType = this.orderType[this.radio].type;
                 console.log(this.radio)

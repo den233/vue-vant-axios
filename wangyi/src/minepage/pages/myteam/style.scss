@@ -7,6 +7,7 @@
         padding: 10px;
     }
     .van-cell__value{
+        font-size:13px;
         .content{
             display: flex;
             .name{
@@ -15,9 +16,10 @@
             .tel{
                flex:1;
             }
+           
         }
         .createTime{
-          
+            color:#999;
         }
     }
 }

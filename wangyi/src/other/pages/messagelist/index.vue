@@ -17,9 +17,7 @@
               {{item.create_time}}
             </div>
           </div>
-          <div class="right">
-            <img :src="imgUrl" alt="">
-          </div>
+          
         </div>
       </div>
       <i-load-more v-if='hasData' tip="加载更多" loading="true" />

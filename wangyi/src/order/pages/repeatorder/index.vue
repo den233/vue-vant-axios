@@ -43,7 +43,7 @@
                 <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
                 <div style="display:inline-block" class="price">PV：<span>{{discountPv}}</span>)</div>
             </div>
-            <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="$img+item.imgUrl"
+            <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
                 :num='item.quantity'>
                 <div slot='desc'>
                     <div class="price">单价：<span>¥ {{item.price}}</span></div>
@@ -131,7 +131,7 @@
                     },
 
                 ],
-                finishOrderNum:''
+                finishOrderNum: ''
             };
         },
         onShow() {
@@ -182,25 +182,25 @@
             onChange({ detail }) {
                 this.venture = detail;
             },
-            onLoad(){
-                this.active= 0;
-                this.tabactive= 0;
-                this.show= false;
-                this.$img= this.$img;
-                this.showQishu= false;
-                this.qishuValue= { id: 0, name: '请选择' };
-                this.startTime= { id: 0, name: '请选择' };
-                this.payOrderInfo= {};
-                this.itemDetail= [];
+            onLoad() {
+                this.active = 0;
+                this.tabactive = 0;
+                this.show = false;
+                this.$img = this.$img;
+                this.showQishu = false;
+                this.qishuValue = { id: 0, name: '请选择' };
+                this.startTime = { id: 0, name: '请选择' };
+                this.payOrderInfo = {};
+                this.itemDetail = [];
 
-                this.venture= '1';//创业基金
-                 
-                this.actions= [
+                this.venture = '1';//创业基金
+
+                this.actions = [
                 ]
-                this.qiShu= [];
-                this.discountPrice= '';
-                this.discountPv= "";
-                this.orderParams= {
+                this.qiShu = [];
+                this.discountPrice = '';
+                this.discountPv = "";
+                this.orderParams = {
                     id: 350,
                     orderNumber: "12",
                     orderType: "",
@@ -219,7 +219,7 @@
                     total_fee: '0.00',
                     orderTypeName: ''
                 };
-                this.memberAccount= {};
+                this.memberAccount = {};
             },
             initData() {
                 let _this = this;
@@ -227,7 +227,25 @@
                 //console.log(_this.$store.state.home)
                 let params = _this.payOrderInfo;
                 let orderNo = params['orderNumber'];
-                _this.itemDetail = params['details'];
+                _this.itemDetail = params['details'].map(v => {
+                    if(v.imgUrl.substr(0, 7).toLowerCase() == "http://"||v.imgUrl.substr(0, 8).toLowerCase() == "https://"){
+                        var itemImage = v.imgUrl;
+                    }else{
+                        var itemImage = "http://www.longliqicn.cn" +v.imgUrl;
+                        itemImage=itemImage.replace(/\s+/g,"");
+                    }
+                    return {
+                        discountPv: v.discountPv,
+                        imgUrl:itemImage,
+                        price: v.price,
+                        productName: v.productName,
+                        productNo: v.productNo,
+                        pv: v.pv,
+                        quantity: v.quantity
+                    }
+                })
+
+
                 _this.orderParams = {
                     id: params['id'],
                     orderNumber: params['orderNumber'],
@@ -313,7 +331,7 @@
                 console.log(_this.venture)
                 let params = {};
                 if (_this.venture == 1) {
-                     params = {
+                    params = {
                         "tmporderId": _this.orderParams["id"],
                         "period": 1,
                         "repeatStartTime": _this.currentDate()
@@ -321,7 +339,7 @@
 
                 }
                 if (_this.venture == 2) {
-                     params = {
+                    params = {
                         "tmporderId": _this.orderParams["id"],
                         "period": _this.qishuValue.id,
                         "repeatStartTime": _this.startTime.id
@@ -335,7 +353,7 @@
                         Toast.fail(data.msg);
                         return false;
                     }
-                    _this.finishOrderNum=v1.orderNumber;
+                    _this.finishOrderNum = v1.orderNumber;
                     _this.active = id;
                 }).catch(e => {
 
@@ -379,7 +397,7 @@
             },
             onSelectQishu({ detail }) {
                 this.showQishu = false;
-                this.qishuValue =detail;
+                this.qishuValue = detail;
             },
             onSelect({ detail }) {
                 // 点击选项时默认不会关闭菜单，可以手动关闭

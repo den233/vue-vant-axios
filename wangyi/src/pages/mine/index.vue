@@ -49,13 +49,13 @@
         </div>
         <span class="text">待收货</span>
       </div>
-      <div class="sub-nav-item" @click="goWuliu($event,4)">
+      <!-- <div class="sub-nav-item" @click="goWuliu($event,4)">
         <div class="icon-wrapper">
           <i class="iconfont1 icon-business-management"></i>
-          <!-- <img src="../../assets/images/my/logist.png" slot="icon"> -->
+           <img src="../../assets/images/my/logist.png" slot="icon">
         </div>
         <span class="text">查看物流</span>
-      </div>
+      </div> -->
     </div>
     <div class="list">
       <a href='/mingxi/pages/accountdetails/index'>

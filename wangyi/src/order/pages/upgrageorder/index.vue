@@ -10,8 +10,8 @@
 
       </van-steps>
       <div class="step1" v-if='active==0'>
-        <van-cell-group  >
-          <van-field readonly  :value="oldMember.userCode" center clearable label="会员ID" placeholder="会员ID">
+        <van-cell-group>
+          <van-field readonly :value="oldMember.userCode" center clearable label="会员ID" placeholder="会员ID">
           </van-field>
           <van-field readonly :value="oldMember.storeCode" center clearable label="服务机构编号" placeholder="服务机构编号">
           </van-field>
@@ -165,7 +165,7 @@
         })
       },
 
-    
+
       onLoad() {
         this.active = 0;
         this.payOrderInfo = {};
@@ -175,7 +175,7 @@
           userName: '',
           storeCode: ''
         },
-        this.discountPrice = '';
+          this.discountPrice = '';
         this.discountPv = "";
         this.orderParams = {
           id: 350,
@@ -197,7 +197,7 @@
           orderTypeName: ''
         };
         this.memberAccount = {};
-        this.finishOrderNum='';
+        this.finishOrderNum = '';
       },
       initData() {
         let _this = this;
@@ -205,7 +205,24 @@
         //console.log(_this.$store.state.home)
         let params = _this.payOrderInfo;
         let orderNo = params['orderNumber'];
-        _this.itemDetail = params['details'];
+        _this.itemDetail = params['details'].map(v => {
+          if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
+            var itemImage = v.imgUrl;
+          } else {
+            var itemImage = "http://www.longliqicn.cn" + v.imgUrl;
+            itemImage = itemImage.replace(/\s+/g, "");
+          }
+          return {
+            discountPv: v.discountPv,
+            imgUrl: itemImage,
+            price: v.price,
+            productName: v.productName,
+            productNo: v.productNo,
+            pv: v.pv,
+            quantity: v.quantity
+          }
+        })
+
         _this.orderParams = {
           id: params['id'],
           orderNumber: params['orderNumber'],
@@ -253,7 +270,7 @@
         let queryData = {};
         _this.$api.apiConfig.member_me_get(queryData).then(data => {
           let memberInfo = data.member_me_get_response;
-          let { cash, coin, bonus,userCode,userName,storeCode } = memberInfo;
+          let { cash, coin, bonus, userCode, userName, storeCode } = memberInfo;
           _this.memberAccount = {
             cash: cash,
             coin: coin,
@@ -275,13 +292,13 @@
         this.active = id;
         this.paylist.userName = '555'
       },
-      
+
       paySubmit(id) {
         let _this = this;
         let params = {};
-          params = {
-            "tmporderId": _this.orderParams["id"],
-          }
+        params = {
+          "tmporderId": _this.orderParams["id"],
+        }
         // console.log(_this.startTime)
         _this.$api.apiConfig.tmporder_czdp_checkout(params).then(data => {
           let v1 = data.tmporder_czkre_checkout_response;
@@ -290,8 +307,8 @@
             Toast.fail(data.msg);
             return false;
           }
-          _this.finishOrderNum=v1.orderNumber;
-          _this.orderParams.orderNumber=res['orderNumber'];
+          _this.finishOrderNum = v1.orderNumber;
+          _this.orderParams.orderNumber = res['orderNumber'];
           _this.active = id;
         }).catch(e => {
 

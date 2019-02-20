@@ -55,7 +55,7 @@
             for (var i = 0; i < arr.length; i++) {
               var src = arr[i].match(srcReg);
               console.log(src[1])
-              var url = src[1].substr(0, 7).toLowerCase() == "http://" ? src[1] : "http://www.longliqicn.cn" +src[1];
+              var url = (src[1].substr(0, 7).toLowerCase() == "http://"||src[1].substr(0, 7).toLowerCase() == "https://") ? src[1] : "http://www.longliqicn.cn" +src[1];
               url=url.replace(/\s+/g,"");
               var reg2 = new RegExp(src[1], "g");//g,表示全部替换。
               result = result.replace(reg2, url);
