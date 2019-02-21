@@ -18,7 +18,7 @@
         </van-field>
       </van-cell-group>
       <div class="btn-footer">
-        <van-button open-type="getUserInfo" @click='onLogin' round size='small' type="primary">登录</van-button>
+        <van-button open-type="getUserInfo" @click='onLaunch' round size='small' type="primary">登录</van-button>
       </div>
 
     </div>
@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    
+
     data() {
       return {
         username: '999999',
@@ -50,19 +50,19 @@
       changePw({ detail }) {
         this.password = detail
       },
-      onLaunch(){
+      onLaunch() {
+        let _this=this;
         var app = getApp();
-        
         var that = this
-      var user = wx.getStorageSync('user') || {};
-      var userInfo = wx.getStorageSync('userInfo') || {};
-      // if ((!user.openid || (user.expires_in || Date.now()) < (Date.now() + 600)) && (!userInfo.nickName)) {
+        var user = wx.getStorageSync('user') || {};
+        var userInfo = wx.getStorageSync('userInfo') || {};
+        // if ((!user.openid || (user.expires_in || Date.now()) < (Date.now() + 600)) && (!userInfo.nickName)) {
         wx.login({
           success: function (res) {
             if (res.code) {
               wx.getUserInfo({
                 success: function (res) {
-                 
+
                   var objz = {};
                   objz.avatarUrl = res.userInfo.avatarUrl;
                   objz.nickName = res.userInfo.nickName;
@@ -70,9 +70,9 @@
                   wx.setStorageSync('userInfo', objz);//存储userInfo
                 }
               });
-              console.log('res',res)
+              console.log('res', res)
               var d = app.globalData;//这里存储了appid、secret、token串  
-              console.log('dddd',d)
+              console.log('dddd', d)
               var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
               wx.request({
                 url: l,
@@ -84,7 +84,8 @@
                   obj.openid = res.data.openid;
                   obj.expires_in = Date.now() + res.data.expires_in;
                   //console.log(obj);
-                  wx.setStorageSync('user', obj);//存储openid  
+                  Megalo.setStorage({ key: 'openid', data: res.data.openid })
+                  _this.onLogin()
                 }
               });
             } else {
@@ -98,20 +99,20 @@
         let params = {
           userCode: _this.username,
           password: _this.password
-        }   
-        _this.onLaunch();
-      //  this.$router.push({ path: '/minepage/pages/changepassword/index'})
+        }
+
+        //  this.$router.push({ path: '/minepage/pages/changepassword/index'})
         _this.$api.login(params).then(data => {
 
           const { message, token, userCode, status } = data;
           if (status === "1011") {
             Megalo.setStorage({ key: 'token', data: token })
-              .then(res =>{
+              .then(res => {
                 Megalo.switchTab({
-                   url: '/pages/home/index',
+                  url: '/pages/home/index',
                 });
               })
-             
+
             //_this.$router.push({ path: '/minepage/pages/bankcardbinding/index', query: { type: 'add' } })
             Megalo.showToast({
               title: '登录成功',

@@ -36,7 +36,7 @@
         <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
         <div style="display:inline-block" class="price">PV：<span>{{discountPv}}</span>)</div>
       </div>
-      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="$img+item.imgUrl"
+      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
         :num='item.quantity'>
         <div slot='desc'>
           <div class="price">单价：<span>¥ {{item.price}}</span></div>
@@ -206,15 +206,19 @@
         let params = _this.payOrderInfo;
         let orderNo = params['orderNumber'];
         _this.itemDetail = params['details'].map(v => {
-          if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
-            var itemImage = v.imgUrl;
+        
+          let imgUrlitem=v.imgUrl.replace(/\s+/g, "");
+          if (imgUrlitem.substr(0, 7).toLowerCase() == "http://" || imgUrlitem.substr(0, 8).toLowerCase() == "https://") {
+            var itemImage = imgUrlitem;
           } else {
-            var itemImage = "http://www.longliqicn.cn" + v.imgUrl;
+           
+            var itemImage ="http://www.longliqicn.cn" +imgUrlitem;
+            
             itemImage = itemImage.replace(/\s+/g, "");
           }
           return {
-            discountPv: v.discountPv,
-            imgUrl: itemImage,
+            discountPv:v.discountPv,
+            imgUrl:itemImage,
             price: v.price,
             productName: v.productName,
             productNo: v.productNo,
@@ -301,7 +305,7 @@
         }
         // console.log(_this.startTime)
         _this.$api.apiConfig.tmporder_czdp_checkout(params).then(data => {
-          let v1 = data.tmporder_czkre_checkout_response;
+          let v1 = data.tmporder_czdp_checkout_response;
           var arr = Object.getOwnPropertyNames(v1);
           if (arr.length == 0) {
             Toast.fail(data.msg);

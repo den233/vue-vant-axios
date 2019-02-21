@@ -73,7 +73,7 @@
         <div style="display:inline-block" class="price">(合计<span>¥{{discountPrice}}</span></div>
         <div style="display:inline-block;padding-right:10px" class="price">PV<span>{{discountPv}}</span>)</div>
       </div>
-      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="$img+item.imgUrl"
+      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
         :num='item.quantity'>
         <div slot='desc'>
           <div class="price">单价：<span>¥ {{item.price}}</span></div>

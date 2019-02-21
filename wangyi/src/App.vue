@@ -288,13 +288,25 @@
 <script>
   export default {
     onLaunch() {
-      console.log('app onLaunch', this)
-      console.log('打印环境变量:', process.env.VUE_APP_TEST)
+      // console.log('app onLaunch', this)
+      // console.log('打印环境变量:', process.env.VUE_APP_TEST)
+      let openId=Megalo.getStorageSync('openid')
+      let token=Megalo.getStorageSync('token');
+      if(token&&openId){
+        console.log(1)
+        Megalo.switchTab({
+             url: '/pages/home/index',
+        });
+      }
+     
      // this.$router.push({ path: '/minepage/pages/changepassword/index'})
+    },
+    onLoad(){
+     
     },
     globalData: {
       appid: 'wxbdd37c6ae2baf12b',//appid需自己提供，此处的appid我随机编写
-      secret: 'e0dassdadef2424234209bwqqweqw123ccqwa',//secret需自己提供，此处的secret我随机编写
+      secret: '7ed04fe0a669f7b5c1fd6f02acb7e4e1',//secret需自己提供，此处的secret我随机编写
 
     },
   }

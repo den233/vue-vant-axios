@@ -284,6 +284,16 @@ apiConfig.myTeam=params=>{
   let url= configPath + '/v2/memberTeam.html?strAction=myTeam_get'
   return fetch.request(url, params, {method:"post"})
 }
+//40微信绑定查询
+apiConfig.wxBind=params=>{
+  let url= configPath + '/v2/bindWeChat.html?strAction=bindWeChat_get'
+  return fetch.request(url, params, {method:"post"})
+}
+//41微信绑定
+apiConfig.weChatbind=params=>{
+  let url= configPath + '/v2/bindWeChat.html?strAction=weChat_bind'
+  return fetch.request(url, params, {method:"post"})
+}
 const apiList = {
   login,
   apiConfig

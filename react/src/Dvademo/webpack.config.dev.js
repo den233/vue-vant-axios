@@ -158,14 +158,13 @@ const webpackConfig = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx',".ts", ".tsx"],
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
       
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      '@':resolve('src'),
-      '@pu':resolve('public')
+      '@':resolve('src')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -199,18 +198,6 @@ const webpackConfig = {
           },
         ],
         include: paths.appSrc,
-      },
-      {
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: "babel-loader"
-          },
-          {
-            loader: "ts-loader"
-          }
-        ],
-        include: [path.join(__dirname, "../src")]
       },
       {
         // "oneOf" will traverse all following loaders until one will
