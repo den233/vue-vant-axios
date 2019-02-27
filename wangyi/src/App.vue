@@ -290,14 +290,14 @@
     onLaunch() {
       // console.log('app onLaunch', this)
       // console.log('打印环境变量:', process.env.VUE_APP_TEST)
-      let openId=Megalo.getStorageSync('openid')
-      let token=Megalo.getStorageSync('token');
-      if(token&&openId){
-        console.log(1)
-        Megalo.switchTab({
-             url: '/pages/home/index',
-        });
-      }
+      // let openId=Megalo.getStorageSync('openid')
+      // let token=Megalo.getStorageSync('token');
+      // if(token&&openId){
+      //   console.log(1)
+      //   Megalo.switchTab({
+      //        url: '/pages/home/index',
+      //   });
+      // }
      
      // this.$router.push({ path: '/minepage/pages/changepassword/index'})
     },
@@ -305,9 +305,17 @@
      
     },
     globalData: {
-      appid: 'wxbdd37c6ae2baf12b',//appid需自己提供，此处的appid我随机编写
-      secret: '7ed04fe0a669f7b5c1fd6f02acb7e4e1',//secret需自己提供，此处的secret我随机编写
-
+      //事业二
+      // appid: 'wxbb577e938b83ae2e',//appid需自己提供，此处的appid我随机编写  
+      // secret: '3894bf108ae1f6b82d2a09af315b6054',//secret需自己提供，此处的secret我随机编写
+      // mch_id:'1498390362',
+      // key: 'C595F066D2394E06A1BB49CD8CEDCE07'
+      
+       //事业一
+      appid: 'wxb7e71f5544f08abc',//appid需自己提供，此处的appid我随机编写
+      secret: '1126f2e4726768becf11c65fe2a93a97',//secret需自己提供，此处的secret我随机编写
+      mch_id:'1498098242',
+      key: 'C595F066D2394E06A1BB49CD8CEDCE07'
     },
   }
 </script>

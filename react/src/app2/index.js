@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+require('./index.css');
 import App from './App';
 
 

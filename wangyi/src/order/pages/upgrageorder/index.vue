@@ -312,10 +312,11 @@
             return false;
           }
           _this.finishOrderNum = v1.orderNumber;
-          _this.orderParams.orderNumber = res['orderNumber'];
+          _this.orderParams.orderNumber = v1.orderNumber;
           _this.active = id;
+          console.log(id)
         }).catch(e => {
-
+          console.log(e,id)
         })
         // this.active = id;
       },

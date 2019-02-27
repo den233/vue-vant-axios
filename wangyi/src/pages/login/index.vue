@@ -12,9 +12,10 @@
         <van-field :value="password" type="password" label="密码" placeholder="请输入密码" @change='changePw' />
       </van-cell-group>
       <van-cell-group>
-        <van-field :value="sms" center clearable label="输入验证码" placeholder="输入验证码" use-button-slot>
-          <van-button class="codebtn" @click='codeChange' slot="button" size="small" type="primary"><img :src="imgUrl"
-              alt=""></van-button>
+        <van-field :value="sms" @change="changesms" center clearable label="输入验证码" placeholder="输入验证码" use-button-slot>
+          <van-button class="codebtn" @click='changeCode' slot="button" size="small" type="primary">
+             <canvas canvas-id="canvas"  ></canvas>
+          </van-button>
         </van-field>
       </van-cell-group>
       <div class="btn-footer">
@@ -22,10 +23,25 @@
       </div>
 
     </div>
+    <van-toast id="van-toast" />
   </div>
 </template>
 
 <script>
+  var ctx;
+  function randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  /**生成一个随机色**/
+  function randomColor(min, max) {
+    var r = randomNum(min, max);
+    var g = randomNum(min, max);
+    var b = randomNum(min, max);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  /**绘制验证码图片**/
+  import Toast from 'staticA/vant/toast/toast';
   export default {
 
     data() {
@@ -33,25 +49,81 @@
         username: '999999',
         password: '111111',
         sms: '',
-        imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
+        code:'',
+       // imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
       }
     },
     onShow() {
+      this.generateImage()
       Megalo.removeStorageSync('token');
     },
     methods: {
-      codeChange() {
-        console.log(1)
-        this.imgUrl = `http://192.168.120.211:8081/generateverifycode?rnd=629434${Math.random()}`
+      changeCode() {
+        var that = this;
+        this.drawPic(that);
+        this.sms="";
+        //this.imgUrl = `http://192.168.120.211:8081/generateverifycode?rnd=629434${Math.random()}`
       },
       changeName({ detail }) {
         this.username = detail
       },
+      changesms({ detail }){
+        this.sms=detail;
+      },
       changePw({ detail }) {
         this.password = detail
       },
+      generateImage() {
+        var that = this;
+        this.drawPic(that);
+      },
+      drawPic(that) {
+        ctx = wx.createCanvasContext('canvas');
+        /**绘制背景色**/
+        ctx.fillStyle = randomColor(180, 255); //颜色若太深可能导致看不清
+        ctx.fillRect(0, 0, 90, 28)
+        /**绘制文字**/
+        var arr;
+        var text = '';
+        var str = 'ABCEFGHJKLMNPQRSTWXY123456789';
+        for (var i = 0; i < 4; i++) {
+          var txt = str[randomNum(0, str.length)];
+          ctx.fillStyle = randomColor(50, 160); //随机生成字体颜色
+          ctx.font = randomNum(20, 26) + 'px SimHei'; //随机生成字体大小
+          var x = 5 + i * 20;
+          var y = randomNum(20, 25);
+          var deg = randomNum(-20, 20);
+          //修改坐标原点和旋转角度
+          ctx.translate(x, y);
+          ctx.rotate(deg * Math.PI / 180);
+          ctx.fillText(txt, 5, 0);
+          text = text + txt;
+          //恢复坐标原点和旋转角度
+          ctx.rotate(-deg * Math.PI / 180);
+          ctx.translate(-x, -y);
+        }
+        /**绘制干扰线**/
+        for (var i = 0; i < 4; i++) {
+          ctx.strokeStyle = randomColor(40, 180);
+          ctx.beginPath();
+          ctx.moveTo(randomNum(0, 90), randomNum(0, 28));
+          ctx.lineTo(randomNum(0, 90), randomNum(0, 28));
+          ctx.stroke();
+        }
+        /**绘制干扰点**/
+        for (var i = 0; i < 20; i++) {
+          ctx.fillStyle = randomColor(0, 255);
+          ctx.beginPath();
+          ctx.arc(randomNum(0, 90), randomNum(0, 28), 1, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+        ctx.draw(false, function () {
+          that.code=text
+        });
+      },
+
       onLaunch() {
-        let _this=this;
+        let _this = this;
         var app = getApp();
         var that = this
         var user = wx.getStorageSync('user') || {};
@@ -70,9 +142,9 @@
                   wx.setStorageSync('userInfo', objz);//存储userInfo
                 }
               });
-              console.log('res', res)
+              //console.log('res', res)
               var d = app.globalData;//这里存储了appid、secret、token串  
-              console.log('dddd', d)
+              // console.log('dddd', d)
               var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
               wx.request({
                 url: l,
@@ -89,6 +161,7 @@
                 }
               });
             } else {
+              Toast.fail('获取用户登录态失败!');
               console.log('获取用户登录态失败！' + res.errMsg)
             }
           }
@@ -100,7 +173,20 @@
           userCode: _this.username,
           password: _this.password
         }
-
+         if( _this.username==""){
+           Toast.fail('用户名不能为空');
+           return false;
+         } 
+         if(  _this.password==""){
+           Toast.fail('密码不能为空');
+           return false;
+         } 
+         const checkcode=_this.sms.toUpperCase();
+        //  console.log(checkcode,this.code)
+         if(checkcode!=_this.code){
+          Toast.fail('验证码不正确');
+          return false;
+         }
         //  this.$router.push({ path: '/minepage/pages/changepassword/index'})
         _this.$api.login(params).then(data => {
 

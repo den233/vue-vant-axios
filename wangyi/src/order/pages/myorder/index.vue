@@ -94,6 +94,7 @@
       })
     },
     onShow() {
+      this.onLoad();
       let _this=this;
      this.currentStatus=store.state.home.orderStatus;
      switch (_this.currentStatus){

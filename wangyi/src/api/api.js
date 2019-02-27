@@ -17,7 +17,7 @@ console.log(configPath)
 }
 const login = params => {
   let url=configPath+'/v2/memberLogin.html?strAction=trolley_mimember_login';
-  return fetch.request(url, params, {method:"get"}).then(response => handleToken(response));
+  return fetch.request(url, params, {method:"post"}).then(response => handleToken(response));
 };
 let apiConfig = {};
 // 2 商品分类
@@ -292,6 +292,11 @@ apiConfig.wxBind=params=>{
 //41微信绑定
 apiConfig.weChatbind=params=>{
   let url= configPath + '/v2/bindWeChat.html?strAction=weChat_bind'
+  return fetch.request(url, params, {method:"post"})
+}
+//41微信绑定
+apiConfig.weChatCharge=params=>{
+  let url= configPath + '/v2/fiPayClinet.html?strAction=online_recharge'
   return fetch.request(url, params, {method:"post"})
 }
 const apiList = {

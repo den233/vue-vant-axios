@@ -3,7 +3,7 @@
         <van-nav-bar title="转账">
             <label class="navebar_left" slot="left" @click="onClickLeft">
                 <van-icon name="arrow-left" />返回</label>
-            <div class='view_d' slot='right'>查看明细</div>
+           
         </van-nav-bar>
         <van-tabs :active="current" @change='handleChange'>
             <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name">

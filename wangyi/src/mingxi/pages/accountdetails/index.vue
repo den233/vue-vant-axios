@@ -49,7 +49,6 @@
       <van-cell title="现金明细" @click='gotoDetail($event,"/mingxi/pages/cashdetails/index")' is-link value="更多" />
       <!-- <van-cell id="coin" title="积分明细" @click='gotoDetail($event,"/mingxi/pages/pvdetails/index")' is-link value="更多" /> -->
       <van-cell title="提现记录" @click='gotoDetail($event,"/mingxi/pages/tixianrecord/index")' is-link value="更多" />
-      <van-cell title="转账记录" @click='gotoDetail($event,"/mingxi/pages/transferdetails/index")' is-link value="更多" />
     </div>
   </div>
 </template>

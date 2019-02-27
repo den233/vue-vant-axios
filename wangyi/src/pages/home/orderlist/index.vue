@@ -155,12 +155,18 @@
                 }
                 // return false;
                 _this.$api.apiConfig.trolley(queryParam).then(data => {
+                    if(data.status=='1015'){
+                        Toast.fail("请重新登录！");
+                        this.$router.push('/pages/login/index')
+                        return false;
+                    }
                     let v1 = data.trolley_detail_add_response;
                     var arr = Object.getOwnPropertyNames(v1);
                     if (arr.length == 0) {
                         Toast.fail(data.msg);
                         return false;
                     }
+                   
                     Toast.success('成功');
 
                 }).catch(e => {

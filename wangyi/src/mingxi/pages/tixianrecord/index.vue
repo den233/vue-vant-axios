@@ -20,9 +20,9 @@
                     {{item.money}}
                   </div>
   
-                  <div class="right">
+                  <!-- <div class="right">
                         余额：{{item.lastMoney}}
-                      </div>
+                      </div> -->
                 </li>
               </ul>
     </div>

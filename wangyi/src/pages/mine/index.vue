@@ -1,14 +1,14 @@
 <template>
   <div id="mineEntry">
     <div class="avatar-wrapper">
-      <div><img src="http://placehold.it/184x184"></div>
+      <div><img :src="imgAvatrt||imgLazyload"></div>
       <div class="user-info">
-        <span>陈不二</span>
-        <div class="email"><span>1@11.com</span></div>
+        <span>{{userName}}</span>
+        <!-- <div class="email"><span>1@11.com</span></div> -->
       </div>
 
       <div class="account">
-        <div class="a1" >
+        <div class="a1">
           <p>{{memberAccount.bonus}}</p>
           <p>奖金</p>
         </div>
@@ -37,14 +37,14 @@
       </div>
       <div class="sub-nav-item" @click="goToMyOrder($event,2)">
         <div class="icon-wrapper">
-            <i class="iconfont1 icon-my-pay"></i>
+          <i class="iconfont1 icon-my-pay"></i>
           <!-- <img src="../../assets/images/my/wait.png" slot="icon"> -->
         </div>
         <span class="text">待发货</span>
       </div>
       <div class="sub-nav-item" @click="goToMyOrder($event,3)">
         <div class="icon-wrapper">
-            <i class="iconfont1 icon-daishouhuo"></i>
+          <i class="iconfont1 icon-daishouhuo"></i>
           <!-- <img src="../../assets/images/my/shouhuo.png" slot="icon"> -->
         </div>
         <span class="text">待收货</span>
@@ -121,16 +121,18 @@
 <script>
   import store from '@/store'
   export default {
-     data(){
-       return {
-         memberAccount:{
+    data() {
+      return {
+        memberAccount: {
           cash: '0.00',
           coin: '0.00',
           bonus: '0.00'
-         }
-       }
+        },
+        imgAvatrt: "",
+        imgLazyload: require('@/assets/images/404.jpg')
+      }
     },
-    onShow() { 
+    onShow() {
       this.memberInfo();
     },
     methods: {
@@ -144,15 +146,25 @@
       },
       memberInfo() {
         let _this = this;
+        let userInfo = Megalo.getStorageSync('userInfo');
+        try {
+          const { avatarUrl } = userInfo;
+          _this.imgAvatrt = avatarUrl;
+          console.log(_this.imgAvatrt)
+        } catch (e) {
+
+        }
+
         let queryData = {};
         _this.$api.apiConfig.member_me_get(queryData).then(data => {
           let memberInfo = data.member_me_get_response;
-          let { cash, coin, bonus,pv } = memberInfo;
+          let { cash, coin, bonus, pv,userName } = memberInfo;
           _this.memberAccount = {
             cash: cash,
             coin: coin,
             bonus: bonus
           }
+          _this.userName=userName;
         }).catch(e => {
 
         })

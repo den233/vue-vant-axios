@@ -6,7 +6,7 @@
     </van-nav-bar>
     <van-cell-group class="top-cell-group">
       <van-cell title='头像' is-link>
-        <img src="http://placehold.it/65x65">
+        <img :src="imgAvatrt||imgLazyload">
       </van-cell>
       <van-cell title='名字' is-link>
          {{basicInfo.userName}}
@@ -49,7 +49,9 @@
           userName:'',
           userCode:'',
           storeCode:''
-        }
+        },
+        imgAvatrt: "",
+        imgLazyload: require('@/assets/images/404.jpg')
       }
     },
     onShow() {
@@ -61,6 +63,15 @@
         this.$router.go(-1);
       },
       getInfo(){
+        let _this=this;
+        let userInfo = Megalo.getStorageSync('userInfo');
+        try {
+          const { avatarUrl } = userInfo;
+          _this.imgAvatrt = avatarUrl;
+          console.log(_this.imgAvatrt)
+        } catch (e) {
+
+        }
         let params={}
         this.$api.apiConfig.member_me_get(params).then(res=>{
               let data=res.member_me_get_response
@@ -73,14 +84,13 @@
         })
       },
       loginOut(){
+        Toast.success('退出成功');
         this.$api.apiConfig.logOut().then(res=>{
           if(res.status=='1011'){
-            Toast.success('退出成功');
-            this.$router.push({path:'/pages/login/index'})
+           // this.$router.push({path:'/pages/login/index'})
           }
-            
-
         })
+        this.$router.push({path:'/pages/login/index'})
       }
     }
 
