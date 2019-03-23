@@ -1,10 +1,10 @@
 <template>
   <div id="mineWallet">
-    <van-nav-bar title="我的账户">
+    <!-- <van-nav-bar title="我的账户">
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
-      <!-- <div class='view_d' slot='right' @click="onClickRight">新增</div> -->
-    </van-nav-bar>
+      <div class='view_d' slot='right' @click="onClickRight">新增</div> 
+    </van-nav-bar> -->
     <div style="height: 200px">
       <!-- opts 前面加冒号 -->
       <ff-canvas id="column" canvas-id="column" :opts="opts" />

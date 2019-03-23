@@ -1,9 +1,9 @@
 <template>
   <div class="account">
-    <van-nav-bar title="添加银行卡">
+    <!-- <van-nav-bar title="添加银行卡">
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
-    </van-nav-bar>
+    </van-nav-bar> -->
     <van-cell-group>
 
 
@@ -23,7 +23,7 @@
     <div style="text-align: center;width: 100%;margin-top:20px;">
       <van-button size="large" type="primary" @click='submitHandle'>确定</van-button>
     </div>
-    <van-popup :show="show" position="bottom" :overlay="false">
+    <van-popup :show="show" position="bottom" >
       <van-picker show-toolbar title="银行卡列表" :columns="columns" @cancel="onCancel" @confirm="onConfirm($event,index)" />
     </van-popup>
     <van-popup :show="showArea" position="bottom">
@@ -137,7 +137,7 @@
             area: bankCity,
             distinct: bankDistrict
           };
-          let newarray = [bankDistrict, bankCity, bankDistrict];
+          let newarray = [bankProvince, bankCity, bankDistrict];
           this.addressDetail = newarray.filter(text => text).join('/');
 
         }).catch(e => {

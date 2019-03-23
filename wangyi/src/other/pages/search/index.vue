@@ -17,19 +17,21 @@
 
       <div class="tabs">
         <div v-for="(item,index) in dataActive" :key="index" class="list">
-          <div class="imgs">
-            <img :src="item.imgUrl" alt="">
+          <div class="inner">
+              <div class="imgs">
+                  <img :src="item.imgUrl" alt="">
+                </div>
+                <div class="content">
+                  <div class="title">{{item.productName}}</div>
+                  <div class="price">价格:¥{{item.price}}</div>
+                  <div class="pv">pv:{{item.pv}}</div>
+                </div>
+                <van-stepper :integer=true :disable-input=false @change='changeNum($event,item.ppsId,item.number,index)'
+                  :value="item.number" integer :min="1" :max="99" :step="1" />
+                <van-icon class="cart_icon" name="shopping-cart-o" @click='addCart($event,item.id,item.number)' />
+                <!-- <van-button class="addcart" @click='addCart(index,active)' size="small" round type="danger">加入购物车</van-button> -->
           </div>
-          <div class="content">
-            <div class="title">{{item.productName}}</div>
-            <div class="price">价格:¥{{item.price}}</div>
-            <div class="pv">pv:{{item.pv}}</div>
           </div>
-          <van-stepper :integer=true :disable-input=false @change='changeNum($event,item.ppsId,item.number,index)'
-            :value="item.number" integer :min="1" :max="99" :step="1" />
-          <van-icon class="cart_icon" name="shopping-cart-o" @click='addCart($event,item.id,item.number)' />
-          <!-- <van-button class="addcart" @click='addCart(index,active)' size="small" round type="danger">加入购物车</van-button> -->
-        </div>
       </div>
     </scroll-view>
     <i-page :current="currentPage" :total="pagecon.total" @change="chagePage">
@@ -56,7 +58,8 @@
         currentPage: 1,
         dataActive: [],//激活单
         hasData: false,
-        imgUrl: require('@/assets/images/timg.jpg')
+        imgUrl: require('@/assets/images/timg.jpg'),
+        imgLazyload:require('@/assets/images/404.jpg')
       };
     },
     mounted() {
@@ -76,7 +79,7 @@
           // 计算主体部分高度,单位为px
 
           // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将300rpx转换为px）
-          that.second_height = res.windowHeight - 150
+          that.second_height = res.windowHeight - 140
 
         }
       })
@@ -149,15 +152,21 @@
           return false;
         }
         v1.content.map(v => {
-          if (v.imgUrl.substr(0, 7).toLowerCase() == "http://" || v.imgUrl.substr(0, 8).toLowerCase() == "https://") {
-            var itemImage = v.imgUrl;
-          } else {
-            var itemImage = "http://www.longliqicn.cn" + v.imgUrl;
-            itemImage = itemImage.replace(/\s+/g, "");
+          if(v.imgUrl.substr(0, 7).toLowerCase() == "http://"||v.imgUrl.substr(0, 8).toLowerCase() == "https://"){
+            var imgurl = v.imgUrl;
+          }else{
+            if(v.imgUrl==""){
+              var imgurl=this.imgLazyload
+            }else{
+              var imgurl = "http://www.longliqicn.cn" +v.imgUrl;
+              imgurl=imgurl.replace(/\s+/g,"");
+            }
+          
           }
+         
           _this.dataActive.push({
             id: v.id,
-            imgUrl: itemImage,
+            imgUrl: imgurl,
             price: v.price,
             productName: v.productName,
             productNo: v.productNo,

@@ -2,13 +2,19 @@
     .view_d{
         color:#1989fa;
     }
+    .van-field__input--disabled{
+        color: red;
+    }
     .form-item{
-        font-size: 15px;
+        border-bottom:1px solid #eee;
+         padding-bottom:15px;
+
         .form-label{
-            font-size: 20px;
+            font-size: 18px;
             padding-left: 10px;
             float:left;
             margin-top:20px;
+            color:#333;
         }
         .van-radio-group{
             display: inline-block;
@@ -16,7 +22,10 @@
             .van-radio{
                 height: 30px;
                 padding-top:10px;
+                float:left;
+                margin-right:5px;
             }
+          
         }
     }
     .van-cell{
@@ -27,5 +36,7 @@
             text-align: left;
         }
     }
-   
+    .van-button--primary{
+        background-color: #37A19D;   
+    }
 }

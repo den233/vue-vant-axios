@@ -5,12 +5,14 @@
   style="{{ customStyle }}"
   bind:tap="onClick"
 >
+  <label wx:if="{{ icons }}" class="iconfont1 {{icons}}"></label>
   <van-icon
     wx:if="{{ icon }}"
     name="{{ icon }}"
     class="van-cell__left-icon-wrap"
     custom-class="van-cell__left-icon"
   />
+  
   <slot wx:else name="icon" />
 
   <view

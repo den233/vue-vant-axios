@@ -52,17 +52,16 @@
         width: 160px;
       }
       .desc {
-        color: #bbc0cb;
-        font-size: half(24px);
-        @include omit;
+        color: #fc8a04;
+        font-size: half(26px);
         line-height: half(26px);
         margin-bottom: half(8px);
       }
       .price {
         color: #fc8a04;
-        font-size: half(20px);
+        font-size: half(26px);
         .total {
-          font-size: half(40px);
+          font-size:  half(26px);
         }
       }
     }

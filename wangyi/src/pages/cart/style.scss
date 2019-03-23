@@ -6,7 +6,12 @@
     .deleteBtn{
        .van-submit-bar__button{
            .van-button--danger{
-                background:#eee;
+                background:#fff;
+                color:#f44;
+                border-radius:30px;
+                width:80px;
+                height:40px;
+                line-height:40px;
                 color:#f44;
            }
        } 
@@ -71,7 +76,7 @@
                 flex:none;
                 width: 80px;
                 height: 80px;
-                margin-left:20px;
+                margin-left:40px;
                 margin-right:20px;
                 image{
                     width: 100%;
@@ -80,12 +85,12 @@
             }
             .content{
                 display: flex;
-                width: calc(100% - 150px);
-                font-size: 14px;
+                width: calc(100% - 140px);
+                font-size: 16px;
                 .title {
                     flex: 1;
                     ._h2{
-                        max-height: 35px;
+                        max-height: 85rpx;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         display: -webkit-box;
@@ -93,30 +98,31 @@
                         -webkit-box-orient: vertical;
                     }
                     .p_t{
-                        margin-top: 10px;
+                        margin-top: 5px;
                         color: #f10303;
                     }
                 }
                 .price{
-                    text-align: right;
-                    flex: 1;
-                    color: #f10303;
+                    color: #666;
                     padding-right: 5px;
                     .van-card__origin-price{
                         text-decoration: line-through;
                         color:#666;
+                        margin-right: 10px;
                     }
                 }
             }
             .van-stepper{
                 position: absolute;
-                bottom: 15px;
+                bottom: 4px;
                 right: 20px;
             }
           }
           .orderInfo{
             margin-bottom: 5px;
             padding:10px;
+            font-size: 15px;
+            line-height: 20px;
           }
       }
       #cartdown{
@@ -134,7 +140,8 @@
       .orderInfo{
           padding:0 20px;
           background: #fff;
-          font-size: 14px;
+          font-size: 15px;
+          line-height: 28px;
           h2{
               font-size:18px;
               span{
@@ -147,6 +154,7 @@
           .leabel{
              display:inline-block;  
              color: #999;
+             padding-right: 10px;
           }
           .number{
             display:inline-block;  

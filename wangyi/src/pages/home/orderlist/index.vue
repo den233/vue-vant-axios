@@ -1,10 +1,13 @@
 <template>
     <div id="homeorder">
-        <h6 class="title"> <i class="iconfont1 icon-hot"></i>
+        <!-- <h6 class="title"> <i class="iconfont1 icon-hot"></i>
             <div class='hot'> 热门推荐</div>
             <div class="a_link" @click='filter'>
                 <van-icon class="fa fa-filter" name="arrow-down" /> {{orderName}}</div>
-        </h6>
+        </h6> -->
+        <van-tabs :active="active" @change='tabClick'>
+            <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name"></van-tab>
+          </van-tabs>
         <div class="lists">
             <div class="lists-item" v-for="(item,index) in serviceList" :key="index">
                 <div class='inner'>
@@ -14,7 +17,7 @@
                     <div class="info">
                         <h6 class="label">{{item.productName}}</h6>
                         <p class="desc">pv：{{item.pv}}</p>
-                        <p class="price">￥
+                        <p class="price">价格：￥
                             <span class="total">{{item.price}}</span>
                         </p>
                     </div>
@@ -55,7 +58,10 @@
                 orderType: this.$PLATFORM_CONFIG,
                 currentOrderType: this.$PLATFORM_CONFIG[0].type,
                 radioIndex: 0,
-                imgLazyLoad:require('@/assets/images/404.jpg')
+                imgLazyLoad:require('@/assets/images/404.jpg'),
+                active:'0',
+                orderType:this.$PLATFORM_CONFIG,
+                currentOrderType:this.$PLATFORM_CONFIG[0].type,
             };
         },
         onShow() {
@@ -142,6 +148,15 @@
             onClose() {
                 //this.radio=this.radioIndex;
                 this.show = false
+            },
+            tabClick({detail}){
+                let _this=this;
+                let index= detail.index;
+                _this.currentOrderType=_this.orderType[index].type;
+                
+                let id=_this.current_id;
+                _this.currentPage=1;
+                this.catEvent("");
             },
             //加入购物车
             addCart({ detail }, id, number) {

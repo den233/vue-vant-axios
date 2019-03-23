@@ -1,9 +1,9 @@
 <template>
   <div id="mineSetting">
-    <van-nav-bar title="基本信息">
+    <!-- <van-nav-bar title="基本信息">
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
-    </van-nav-bar>
+    </van-nav-bar> -->
     <van-cell-group class="top-cell-group">
       <van-cell title='头像' is-link>
         <img :src="imgAvatrt||imgLazyload">

@@ -1,4 +1,9 @@
 .account{
+    .balance{
+        .van-field__input{
+            color:red;
+        }
+    }
     .info{
         color:red;
         font-size:13px;
@@ -24,5 +29,8 @@
             }
         }
       
+    }
+    .van-button--primary{
+        background-color: #37A19D;   
     }
 }

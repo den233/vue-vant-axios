@@ -1,10 +1,6 @@
 <template>
   <div id="orderDetail">
-    <van-nav-bar title="待支付升级单">
-      <label class="navebar_left" slot="left" @click="onClickLeft">
-        <van-icon name="arrow-left" />返回</label>
-      <!-- <div class='view_d' slot='right' @click="onClickRight">新增</div> -->
-    </van-nav-bar>
+  
     <div class="form">
       <van-steps :steps="steps" :active="active">
 
@@ -36,7 +32,7 @@
         <div style="display:inline-block" class="price">(合计：<span>¥{{discountPrice}}</span></div>
         <div style="display:inline-block" class="price">PV：<span>{{discountPv}}</span>)</div>
       </div>
-      <van-card v-for='(item,index) in itemDetail' :key='index' desc="描述信息" :title="item.productName" :thumb="item.imgUrl"
+      <van-card v-for='(item,index) in itemDetail' :key='index'  :title="item.productName" :thumb="item.imgUrl"
         :num='item.quantity'>
         <div slot='desc'>
           <div class="price">单价：<span>¥ {{item.price}}</span></div>

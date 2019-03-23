@@ -2,24 +2,23 @@
   <div class="app" id='loginTemplate'>
 
     <div class="form">
-      <div class="logo">
+      <!-- <div class="logo">
         <img src="../../assets/images/login/logo2.png" alt="">
 
-      </div>
+      </div> -->
       <van-cell-group>
-        <van-field :value="username" clearable label="用户名" placeholder="请输入用户名" @change='changeName' />
+        <van-field  left-icons="icon-yonghuming1"   :value="username" clearable label="用户名" placeholder="请输入用户名" @change='changeName' />
 
-        <van-field :value="password" type="password" label="密码" placeholder="请输入密码" @change='changePw' />
-      </van-cell-group>
-      <van-cell-group>
-        <van-field :value="sms" @change="changesms" center clearable label="输入验证码" placeholder="输入验证码" use-button-slot>
+        <van-field left-icons="icon-mima" :value="password" type="password" label="密码" clearable placeholder="请输入密码" @change='changePw' />
+  
+        <van-field left-icons="icon-yanzhengma" :value="sms" @change="changesms" center clearable label="验证码" placeholder="输入验证码" use-button-slot>
           <van-button class="codebtn" @click='changeCode' slot="button" size="small" type="primary">
              <canvas canvas-id="canvas"  ></canvas>
           </van-button>
         </van-field>
       </van-cell-group>
       <div class="btn-footer">
-        <van-button open-type="getUserInfo" @click='onLaunch' round size='small' type="primary">登录</van-button>
+        <van-button open-type="getUserInfo" @click='onLaunch'   type="primary">登录</van-button>
       </div>
 
     </div>
@@ -46,8 +45,8 @@
 
     data() {
       return {
-        username: '999999',
-        password: '111111',
+        username: '',
+        password: '',
         sms: '',
         code:'',
        // imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
@@ -81,7 +80,7 @@
         ctx = wx.createCanvasContext('canvas');
         /**绘制背景色**/
         ctx.fillStyle = randomColor(180, 255); //颜色若太深可能导致看不清
-        ctx.fillRect(0, 0, 90, 28)
+        ctx.fillRect(0, 0, 100, 40)
         /**绘制文字**/
         var arr;
         var text = '';
@@ -103,26 +102,29 @@
           ctx.translate(-x, -y);
         }
         /**绘制干扰线**/
-        for (var i = 0; i < 4; i++) {
-          ctx.strokeStyle = randomColor(40, 180);
-          ctx.beginPath();
-          ctx.moveTo(randomNum(0, 90), randomNum(0, 28));
-          ctx.lineTo(randomNum(0, 90), randomNum(0, 28));
-          ctx.stroke();
-        }
+        // for (var i = 0; i < 4; i++) {
+        //   ctx.strokeStyle = randomColor(40, 180);
+        //   ctx.beginPath();
+        //   ctx.moveTo(randomNum(0, 90), randomNum(0, 28));
+        //   ctx.lineTo(randomNum(0, 90), randomNum(0, 28));
+        //   ctx.stroke();
+        // }
         /**绘制干扰点**/
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 3; i++) {
           ctx.fillStyle = randomColor(0, 255);
           ctx.beginPath();
           ctx.arc(randomNum(0, 90), randomNum(0, 28), 1, 0, 2 * Math.PI);
           ctx.fill();
         }
         ctx.draw(false, function () {
-          that.code=text
+           that.code=text
         });
       },
 
       onLaunch() {
+        // Megalo.switchTab({
+        //           url: '/pages/home/index',
+        //         });
         let _this = this;
         var app = getApp();
         var that = this
@@ -207,8 +209,8 @@
             })
           } else {
             Megalo.showToast({
-              title: '登录失败',
-              icon: 'fail',
+              title: data.message,
+              icon: 'none',
               duration: 2000
             })
           }
@@ -216,7 +218,7 @@
         }).catch(e => {
           Megalo.showToast({
             title: e,
-            icon: 'fail',
+            icon: 'none',
             duration: 2000
           })
         })

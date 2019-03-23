@@ -6,7 +6,7 @@
             <div class='view_d' slot='right' @click='goDetail'>查看明细</div>
         </van-nav-bar>
         <van-cell-group>
-            <van-field :value="balance" readonly label="奖金余额" placeholder="奖金余额" />
+            <van-field class="balance" :value="balance" readonly label="奖金余额" placeholder="奖金余额" />
             <van-field    :value="money" required label="提现金额" placeholder="请输入提现金额"  @change='changeMoney'>
                    
             </van-field>    
@@ -25,7 +25,7 @@
         <van-toast id="van-toast" />
     </div>
 </template>
-<style lang="scss" scoped src="./style.scss"></style>
+<style lang="scss"  src="./style.scss"></style>
 <script>
       import Toast from 'staticA/vant/toast/toast';
     export default {
@@ -75,7 +75,7 @@
                 _this.$api.apiConfig.member_me_get(queryData).then(data => {
                     let memberInfo = data.member_me_get_response;
                     let { cash, coin, bonus, pv } = memberInfo;
-                    _this.balance = bonus;
+                    _this.balance = '¥'+Number(bonus).toFixed(2);
                 }).catch(e => {
 
                 })

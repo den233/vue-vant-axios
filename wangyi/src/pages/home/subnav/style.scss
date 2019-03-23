@@ -2,7 +2,7 @@
 @import '~@/assets/css/function.scss';
 
 .subnav{
-  margin-bottom: half(16px);
+  margin-bottom: half(8px);
   border-bottom:1px solid #eee;
   .nav{
     @include clearfix;
@@ -36,8 +36,8 @@
         margin: auto;
       }
       .label{
-        margin-top: half(8px);
-        font-size: half(22px);
+        margin-top: 13px;
+        font-size: half(28px);
         color: #333b46;
         line-height: half(18px);
       }

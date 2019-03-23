@@ -1,10 +1,10 @@
 <template>
     <div class="account">
-        <van-nav-bar title="微信充值">
+        <!-- <van-nav-bar title="微信充值">
             <label class="navebar_left" slot="left" @click="onClickLeft">
                 <van-icon name="arrow-left" />返回</label>
-            <!-- <div class='view_d' slot='right'>查看明细</div> -->
-        </van-nav-bar>
+            <div class='view_d' slot='right'>查看明细</div> 
+        </van-nav-bar> -->
         <van-cell-group>
             <van-field :value="money" required label="充值金额" placeholder="请输入充值金额" @change="changeMount" />
 
@@ -15,7 +15,7 @@
         <van-toast id="van-toast" />
     </div>
 </template>
-<style lang="scss" scoped src="./style.scss"></style>
+<style lang="scss"  src="./style.scss"></style>
 <script>
     import Toast from 'staticA/vant/toast/toast';
 
@@ -43,17 +43,17 @@
                     amount: this.money,
                     note: '充值'
                 }
-                // var r = /^\+?[1-9][0-9]*$/;　　//正整数
-                // var str = this.money;
-                // var flag=r.test(str);
-                // if(str==""){
-                //     Toast.fail('金额不能为空');
-                //     return false
-                // }
-                // if(!flag){
-                //     Toast.fail('金额必须是整数');
-                //     return false
-                // }
+                var r = /^\+?[1-9][0-9]*$/;　　//正整数
+                var str = this.money;
+                var flag=r.test(str);
+                if(str==""){
+                    Toast.fail('金额不能为空');
+                    return false
+                }
+                if(!flag){
+                    Toast.fail('金额必须是整数');
+                    return false
+                }
                 this.$api.apiConfig.weChatCharge(params).then(res => {
                     const { appId, nonceStr,  paySign, signType, timeStamp } = res.map;
                     wx.requestPayment({

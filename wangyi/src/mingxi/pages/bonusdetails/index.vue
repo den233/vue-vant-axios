@@ -1,16 +1,16 @@
 <template>
-  <div class="profit">
-    <van-nav-bar title="奖金明细">
+  <div id="mineBill"  class="profit">
+    <!-- <van-nav-bar title="奖金明细">
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
-    </van-nav-bar>
+    </van-nav-bar> -->
     <pickDate @pickdateHandle='pickdateHandle'></pickDate>
     <div v-if='hasData' style='text-align:center'>
-        <img style='width:50%' :src="imgUrl" alt="">
+        <img style='width:30%' :src="imgUrl" alt="">
         <div>暂无内容</div>
     </div>
    
-        <ul id="mineBill">
+        <ul>
               <li class="van-hairline--bottom" v-for="item in list" :key="item.id">
                 <div class="left">
                   <span class="type">{{item.bankbookTypeName}}</span>

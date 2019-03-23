@@ -3,7 +3,7 @@
     <div class="searchWrapper">
 
       <div class="inputbox">
-        <van-search :value="searchValue" @focus="focus" placeholder="搜索您需要的服务" background=""></van-search>
+        <van-search :value="searchValue" @focus="focus" placeholder="请输入搜索关键词" background=""></van-search>
       </div>
     </div>
     <!-- <view>

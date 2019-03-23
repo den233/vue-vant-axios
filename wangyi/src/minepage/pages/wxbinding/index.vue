@@ -1,9 +1,9 @@
 <template>
   <div class="wxbangding">
-    <van-nav-bar title="微信绑定">
+    <!-- <van-nav-bar title="微信绑定">
       <label class="navebar_left" slot="left" @click="onClickLeft">
         <van-icon name="arrow-left" />返回</label>
-    </van-nav-bar>
+    </van-nav-bar> -->
     <div class="imgs">
       <img :src="imgUrl" alt="">
     </div>
@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped src="./style.scss"></style>
+<style lang="scss"  src="./style.scss"></style>
 <script>
   export default {
     data() {

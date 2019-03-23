@@ -1,10 +1,10 @@
 <template>
     <div class="account">
-        <van-nav-bar title="转账">
+        <!-- <van-nav-bar title="转账">
             <label class="navebar_left" slot="left" @click="onClickLeft">
                 <van-icon name="arrow-left" />返回</label>
            
-        </van-nav-bar>
+        </van-nav-bar> -->
         <van-tabs :active="current" @change='handleChange'>
             <van-tab v-for='(item,index) in orderType' :key='index' :title="item.name">
 
@@ -24,7 +24,7 @@
                 <label class='form-label' for="usertype">转出账户</label>
                 <van-radio-group @change="onChange($event,'1')" :value="radio" class="van-radio-group">
                     <van-radio name="1" class="van-radio">超值卡账户</van-radio>
-                    <van-radio name="2">奖金账户</van-radio>
+                    <van-radio name="2" class="van-radio">奖金账户</van-radio>
                 </van-radio-group>
             </div>
 
@@ -75,9 +75,9 @@
             onChange({ detail }) {
                 this.radio = detail;
                 if (detail == 1) {
-                    this.account = this.memberAccount.coin
+                    this.account = Number(this.memberAccount.coin).toFixed(2)
                 } else if (detail == 2) {
-                    this.account = this.memberAccount.bonus
+                    this.account =  Number(this.memberAccount.bonus).toFixed(2)
                 }
             },
             changeAccount({ detail }) {
@@ -110,8 +110,8 @@
                         coin: coin,
                         bonus: bonus
                     }
-                    _this.account = coin;
-                    _this.account1 = cash;
+                    _this.account = Number(coin).toFixed(2);
+                    _this.account1 = Number(cash).toFixed(2);
                 }).catch(e => {
 
                 })

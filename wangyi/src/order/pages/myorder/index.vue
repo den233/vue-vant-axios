@@ -1,9 +1,6 @@
 <template>
   <div id="OrderList">
-    <van-nav-bar title="我的订单">
-      <label class="navebar_left" slot="left" @click="onClickLeft">
-        <van-icon name="arrow-left" />返回</label>
-    </van-nav-bar>
+  
     <van-tabs :active="currentStatus" @change='tabClick' sticky>
       <van-tab v-for="(item,index) in statusList" :title="item.name" :key="index">
       </van-tab>
@@ -13,10 +10,10 @@
           <div style="text-align: center"><img class="nodata" :src="imgUrl" alt="" v-if='hasData'></div>
           <div >
             <listItem v-for="(order,index1) in orderList.content" needToolBar :key="index1" :detail='order'
-              :currentStatus='currentStatus' @deleteOrder="deleteOrder" @searchWuliu='searchWuliu' @descList='goToOrderDetail($event,order)' />
+              :currentStatus='currentStatus'@confirmOrder='confirmOrder' @deleteOrder="deleteOrder" @searchWuliu='searchWuliu' @descList='goToOrderDetail($event,order)' />
           </div>
         </scroll-view>
-    <i-page :current="currentPage" :total="pagecon.total" @change="handleChange">
+    <i-page style="margin-top:20px;" :current="currentPage" :total="pagecon.total" @change="handleChange">
       <div slot="prev">
         <i-icon type="return"></i-icon>
         上一页
@@ -28,7 +25,7 @@
     </i-page>
   </div>
 </template>
-
+<style lang="scss" src="./style.scss"></style>
 <script>
   import listItem from './listitem';
   import store from '@/store'
@@ -88,7 +85,7 @@
           // 计算主体部分高度,单位为px
 
           // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将300rpx转换为px）
-          that.second_height = res.windowHeight - 150
+          that.second_height = res.windowHeight - 100
 
         }
       })
@@ -437,6 +434,9 @@
            break;
           } 
       },
+      confirmOrder(){
+          this.deleteOrder()
+      },
       goToOrderDetail(e,val) {
 
        // console.log(val)
@@ -458,6 +458,4 @@
   };
 </script>
 
-<style lang="scss" src="./style.scss">
 
-</style>

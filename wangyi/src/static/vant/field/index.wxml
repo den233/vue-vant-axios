@@ -2,6 +2,7 @@
 
 <van-cell
   icon="{{ leftIcon }}"
+   icons="{{ leftIcons }}"
   title="{{ label }}"
   center="{{ center }}"
   border="{{ border }}"
@@ -11,6 +12,7 @@
   title-width="{{ titleWidth }}"
   custom-class="van-field"
 >
+  <slot name="left-icons" slot="icons" />
   <slot name="left-icon" slot="icon" />
   <slot name="label" slot="title" />
   <view class="van-field__body {{ type === 'textarea' ? 'van-field__body--textarea' : '' }}">
@@ -69,7 +71,9 @@
         name="{{ icon }}"
         custom-class="van-field__icon {{ iconClass }}"
       />
+     
       <slot wx:else name="icon" />
+      
     </view>
     <view wx:if="{{ useButtonSlot }}" class="van-field__button">
       <slot name="button" />

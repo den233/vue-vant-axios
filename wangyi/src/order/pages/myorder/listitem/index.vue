@@ -9,9 +9,9 @@
       <img :src="detail.imgUrl || imgUrl"  />
       <div class="right">
         <div class='userCode'><span>用户编号：</span>{{detail.userCode}}</div>
-        <div><span>收货人:</span>{{detail.receiverName}}</div>
+        <!-- <div><span>收货人:</span>{{detail.receiverName}}</div>
         <div><span>收货电话</span>{{detail.receiverMobile}}</div>
-        <div class="address"><span>收货地址：</span>{{detail.receiverState}} {{detail.receiverCity}} {{detail.receiverDistrict}} {{detail.receiverAddress}}</div>
+        <div class="address"><span>收货地址：</span>{{detail.receiverState}} {{detail.receiverCity}} {{detail.receiverDistrict}} {{detail.receiverAddress}}</div> -->
         <div><span>下单时间：</span>{{detail.createdTime}}</div>
         <div class="money">
           <van-tag v-if='detail.orderType==22' color="#87e8de"  >激活单</van-tag>
@@ -32,6 +32,7 @@
     <div class="tool-bar">
       <van-button v-if='!detail.paid' @click='getMenuID(detail)' type="primary">支付</van-button>
       <van-button plain type="danger" v-if='!detail.paid' @click='deleteOrder(detail)' >取消</van-button>
+      <van-button v-if='detail.paid&&(detail.isDelively==1)&&(detail.isTakeDelively==0)' @click='confirmOrder(detail)' type="primary">确认收货</van-button>
       <!-- <van-button v-if='detail.paid' @click='searchWuliu(detail)' type="default">查看物流</van-button> -->
     </div>
     <van-toast id="van-toast" />
@@ -106,6 +107,17 @@
           
           }).catch(e=>{
             Toast.fail('删除失败')
+          })
+        },
+        confirmOrder(e){
+          let params={
+            tmpOrderId:e.id
+          }
+          this.$api.apiConfig.confirmOrder(params).then(data=>{
+            if(data.status=='1011'){
+              Toast.success('确认收货')
+              this.$emit('confirmOrder', e.id) 
+            }
           })
         }
       },

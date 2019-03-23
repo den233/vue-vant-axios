@@ -9,7 +9,7 @@
               <div class="info">
                 <h6 class="label">{{item.productName}}</h6>
                 <p class="desc">pv：{{item.pv}}</p>
-                <p class="price">￥
+                <p class="price">价格：￥
                   <span class="total">{{item.price}}</span>
                 </p>
               </div>

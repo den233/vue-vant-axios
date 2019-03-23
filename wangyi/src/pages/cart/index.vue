@@ -21,15 +21,14 @@
                     <div class="content">
                         <div class="title">
                             <h2>{{item.productName}}</h2>
+                            <div class="price">
+                                原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
+                          
+                                pv: {{item.discountPv}}
+                            </div>
                             <b class="p_t">
                                 价格： {{item.price}}
                             </b>
-                        </div>
-
-                        <div class="price">
-                            原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
-                            <br>
-                            pv: {{item.discountPv}}
                         </div>
                     </div>
                     <div class="footer">
@@ -69,41 +68,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="orderInfo">
-                    <h2>订单信息：<text>( 总价：<text>¥ {{totalPrice}}</text> ,折后PV：<text>{{totalPv}}</text> )</text></h2>
-                    <div class="item">
-                        <div class="leabel"><label for="cost">运费:</label></div>
-                        <div class="number" id="total_fee">￥{{orderDetail.fee}}</div>
-                    </div>
-
-                    <div class="item">
-                        <div class="leabel"><label for="buyqty">订购数量:</label></div>
-                        <div class="number" id="total_qty">{{orderDetail.number}}</div>
-                    </div>
-                    <div class="item fund">
-                        <div class="leabel"><label for="cash">用户编号:</label></div>
-                        <div class="number">{{memberInfo.userCode}}</div>
-                    </div>
-                    <div class="item fund">
-                        <div class="leabel"><label for="cash">用户名:</label></div>
-                        <div class="number">{{memberInfo.userName}}</div>
-                    </div>
-                    <div class="item fund">
-                        <div class="leabel"><label for="cash">现金账户余额:</label></div>
-                        <div class="number" id="cash">¥{{orderDetail.cash}}</div>
-                    </div>
-                    <div class="item fund">
-                        <div class="leabel"><label for="buyqty">奖金账户余额:</label></div>
-                        <div class="number" id="bonus">¥ {{orderDetail.bonus}}</div>
-                    </div>
-                    <div class="item fund">
-                        <div class="leabel"><label for="buyqty">电子币账户余额:</label></div>
-                        <div class="number" id="coin">¥{{orderDetail.coin}}</div>
-                    </div>
-                </div>
             </div>
-
         </scroll-view>
 
         <van-submit-bar :class="{deleteBtn:deleteType}" :button-text="buttonText" @submit="onSubmit" :disabled='disabled'>
@@ -416,7 +381,6 @@
                 let index = detail.index;
                 console.log(detail)
                 this.currentOrderType = this.orderType[index].type;
-                this.clearALL();
                 this.getList();
                 store.commit('changeTab', { type: this.currentOrderType, index: index });
             },

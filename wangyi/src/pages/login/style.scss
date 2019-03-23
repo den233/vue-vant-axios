@@ -1,5 +1,5 @@
 #loginTemplate{
-    background-image: url(../../assets/images/login/back.jpg);
+    background-image: url(../../assets/images/login/logoin.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%; 
@@ -17,23 +17,28 @@
     }
     .form{
         position: absolute;
-        top: 100rpx;
-        width: 100%;
-        .van-cell-group{
-            background: transparent;
+        top:450rpx;
+        width:96%;
+        left:2%;        
+         van-cell-group{
             .van-cell{
-                background: transparent;
+                background: #f1f1f1;
+                margin-bottom:15px;
                   .van-icon {
-                    color: #fff;
+                   
                   } 
+                  .iconfont1{
+                     margin-right:5px;
+                     font-size:18px;
+                  }
                   .van-field__input{
-                      color:#fff;
+                     
                   }
                   .van-cell__title{
-                       color: #fff;
+                       
                     }
                     .van-field__control{
-                        color: #fff
+                       
                     }
                     &:after{
                         content: ' ';
@@ -70,9 +75,8 @@
         }
         .btn-footer{
             text-align: center;
-            padding: 0 15px;
             .van-button{
-                background: rgba(39, 159, 245, 0.3);;
+                background: #37A19D;
                 margin-top: 20px;
                 width: 100%;
                 border: none;
@@ -86,7 +90,7 @@
     }
     
     canvas{
-        width: 90px;
+        width: 100px;
         height: 40px;
     }
      

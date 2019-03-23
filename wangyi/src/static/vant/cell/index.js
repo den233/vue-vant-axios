@@ -7,6 +7,7 @@ VantComponent({
     title: null,
     value: null,
     icon: String,
+    icons: String,
     size: String,
     label: String,
     center: Boolean,

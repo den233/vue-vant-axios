@@ -8,16 +8,16 @@
       </div>
 
       <div class="account">
-        <div class="a1">
-          <p>{{memberAccount.bonus}}</p>
+        <div class="a1" @click="mingxiHandle(this,'/mingxi/pages/bonusdetails/index')">
+          <p class="pmoney">¥:{{memberAccount.bonus}}</p>
           <p>奖金</p>
         </div>
-        <div class="a1">
-          <p>{{memberAccount.coin}}</p>
+        <div class="a1"  @click="mingxiHandle(this,'/mingxi/pages/coindetails/index')">
+          <p class="pmoney">¥:{{memberAccount.coin}}</p>
           <p>电子币</p>
         </div>
-        <div class="a1">
-          <p>{{memberAccount.cash}}</p>
+        <div class="a1"  @click="mingxiHandle(this,'/mingxi/pages/cashdetails/index')">
+          <p class="pmoney">¥:{{memberAccount.cash}}</p>
           <p>现金账户</p>
         </div>
         <!-- <div class="a1">
@@ -65,50 +65,50 @@
       <ul class="account-item">
         <li class="li">
           <a href="/minepage/pages/transfer/index">
-            <i class="iconfont1 icon-zhuanzhang1" style="color:#cc6633"></i>
+            <i class="iconfont1 icon-zhuanzhang2" style="color:#31bdfb"></i>
             <span>转账</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/tixian/index">
-            <i class="iconfont1 icon-tixian1" style="color:#ff6666"></i>
+            <i class="iconfont1 icon-tixian2" style="color:#459ff7"></i>
             <span>奖金提现</span>
           </a>
         </li class="li">
 
         <li class="li">
           <a href="/minepage/pages/wxcharge/index">
-            <i class="iconfont1 icon-weixin" style="color:#339999"></i>
+            <i class="iconfont1 icon-weixin" style="color:#7ec0bf"></i>
             <span>微信充值</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/myteam/index">
-            <i class="iconfont1 icon-tuandui" style="color:#339999"></i>
+            <i class="iconfont1 icon-tuanduiguanli1" style="color:#7274af1"></i>
             <span>我的团队</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/wxbinding/index">
-            <i class="iconfont1 icon-weixin" style="color:#00cc00"></i>
+            <i class="iconfont1 icon-weixin" style="color:#04ac7b"></i>
             <span>微信绑定</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/basicinfo/index">
-            <i class="iconfont1 icon-xinxi1" style="color:#663366"></i>
+            <i class="iconfont1 icon-jbxx" style="color:#7487ed"></i>
             <span>基本信息</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/bankcardbinding/index">
-            <i class="iconfont1 icon-yinhangqia" style="color:#ffcc33"></i>
+            <i class="iconfont1 icon-yinhangqia1" style="color:#34a69e"></i>
             <span>银行卡绑定</span>
           </a>
         </li>
         <li class="li">
           <a href="/minepage/pages/changepassword/index">
-            <i class="iconfont1 icon-xiugai" style="color:#9999cc"></i>
+            <i class="iconfont1 icon-xiugaimima1" style="color:#8892cd"></i>
             <span>修改密码</span>
           </a>
         </li>
@@ -128,6 +128,7 @@
           coin: '0.00',
           bonus: '0.00'
         },
+        userName:'',
         imgAvatrt: "",
         imgLazyload: require('@/assets/images/404.jpg')
       }
@@ -159,15 +160,20 @@
         _this.$api.apiConfig.member_me_get(queryData).then(data => {
           let memberInfo = data.member_me_get_response;
           let { cash, coin, bonus, pv,userName } = memberInfo;
-          _this.memberAccount = {
-            cash: cash,
-            coin: coin,
-            bonus: bonus
-          }
           _this.userName=userName;
+          console.log('userName',userName)
+          _this.memberAccount = {
+            cash: Number(cash).toFixed(2),
+            coin: Number(coin).toFixed(2),
+            bonus:Number(bonus).toFixed(2)
+          }
+        
         }).catch(e => {
 
         })
+      },
+      mingxiHandle(e,event){
+        this.$router.push({path:event})
       }
     }
   };

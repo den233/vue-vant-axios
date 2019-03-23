@@ -1,10 +1,10 @@
 <template>
     <div id='team'>
-        <van-nav-bar title="我的团队">
+        <!-- <van-nav-bar title="我的团队">
             <label class="navebar_left" slot="left" @click="onClickLeft">
                 <van-icon name="arrow-left" />返回</label>
             
-        </van-nav-bar>
+        </van-nav-bar> -->
         <div class="searchtop">
             <van-search :value="value"  use-action-slot @change='changeHandle' placeholder="请输入搜索关键词" show-action>
                 <div slot="action" @click="onSearch"  @search="onSearch">查询</div>

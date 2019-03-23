@@ -35,7 +35,7 @@
     .desc {
       display: flex;
       padding: half(23px) $paddingLeftAndRight half(23px);
-
+      color:#666;
       .titleName {
         color: #333;
         font-size: half(36px);
@@ -50,10 +50,10 @@
       .right {
         display: flex;
         font-size: half(28px);
-        color: #bbc0cb;
         flex: 1;
         flex-direction: column;
         position: relative;
+        line-height:25px;
         .title {
           max-width: half(474px);
           font-size: half(28px);
@@ -122,6 +122,12 @@
         height: half(52px);
         line-height: half(52px);
         width: auto;
+        background-color: #37A19D;
+      }
+
+      .van-button--plain{
+        background-color: #fff;
       }
     }
+   
   }

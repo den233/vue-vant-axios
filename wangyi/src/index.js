@@ -53,7 +53,7 @@ export default {
   config: {
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#42aaf5',
+      navigationBarBackgroundColor: '#37A19D',
       navigationBarTitleText: '隆力奇商城',
       navigationBarTextStyle: 'white'
     },
@@ -150,7 +150,7 @@ export default {
     "tabBar": {
       "backgroundColor": "#fafafa",
       "borderStyle": "white",
-      "selectedColor": "#42aaf5",
+      "selectedColor": "#37A19D",
       "color": "#666",
       "list": [{
         "pagePath": "pages/home/index",

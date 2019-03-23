@@ -1,42 +1,43 @@
 <template>
     <div class="account">
-        <van-nav-bar title="修改密码">
+        <!-- <van-nav-bar title="修改密码">
             <label class="navebar_left" slot="left" @click="onClickLeft">
               <van-icon name="arrow-left" />返回</label>
-          </van-nav-bar>
-        <van-cell-group>
-            <label class='typel'  for="">密码类型</label>
+          </van-nav-bar> -->
+         <div class="top-cell">
+            <label class='typel'  for="">类型</label>
             <van-radio-group :value="checked" @change="onChange">
                 <van-radio name="1">登录密码</van-radio>
                 <van-radio name="2">支付密码</van-radio>
             </van-radio-group>   
+            <div class="clear"></div>
+         </div> 
+        <van-cell-group>
+           
             <van-field
               :vale="password"
-              required
-              label="老密码"
+
               type="password"
-              placeholder="老密码"
+              placeholder="请输入当前密码"
               @change='changePassword'
             />
             <van-field
             :value="newPassword"
-            required
-            label="新密码"
+
             type="password"
-            placeholder="新密码"
+            placeholder="请输入新密码"
             @change='changeNewPassword'
           />
           <van-field
           :value="new1password"
-          required
-          label="确认新密码"
+
           type="password"
-          placeholder="确认新密码"
+          placeholder="再次输入新密码"
           @change='changerepeatPassword'
         />
           </van-cell-group>
           <div style="text-align: center;width: 100%;margin-top:20px;">
-                <van-button size="large" @click='handleSubmit'  type="primary">确定</van-button>
+                <van-button class="button" size="large" @click='handleSubmit'  type="primary">确定</van-button>
           </div>
           <van-toast id="van-toast" />
     </div>

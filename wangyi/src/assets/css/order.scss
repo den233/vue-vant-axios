@@ -1,6 +1,11 @@
 #orderDetail {
     color: $font-color-black;
     padding-bottom: half(28px);
+    .van-button{
+      background-color: #37A19D;
+      border:1px solid #37A19D;
+      color:#fff;
+    }
     .van-submit-bar{
       background: #fff;
       padding-top: 5px;
@@ -22,19 +27,26 @@
       padding-top: half(26px);
       padding-left: half(59px);
       padding-bottom: half(26px);
-      font-size: half(26px);
+      font-size: half(30px);
       display: flex;
       align-items: center;
       background-color: #fff;
       margin-top: 5px;
+      line-height:20px;
+
       .van-icon {
         color: #fe6262;
         margin-right: half(15px);
+        font-size:22px;
       }
     }
+
     .van-card {
       padding:10px 15px;
       border-bottom:6px solid #fff;
+      .price{
+          line-height:20px;
+      }
     }    
     
     
@@ -44,11 +56,11 @@
       padding: half(27px) half(28px);
       display: flex;
       flex-direction: column;
-      font-size: half(24px);
+      font-size: half(30px);
       color: #626b77;
       position: relative;
        label{
-         line-height:16px;
+         line-height:25px;
        }
       .copy {
         width: half(120px);

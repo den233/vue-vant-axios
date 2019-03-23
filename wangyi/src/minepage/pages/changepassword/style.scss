@@ -1,9 +1,30 @@
 .account{
-    .typel{
-        float:left;
-        margin:10px;
+    .top-cell{
+        float: left;
+        width:100%;
+        border-bottom:1px solid #eee;
+        margin:15px 5px 0 5px;
+        .typel{
+            float:left;
+            margin:11px;
+            font-size:18px;
+            margin-right: 35px
+        }
+        .van-radio {
+            margin-top:11px;
+            float:left;
+            margin-right:20px;
+        }
     }
-    .van-radio {
-        margin-top:5px;
+    .button{
+        .van-button--primary{
+            background-color:#37A19D;
+        }
+        
+    }
+    .clear{
+        clear: both;
     }
 }
+   
+    

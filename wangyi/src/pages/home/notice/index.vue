@@ -2,18 +2,18 @@
     <div class="vueBox">
         <div class="marquee">
             <div class="marquee_title">
-                <span> <i class="iconfont1 icon-gonggao">最新动态</i></span>
+                <span> <i class="iconfont1 icon-gonggao"></i></span>
             </div>
             <div class="marquee_box" >
              
                 <ul    class="marquee_list" :class="{anim:animate==true}">
                     <!-- 当显示最后一条的时候（num=0转换布尔类型为false）去掉过渡效果-->
-                    <li  class="marquee_list_li" v-for="(item, index) in marqueeList" :key='index'>
+                    <li @click='newsListHandle' class="marquee_list_li" v-for="(item, index) in marqueeList" :key='index'>
                         <span class="span">{{item.name}}</span>
                     </li>
                 </ul>
             </div>
-            <a href="/other/pages/messagelist/index">更多</a>
+           
         </div>
     </div>
 
@@ -43,6 +43,11 @@
            clearInterval(this.setInval)
         },
         methods: {
+            newsListHandle(){
+                this.$router.push({
+                    path:'/other/pages/messagelist/index'
+                })
+            },
             get_list(){
                 let _this=this;
                 let params={
