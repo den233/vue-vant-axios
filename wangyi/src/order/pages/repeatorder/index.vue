@@ -13,6 +13,7 @@
                             <van-radio name="1">购买本期</van-radio>
                             <van-radio name="2">多期购买 </van-radio>
                         </van-radio-group>
+                        <div class="clear"></div>
                     </div>
                     <div v-if="venture==2">
                         <van-cell title="开始时间" @click='pickMonth' is-link arrow-direction="down" :value="startTime.name" />

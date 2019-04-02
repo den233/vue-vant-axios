@@ -1,5 +1,5 @@
 import fetch from '@/utils/http';
-let configPath = 'http://app1.longliqi.com';// 真实环境
+let configPath = 'http://172.16.100.55:8080';// 真实环境
 // var isProduction = process.env.NODE_ENV === 'production'
 // if (isProduction) {} else {
 //   configPath = '../../static/myConfig.js' // 开发环境
