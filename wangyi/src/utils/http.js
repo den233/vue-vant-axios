@@ -25,10 +25,11 @@ fly.interceptors.request.use((request) => {
    
   }else{
     request.headers = {
-      'content-type': 'application/json;charset=utf-8'
+      'content-type': 'application/json;charset=utf-8',
+      'token':token
     };
     authParams = {
-      'token':token
+      //'token':token
     };
   }
  

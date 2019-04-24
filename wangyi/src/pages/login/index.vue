@@ -7,18 +7,21 @@
 
       </div> -->
       <van-cell-group>
-        <van-field  left-icons="icon-yonghuming1"   :value="username" clearable label="用户名" placeholder="请输入用户名" @change='changeName' />
+        <van-field left-icons="icon-yonghuming1" :value="username" clearable label="用户名" placeholder="请输入用户名" @change='changeName' />
 
-        <van-field left-icons="icon-mima" :value="password" type="password" label="密码" clearable placeholder="请输入密码" @change='changePw' />
-  
-        <van-field left-icons="icon-yanzhengma" :value="sms" @change="changesms" center clearable label="验证码" placeholder="输入验证码" use-button-slot>
+        <van-field left-icons="icon-mima" :value="password" type="password" label="密码" clearable placeholder="请输入密码"
+          @change='changePw' />
+
+        <van-field left-icons="icon-yanzhengma" :value="sms" @change="changesms" center clearable label="验证码"
+          placeholder="输入验证码" use-button-slot>
           <van-button class="codebtn" @click='changeCode' slot="button" size="small" type="primary">
-             <canvas canvas-id="canvas"  ></canvas>
+            <canvas canvas-id="canvas"></canvas>
           </van-button>
         </van-field>
       </van-cell-group>
       <div class="btn-footer">
-        <van-button open-type="getUserInfo" @click='onLaunch'   type="primary">登录</van-button>
+
+        <van-button open-type="getUserInfo" @click='onLaunch' type="primary">登录</van-button>
       </div>
 
     </div>
@@ -48,8 +51,9 @@
         username: '',
         password: '',
         sms: '',
-        code:'',
-       // imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
+        code: '',
+        title: '999'
+        // imgUrl: 'http://192.168.120.211:8081/generateverifycode?rnd=629434.1582903175'
       }
     },
     onShow() {
@@ -60,14 +64,14 @@
       changeCode() {
         var that = this;
         this.drawPic(that);
-        this.sms="";
+        this.sms = "";
         //this.imgUrl = `http://192.168.120.211:8081/generateverifycode?rnd=629434${Math.random()}`
       },
       changeName({ detail }) {
         this.username = detail
       },
-      changesms({ detail }){
-        this.sms=detail;
+      changesms({ detail }) {
+        this.sms = detail;
       },
       changePw({ detail }) {
         this.password = detail
@@ -117,7 +121,7 @@
           ctx.fill();
         }
         ctx.draw(false, function () {
-           that.code=text
+           that.code = text
         });
       },
 
@@ -125,18 +129,20 @@
         // Megalo.switchTab({
         //           url: '/pages/home/index',
         //         });
+
         let _this = this;
         var app = getApp();
         var that = this
         var user = wx.getStorageSync('user') || {};
         var userInfo = wx.getStorageSync('userInfo') || {};
         // if ((!user.openid || (user.expires_in || Date.now()) < (Date.now() + 600)) && (!userInfo.nickName)) {
+
         wx.login({
           success: function (res) {
             if (res.code) {
               wx.getUserInfo({
                 success: function (res) {
-
+                  //  _this.title=888
                   var objz = {};
                   objz.avatarUrl = res.userInfo.avatarUrl;
                   objz.nickName = res.userInfo.nickName;
@@ -147,50 +153,75 @@
               //console.log('res', res)
               var d = app.globalData;//这里存储了appid、secret、token串  
               // console.log('dddd', d)
-              var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
-              wx.request({
-                url: l,
-                data: {},
-                method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT  
-                // header: {}, // 设置请求的 header  
-                success: function (res) {
-                  var obj = {};
-                  obj.openid = res.data.openid;
-                  obj.expires_in = Date.now() + res.data.expires_in;
-                  //console.log(obj);
-                  Megalo.setStorage({ key: 'openid', data: res.data.openid })
-                  _this.onLogin()
-                }
-              });
+              console.log(res.code)
+              _this.getOpenid(res.code);
+
+
+              // var l = 'https://api.weixin.qq.com/sns/jscode2session?appid=' + d.appid + '&secret=' + d.secret + '&js_code=' + res.code + '&grant_type=authorization_code';
+              // _this.title=777
+              // wx.request({
+              //   url: l,
+              //   data: {},
+              //   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT  
+              //   // header: {}, // 设置请求的 header  
+              //   success: function (res) {
+              //     _this.title=666
+              //     var obj = {};
+              //     obj.openid = res.data.openid;
+              //     obj.expires_in = Date.now() + res.data.expires_in;
+
+              //     Megalo.setStorage({ key: 'openid', data: res.data.openid })
+
+              //      _this.onLogin()
+              //   },
+              //   fail:function(error){
+              //     _this.title=error.errMsg
+              //   }
+              // });
             } else {
+
               Toast.fail('获取用户登录态失败!');
               console.log('获取用户登录态失败！' + res.errMsg)
             }
           }
         });
       },
-      onLogin() {
+      async getOpenid(jscode) {
+        let _this = this;
+        let params = {
+          js_code: jscode
+        }
+        _this.$api.apiConfig.getOpenid(params).then(data => {
+          console.log(data)
+          var obj = {};
+          obj.openid = data.openid;
+          // obj.expires_in = Date.now() + res.data.expires_in;
+          Megalo.setStorage({ key: 'openid', data: data.openid })
+          _this.onLogin();
+        })
+      },
+      async onLogin() {
         let _this = this;
         let params = {
           userCode: _this.username,
           password: _this.password
         }
-         if( _this.username==""){
-           Toast.fail('用户名不能为空');
-           return false;
-         } 
-         if(  _this.password==""){
-           Toast.fail('密码不能为空');
-           return false;
-         } 
-         const checkcode=_this.sms.toUpperCase();
+        if (_this.username == "") {
+          Toast.fail('用户名不能为空');
+          return false;
+        }
+        if (_this.password == "") {
+          Toast.fail('密码不能为空');
+          return false;
+        }
+        const checkcode = _this.sms.toUpperCase();
         //  console.log(checkcode,this.code)
-         if(checkcode!=_this.code){
+        if (checkcode != _this.code) {
           Toast.fail('验证码不正确');
           return false;
-         }
+        }
         //  this.$router.push({ path: '/minepage/pages/changepassword/index'})
-        _this.$api.login(params).then(data => {
+        await _this.$api.login(params).then(data => {
 
           const { message, token, userCode, status } = data;
           if (status === "1011") {

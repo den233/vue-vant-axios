@@ -1,5 +1,6 @@
 import fetch from '@/utils/http';
-let configPath = 'http://172.16.100.55:8080';// 真实环境
+let configPath = 'https://www.longliqicn.cn';// 真实环境
+//let configPath = 'http://192.168.120.34:8081';// 真实环境
 // var isProduction = process.env.NODE_ENV === 'production'
 // if (isProduction) {} else {
 //   configPath = '../../static/myConfig.js' // 开发环境
@@ -24,7 +25,12 @@ const login = params => {
   let url=configPath+'/v2/memberLogin.html?strAction=trolley_mimember_login';
   return fetch.request(url, params, {method:"post"}).then(response => handleToken(response));
 };
+
 let apiConfig = {};
+apiConfig.getOpenid=params=>{
+  let url=configPath+'/v2/wxLittleProgram.html?strAction=code_to_session';
+  return fetch.request(url, params, {method:"get"})
+}
 // 2 商品分类
 //  {baseurl}/v2/productSale.html?strAction=productsale_category_query
 apiConfig.categoryList = params => {

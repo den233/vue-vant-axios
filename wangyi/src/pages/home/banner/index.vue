@@ -20,7 +20,7 @@ export default {
     return {
       imagesList: [
       ],
-      banner_height:'0'
+      banner_height:'230px'
     };
   },
   mounted(){
@@ -35,7 +35,7 @@ export default {
             // 计算主体部分高度,单位为px
             
               // second部分高度 = 利用窗口可使用高度 - first部分高度（这里的高度单位为px，所有利用比例将300rpx转换为px）
-              that.banner_height= res.windowWidth+'px'
+             // that.banner_height= res.windowWidth+'px'
             
           }
         })
