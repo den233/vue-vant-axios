@@ -22,12 +22,12 @@
                         <div class="title">
                             <h2>{{item.productName}}</h2>
                             <div class="price">
-                                原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
+                                原价：<text class="van-card__origin-price">¥{{item.price}}</text>
                           
                                 pv: {{item.discountPv}}
                             </div>
                             <b class="p_t">
-                                价格： {{item.price}}
+                                价格： {{item.discountPrice}}
                             </b>
                         </div>
                     </div>
@@ -55,12 +55,12 @@
                             <div class="title">
                                 <h2>{{item.productName}}</h2>
                                 <b class="p_t">
-                                    价格： {{item.price}}
+                                    价格： {{item.discountPrice}}
                                 </b>
                             </div>
 
                             <div class="price">
-                                原价：<text class="van-card__origin-price">¥{{item.discountPrice}}</text>
+                                原价：<text class="van-card__origin-price">¥{{item.price}}</text>
                                 <br>
                                 pv: {{item.discountPv}}
                                 <div>数量：{{item.quantity}}</div>
@@ -68,7 +68,13 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="!hasgoods" class="nodatas">
+                    <img :src="cartspng" alt="">
+                    <div>暂无商品，请去添加</div>
+                </div>
             </div>
+           
+           
         </scroll-view>
 
         <van-submit-bar :class="{deleteBtn:deleteType}" :button-text="buttonText" @submit="onSubmit" :disabled='disabled'>
@@ -182,7 +188,10 @@
                     areaDetail: '',
                     addressDetail: ''
                 },
-                imgUrl: require('@/assets/images/timg.jpg')
+                imgUrl: require('@/assets/images/timg.jpg'),
+                nofonund: require('@/assets/images/404.jpg'),
+                cartspng: require('@/assets/images/cartsimg.png'),
+                hasgoods:true
             }
         },
         onShow() {
@@ -300,6 +309,7 @@
             },
             getList() {
                 let _this = this;
+                _this.hasgoods=true;
                 _this.dataActive = [];
                 _this.dataNotsale = [];
                 _this.clearALL();
@@ -316,18 +326,24 @@
                         return false;
                     }
                     if (v1.details.length == 0) {
+                        _this.hasgoods=false
                         return false;
                     }
+                   
                     for (let i = 0, len = v1.details.length; i < len; i++) {
-                        const { createdTime, discountPrice, discountPv, imgUrl,
+                        let { createdTime, discountPrice, discountPv, imgUrl,
                             lastModifiedTime, orderType, ppsId, price, productName, productNo, pv, quantity, selling, trolleyDetailId, trolleyId } = v1.details[i];
-                        if (imgUrl.substr(0, 7).toLowerCase() == "http://" || imgUrl.substr(0, 8).toLowerCase() == "https://") {
-                            var imgurl = imgUrl;
-                        } else {
-                            var imgurl = "http://www.longliqicn.cn" + imgUrl;
-                            imgurl = imgurl.replace(/\s+/g, "");
-                        }
-
+                            if(imgUrl==undefined){
+                                 imgurl=this.nofonund
+                            }
+                           
+                           else if (imgUrl.substr(0, 7).toLowerCase() == "http://" || imgUrl.substr(0, 8).toLowerCase() == "https://") {
+                              
+                            } else {
+                                var imgurl = "http://www.longliqicn.cn" + imgUrl;
+                                imgurl = imgurl.replace(/\s+/g, "");
+                            }
+                       
                         if (selling) {
                             _this.dataActive.push({
                                 createdTime: createdTime,
@@ -367,7 +383,9 @@
                                 checked: false
                             })
                         }
+                        console.log(v1.details.length)
                     }
+                   
                     _this.calc();
                 }).catch(e => {
 
@@ -490,6 +508,7 @@
                     .then(data => {
                         this.dataActive = newArr;
                         this.pickAll = [];
+                        _this.hasgoods=false;
                         this.calc()
                     })
                     .catch(e => {
@@ -572,7 +591,7 @@
                 for (let i = 0; i < len; i++) {
                     this.orderDetail.number = Number(this.orderDetail.number) + this.pickAll[i].quantity;
                     this.discountPrice = this.discountPrice + this.pickAll[i].quantity * Number(this.pickAll[i].price);
-                    this.discountPv = this.discountPv + this.pickAll[i].quantity * Number(this.pickAll[i].discountPv);
+                    this.discountPv = this.discountPv + this.pickAll[i].quantity * Number(this.pickAll[i].pv);
                 }
                 //console.log(this.discountPrice)
                 this.paymentQuery();

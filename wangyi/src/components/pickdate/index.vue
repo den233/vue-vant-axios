@@ -1,10 +1,10 @@
 <template>
     <div class="pickdate">
         <div class="col-left"  @click="pickMonth">
-            <label class="iconfont1 icon-yue"></label> 按月删选
+            <label class="iconfont1 icon-yue"></label> 按月筛选
         </div>
         <div class="col-left right" @click="pickDate">
-            <label  class="iconfont1 icon-tian"></label> 按天删选
+            <label  class="iconfont1 icon-tian"></label> 按天筛选
         </div>
         <van-popup :show="showMonth" position="bottom" overlay="true" @close="onClose">
                 <van-datetime-picker :max-date="maxDate" type="year-month" :value="currentDate" :min-date="minDate" @cancel='onCancel' @confirm="onConfirm($event,'month')" />

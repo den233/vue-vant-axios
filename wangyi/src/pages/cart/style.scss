@@ -85,7 +85,7 @@
             }
             .content{
                 display: flex;
-                width: calc(100% - 140px);
+                width: calc(100% - 145px);
                 font-size: 16px;
                 .title {
                     flex: 1;
@@ -125,6 +125,13 @@
             line-height: 20px;
           }
       }
+      .nodatas{
+          text-align: center;
+          image{
+              width:100px;
+              height:100px;
+          }
+      }
       #cartdown{
         .title{
             padding-bottom:8px;
@@ -134,7 +141,7 @@
             padding-right:8px;
         }
         .content{
-            width: calc(100% - 170px);
+            width: calc(100% - 190px);
         } 
       }
       .orderInfo{
